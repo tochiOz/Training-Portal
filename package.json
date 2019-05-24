@@ -1,0 +1,28 @@
+{
+  "name": "training-portal",
+  "version": "1.0.0",
+  "description": "A Training Portal for KodeHauz, Training and Hub Registration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "training"
+  ],
+  "author": "Tueloper",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chalk": "^2.4.2",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.2.6",
+    "mongoose": "^5.5.11",
+    "multer": "^1.4.1",
+    "validator": "^11.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  }
+}
