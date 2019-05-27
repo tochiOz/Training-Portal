@@ -1,16 +1,37 @@
 const createError = require('http-errors');
 const express = require('express');
+const chalk = require('chalk')
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const exphbs = require('express-handlebars');
+const session = require('express-session');
 const dotenv = require('dotenv')
+const mongoose = require('mongoose')
+const MongoStore = require('connect-mongo')(session)
+dotenv.config()
+
+// database connection
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+}, function(err, client) {
+  if (err) console.log(err);
+  console.log(chalk.red('Connection passed'));
+})
+
+let db = mongoose.connection;
+
+db.once('open', () => console.log('Connected to database'));
+
+// checks if connection to db is a success
+db.on('error', console.error.bind(console, 'Database connection error:'));
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
-dotenv.config()
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -22,6 +43,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+  session({
+    secret: process.env.SECRET,
+    saveUninitialized: false,
+    resave: true,
+    store: new MongoStore({
+      mongooseConnection: db
+    })
+  })
+)
+
 
 app.use('/', indexRouter);
 app.use('/', usersRouter);
