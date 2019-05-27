@@ -1,10 +1,10 @@
-# KodeHauz Training Portal
+# KodeHauz Training Portal 🎯
 
 A Training Portal 
 
-# About KodeHauz Training Portal
+# About KodeHauz Training Portal ❓
 
-This serves to aid the company to serve its potential customers for easy access to register to KodeHauz group of Trainees and Trainees Network.
+This serves to aid the company to serve its potential customers for easy access to register to KodeHauz group of Trainees✅ and Trainees Network.
 
 # Getting Started
 
@@ -40,7 +40,7 @@ Start the project
 
 Visit `https://localhost:3050` to view the project.
 
-**NOTES:**
+**NOTES:** 🙏
 
 &mdash; After making changes to the repo, push to master and create pull request, make sure there are no merge conflicts.
 
