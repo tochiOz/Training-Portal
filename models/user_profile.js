@@ -1,10 +1,16 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
-const traineeRegSchema = mongoose.Schema({
+const userProfileSchema = mongoose.Schema({
     
     full_name: {
+        type: String,
+        trim: true
+    },
+
+    gender: {
         type: String,
         trim: true
     },
@@ -22,6 +28,21 @@ const traineeRegSchema = mongoose.Schema({
         }
     },
 
+    address: {
+        type: String,
+        minLength: '10',
+        maxLength: '60',
+        trim: true,
+        lowercase: true,
+        required: true
+    },
+
+    phone_number: {
+        type: Number,
+        trim: true,
+        minLength: '10'
+    },
+
     password: {
         type: String,
         trim: true,
@@ -32,6 +53,10 @@ const traineeRegSchema = mongoose.Schema({
                 throw new Error('Please your password cannot contain "password"')
             }
         }
+    },
+
+    avatar: {
+        type: Buffer
     },
 
     tokens: [{
@@ -45,12 +70,12 @@ const traineeRegSchema = mongoose.Schema({
 })
 
 //method to generate token
-traineeRegSchema.methods.generateAuthToken = async function () {
+userProfileSchema.methods.generateAuthToken = async function () {
 
     //accessing the global current user registering at that point in time
-    const user = this
+    const userProfile = this
 
-    const token = jwt.sign({ _id: user._id.toString() }, process.env.SECRET, { expires: 3 })
+    const token = jwt.sign({ _id: userProfile._id.toString() }, process.env.SECRET, { expires: 3 })
 
     //saving the token in the model
     user.tokens = user.tokens.concat({ token })
@@ -58,6 +83,18 @@ traineeRegSchema.methods.generateAuthToken = async function () {
     return token;
 }
 
-const userReg = mongoose.model('users', traineeRegSchema)
+//methods to hash passwords before save the data to the db
+userProfileSchema.pre('save', async function (next) {
+    
+    const userProfile = this
 
-module.exports = userReg;
+    if(user.isModified('password')) {
+        userProfile.password = await bcrypt.hash( userProfile.password, 8 )
+    }
+
+    next()
+})
+
+const userProfile = mongoose.model('userProfile', userProfileSchema)
+
+module.exports = userProfile;
