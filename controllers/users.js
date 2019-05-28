@@ -2,7 +2,7 @@ const userProfile = require('../models/user_profile');
 
 async function userProfileRegistration( req, res ) => {
   
-
+    
   
     try {
         await user.save()

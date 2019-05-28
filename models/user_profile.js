@@ -59,6 +59,11 @@ const userProfileSchema = mongoose.Schema({
         type: Buffer
     },
 
+    category: [{
+        type: Array,
+        required: true
+    }],
+
     tokens: [{
         token: {
             type: String,
@@ -75,10 +80,10 @@ userProfileSchema.methods.generateAuthToken = async function () {
     //accessing the global current user registering at that point in time
     const userProfile = this
 
-    const token = jwt.sign({ _id: userProfile._id.toString() }, process.env.SECRET, { expires: 3 })
+    const token = jwt.sign({ _id: userProfile._id.toString() }, process.env.SECRET, { expiresIn: 6 })
 
     //saving the token in the model
-    user.tokens = user.tokens.concat({ token })
+    userProfile.tokens = userProfile.tokens.concat({ token })
 
     return token;
 }
@@ -88,13 +93,13 @@ userProfileSchema.pre('save', async function (next) {
     
     const userProfile = this
 
-    if(user.isModified('password')) {
+    if(userProfile.isModified('password')) {
         userProfile.password = await bcrypt.hash( userProfile.password, 8 )
     }
 
     next()
 })
 
-const userProfile = mongoose.model('userProfile', userProfileSchema)
+const User = mongoose.model('userProfile', userProfileSchema)
 
-module.exports = userProfile;
+module.exports = User;
