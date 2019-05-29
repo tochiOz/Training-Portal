@@ -8,7 +8,6 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
 const MongoStore = require('connect-mongo')(session)
 dotenv.config()
 
@@ -31,19 +30,17 @@ db.on('error', console.error.bind(console, 'Database connection error:'));
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const adminRouter = require('./routes/admin_user');
-const categoryRouter = require('./routes/admin_category')
 
 const app = express();
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-app.engine('hbs', exphbs({ defaultLayout: 'template', extname: '.hbs'}))
-app.set('view engine', 'hbs');
+app.engine('.hbs', exphbs({ defaultLayout: 'template', extname: '.hbs'}))
+app.set('view engine', '.hbs');
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -58,18 +55,9 @@ app.use(
   })
 )
 
-//Express Messages middleware
-app.use(require('connect-flash')())
-app.use(function ( req, res, next) {
-  res.locals.message = require('express-messages')(req, res)
-  next();
-})
 
-//setting routes
 app.use('/', indexRouter);
-app.use('/trainee', usersRouter);
-app.use('/admin', adminRouter);
-app.use('/admin', categoryRouter);
+app.use('/', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
