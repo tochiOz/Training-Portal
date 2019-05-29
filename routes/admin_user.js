@@ -1,7 +1,7 @@
 var express = require('express');
 var router = new express.Router();
 const Admin = require('../models/admin');
-const { adminAuth } = require('../middleware/adminAuth')
+const { isAdmin } = require('../middleware/adminAuth')
 
 //admin create user routes
 router.post('/signup', async ( req, res ) => {
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
 }) 
 
 //logout
-router.post('/logoutAll', adminAuth, async(req, res) => {
+router.post('/logoutAll', isAdmin, async(req, res) => {
     try {
         
         adminProfile.tokens = []
@@ -58,7 +58,7 @@ router.post('/logoutAll', adminAuth, async(req, res) => {
 
 
 //This is used to log-Out from all admin sessions 
-router.post('/logout', adminAuth, async (req, res) => {
+router.post('/logout', isAdmin, async (req, res) => {
     try {
         //filtering away the used/active token
         adminProfile.tokens = adminProfile.tokens.filter((token) => {
