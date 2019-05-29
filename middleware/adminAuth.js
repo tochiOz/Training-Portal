@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const Admin = require('../models/admin')
 
-const adminAuth = async (req, res, next ) => {
+const isAdmin = async (req, res, next ) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '')
      
@@ -25,11 +25,14 @@ const adminAuth = async (req, res, next ) => {
     }
 }
 
-const isAdmin =  function ( req, res, next ) {
-    $axios.onRequest(config => {
-        config.headers.common['user_type'] = store.state.auth.user ? store.state.auth.user.user_type : null
-    })
- }
+const  adminAuth = function(req, res, next) {
+    if (req.isAuthenticated() && res.locals.user.admin == 1) {
+        next();
+    } else {
+        req.flash('danger', 'Please log in as admin.');
+        res.redirect('/users/login');
+    }
+}
 
 module.exports = {
     adminAuth,
