@@ -23,6 +23,7 @@ router.get('/view_categoies', isAdmin, async (req, res) => {
     try {
         const categories = await Category.find()
         res.status(200).send({categories})
+        res.render('admin/categories', categories);
         req.flash('success', 'Categories Gotten')
     } catch (e) {
         res.status(400).send(e.message)
@@ -30,7 +31,7 @@ router.get('/view_categoies', isAdmin, async (req, res) => {
 })
 
 //categories edit
-router.patch('/categories/edit', isAdmin, async (req, res) => {
+router.patch('/categories/edit/:id', isAdmin, async (req, res) => {
 
     //checking if the sent keys is equilvalent to the stored schema
     const updates = Object.keys(req.body)
@@ -60,5 +61,6 @@ router.patch('/categories/edit', isAdmin, async (req, res) => {
         res.status(400).send(error.message)
     }
 })
+
 
 module.exports = router;
