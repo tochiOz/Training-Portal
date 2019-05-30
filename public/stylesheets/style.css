@@ -15,11 +15,133 @@ a {
 @import url("../fonts/icomoon/style.css");
 
 
+/* html {
+  scroll-behavior: smooth;
+}
+
+.subscribe:hover{
+    color: #11144c;
+}
+
+body {
+  margin: 0;
+  color: #11144c;
+  font-family: "Work Sans", sans-serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.btn-custom {
+  background: #11144c;
+  color: #fff;
+  padding: 10px 10px;
+}
+.btn-custom:hover {
+  background: #11144c;
+  color: #fff;
+} */
+/************************************* HEADER STYLES  **********************************/
+
+/* header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 20px 0;
+}
+
+#logo a:hover {
+  color: #11144c;
+}
+
+header .alert {
+  position: absolute;
+  top: 30px;
+  width: 80%;
+  padding: 20px 10px;
+  z-index: 10000;
+}
+.nav-link{
+  font-size: 14px;
+}
+
+@media screen and (max-width: 322px) {
+  header nav .logo {
+    margin-bottom: 10px !important;
+  }
+
+  header nav .nav-items ul {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  header nav .nav-items ul li {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 786px) {
+  header nav {
+    display: block !important;
+  }
+
+  header nav .logo {
+    font-size: 14px;
+    font-weight: 700;
+    color: #11144c !important;
+    width: 100%;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  header nav .nav-items {
+    text-align: center !important;
+  }
+
+  header nav .nav-items ul {
+    margin: 0 !important;
+    padding: 10px !important;
+  }
+
+  header nav .nav-items ul li {
+    padding: 10px;
+    margin: 10px auto;
+    display: inline;
+  }
+}
+
+header nav ul {
+  list-style: none;
+  margin: 0 60px 0;
+}
+
+header nav div a {
+  color: #11144c;
+}
+
+header nav ul li {
+  display: inline-block;
+  padding: 15px;
+  margin-left: 30px;
+  line-height: 16px;
+}
+
+header nav ul li a {
+  text-decoration: none !important;
+  font-size: 14px;
+  color: #11144c;
+} */
+
+/* ***** Tutor ***** */
 html {
 	height: 100%;
 	overflow: visible;
 	position: relative;
 	width: 100%;
+	scroll-behavior: smooth;
 }
 
 ::-moz-selection {
@@ -4770,7 +4892,7 @@ py-* - same value for top and for bottom padding
 	}
 
 	.s-pt-lg-125 > [class*='container'] {
-		padding-top: 125px;
+		padding-top: 0px;
 	}
 
 	.s-pt-lg-130 > [class*='container'] {
@@ -4878,7 +5000,7 @@ py-* - same value for top and for bottom padding
 	}
 
 	.s-pb-lg-130 > [class*='container'] {
-		padding-bottom: 130px;
+		padding-bottom: 0px;
 	}
 
 	.s-py-lg-0 > [class*='container'] {
@@ -14103,10 +14225,10 @@ a img.aligncenter {
 		font-weight: 400;
 		line-height: 14px;
 		margin: 0 15px;
-		padding-bottom: 38px;
+		padding-bottom: 28px;
 		padding-left: 0;
 		padding-right: 0;
-		padding-top: 39px;
+		padding-top: 29px;
 		-webkit-transition-duration: 0.15s;
 		transition-duration: 0.15s;
 	}
@@ -14338,7 +14460,7 @@ a img.aligncenter {
 .toggle_menu span,
 .toggle_menu span:before,
 .toggle_menu span:after {
-	background-color: #fff;
+	background-color: #5e5e5e;
 	content: "";
 	display: block;
 	height: 2px;
@@ -14980,10 +15102,6 @@ a img.aligncenter {
 
 .main-includes > * {
 	margin: 0 20px;
-}
-
-.main-includes i {
-	margin-right: 14px;
 }
 
 /*header includes*/
