@@ -72,17 +72,52 @@ router.post('/student/login', async ( req, res ) => {
 //get Profile for user details only
 //Will still load other files
 router.get('/student/me', isUser, async ( req, res ) => {
-  
-  res.status(200).send(trainee_profile)
+  if(trainee_profile ) {
+    if( trainee_profile.tokens == '' ) {
+      res.status(404).send({ Error: 'Please Trainee must be signed in'})
+      return req.flash('danger', 'Please sign IN!!!')
+    }
+
+    res.status(200).send(trainee_profile)
+  }
+    
+})
+
+//PATCH trainee can edit his profile
+router.patch('/student/me/edit_profile-info', isUser, async ( req, res ) => {
+
+  const updates = Object.keys(req.body)
+  const eligibleUpdateKeys = [ 'email', 'full_name', 'phone_number', 'address']
+  const isValid = updates.every((update) => eligibleUpdateKeys.includes(update))
+
+  if( !isValid ) {
+    return res.status(404).send({ Error: 'Invalid Key Update'})
+  }
+
+  try {
+    updates.forEach((update) => trainee_profile[update] = req.body[update])
+    await trainee_profile.save()
+
+    res.status(200).send({
+      Update: 'Details updated Succefully',
+      trainee_profile
+    })
+    return req.flash('success', 'Personal Profile Updated successfully')
+  } catch (error) {
+    return res.status(400).send(error.message)
+  }
+})
+
+//PATCH update profile picture
+router.patch('/student/me/update-profile-picture', isUser, async (req, res) => {
+
 })
 
 //logout a single session for a trainee
 router.post('/student/logout', isUser, async ( req, res ) => {
     try {
       
-      trainee_profile.tokens = trainee_profile.tokens.filter((token) => {
-        return token.token !== trainee_profileToken
-      })
+      trainee_profile.tokens = []
 
       await trainee_profile.save()
       res.send()
