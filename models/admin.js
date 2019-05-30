@@ -44,19 +44,11 @@ const adminSchema = mongoose.Schema({
     }]
 })
 
-adminSchema.pre('save', async function ( next ) {
-    const admin = this
-    if (admin.isModified('password')) {
-        admin.password = await bcrypt.hash(admin.password, 8)
-    }
-    next()
-})
-
 //methods to locate admin
 adminSchema.statics.findByCredentials = async ( full_name, password) => {
     const admin = await Admin.findOne({ full_name })
    
-    if(!full_name ) {
+    if(!admin ) {
         throw new Error('You are not Authorised')
     }
 
@@ -72,7 +64,6 @@ adminSchema.statics.findByCredentials = async ( full_name, password) => {
     }
 
     return admin;
-    console.log(admin)
 }
 
 adminSchema.methods.generateAuthToken = async function () {
@@ -95,6 +86,14 @@ adminSchema.methods.toJSON = function () {
     
     return adminObject;
 }
+
+adminSchema.pre('save', async function ( next ) {
+    const admin = this
+    if (admin.isModified('password')) {
+        admin.password = await bcrypt.hash(admin.password, 8)
+    }
+    next()
+})
 
 const Admin = mongoose.model('admin', adminSchema)
 

@@ -80,12 +80,30 @@ userProfileSchema.methods.generateAuthToken = async function () {
     //accessing the global current user registering at that point in time
     const userProfile = this
 
-    const token = jwt.sign({ _id: userProfile._id.toString() }, process.env.SECRET, { expiresIn: 6 })
+    const token = jwt.sign({ _id: userProfile._id.toString() }, process.env.SECRET, { expiresIn: '1 week'})
 
     //saving the token in the model
     userProfile.tokens = userProfile.tokens.concat({ token })
 
+    await userProfile.save()
+
     return token;
+}
+
+userProfileSchema.statics.findByCredentials = async ( email, password ) => {
+
+    const userProfile = await User.findOne({ email })
+
+    if( !userProfile ) {
+        throw new Error('Email does not exist')
+    }
+
+    const isValid = await bcrypt.compare( password, userProfile.password )
+
+    if( !isValid ) {
+        throw new Error('Password does not exist, Please check and Try again')
+    } 
+    return userProfile;
 }
 
 //methods to hash passwords before save the data to the db
