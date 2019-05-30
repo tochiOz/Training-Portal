@@ -9,7 +9,6 @@ router.post('/signup', async ( req, res ) => {
 
     if ( admin.email ) {
         req.flash('danger', 'Email exist, Choose another')
-        
     }
 
     try {

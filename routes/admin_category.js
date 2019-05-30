@@ -61,4 +61,22 @@ router.patch('/categories/edit', isAdmin, async (req, res) => {
     }
 })
 
+//delete categories 
+router.delete('/categories/delete/:id', isAdmin, async (req, res) => {
+    const _id = req.params.id
+
+    try {
+        const deletedCategory = await Category.findByIdAndDelete({ _id })
+
+        if ( !deletedCategory ) {
+            res.flash('danger', 'Category not Deleted')
+            res.statas(404).send({ Error: 'Category not found'})
+        }
+
+        res.send(deletedCategory)
+    } catch (error) {
+        res.statas(400).send(error.message)
+    }
+})
+
 module.exports = router;

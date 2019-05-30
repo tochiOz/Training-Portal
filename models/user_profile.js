@@ -17,7 +17,7 @@ const userProfileSchema = mongoose.Schema({
 
     email: {
         type: String,
-        required: true,
+        // required: true,
         unique: true,
         trim: true,
         lowercase: true,
@@ -34,7 +34,7 @@ const userProfileSchema = mongoose.Schema({
         maxLength: '60',
         trim: true,
         lowercase: true,
-        required: true
+        // required: true
     },
 
     phone_number: {
@@ -47,7 +47,7 @@ const userProfileSchema = mongoose.Schema({
         type: String,
         trim: true,
         minLength: '3',
-        required: true,
+        // required: true,
         validate(value) {
             if (value.toLowerCase().includes('password')) {
                 throw new Error('Please your password cannot contain "password"')
@@ -56,7 +56,7 @@ const userProfileSchema = mongoose.Schema({
     },
 
     avatar: {
-        type: Buffer
+        type: String
     },
 
     category: [{
