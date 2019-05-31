@@ -1,0 +1,13 @@
+.kode{
+    margin-top: 0;
+    color: #004a97;
+}
+.ds h6{
+    color: #004a97;
+}
+
+@media (max-width: 767px) {
+    .footer-addy{
+        margin-left: -20px;
+    }
+}
