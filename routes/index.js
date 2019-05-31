@@ -21,4 +21,9 @@ router.get('/trainings', function(req, res, next) {
   res.render('trainings', { title: 'Kodehauz Training Portal' });
 });
 
+/* GET admin pages. */
+router.get('/admin/categories', function(req, res, next) {
+  res.render('admin/categories');
+});
+
 module.exports = router;
