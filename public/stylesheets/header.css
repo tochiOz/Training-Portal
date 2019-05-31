@@ -8,6 +8,9 @@
 .toggle_menu{
     color: #5e5e5e;
 }
+.page_header{
+    border-bottom: 1px solid rgb(204, 204, 204);
+}
 .page_footer{
     background-color: #2a323c;
 }
@@ -25,14 +28,20 @@
     padding: 0px;
     height: 400px;
 }
-.thumbnail-container-img{
-    /* height: 100%; */
-}
 .btn-maincolor{
     margin-top: 18px;
 }
 .fw-700 a{
     color: #004a97;
+}
+.signin-form{
+    padding: 40px;
+}
+.sign-login:hover a{
+    color: #25b024; 
+}
+a.sign-btn-form:hover{
+    color: #25b024;
 }
 
 

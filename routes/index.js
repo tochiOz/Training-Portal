@@ -5,5 +5,20 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Kodehauz Training Portal' });
 });
+router.get('/kodehauzHub', function(req, res, next) {
+  res.render('kodehauzHub', { title: 'Kodehauz Training Portal' });
+});
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'Kodehauz Training Portal' });
+});
+router.get('/signUp', function(req, res, next) {
+  res.render('signUp', { title: 'Kodehauz Training Portal' });
+});
+router.get('/trainer', function(req, res, next) {
+  res.render('trainer', { title: 'Kodehauz Training Portal' });
+});
+router.get('/trainings', function(req, res, next) {
+  res.render('trainings', { title: 'Kodehauz Training Portal' });
+});
 
 module.exports = router;
