@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+</head>
+<body>
+    {{> header }}
+
+    <div class="signin-form text-center" id="form2" tabindex="-1" role="dialog" aria-labelledby="formsign" aria-hidden="true">
+		<div class=" ls">
+			<div class="">
+				{{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<div class="modal-header">
+					<button type="button" class="btn btn-maincolor btn-login">Log in</button>
+					<h6 class="modal-title" id="formsign">Sign Up</h6>
+				</div> --}}
+				<div class="">
+					<div class="form-title">
+						<h2>Sign up</h2>
+						<p>Sign up to save your progress and obtain a certificate in Alison’s free Diploma in Web</p>
+					</div>
+					<form action="http://webdesign-finder.com/">
+						<div class="form-group has-placeholder">
+							<label for="name-sigin">Your Name:</label>
+							<input type="text" class="form-control" id="name-sigin" placeholder="Enter your name" name="First name">
+						</div>
+						<div class="form-group has-placeholder">
+							<label for="sigemail">Email:</label>
+							<input type="email" class="form-control" id="sigemail" placeholder="Your email adress" name="sigemail">
+						</div>
+						<div class="form-group has-placeholder">
+							<label for="sigpassword">Password:</label>
+							<input type="password" class="form-control" id="sigpassword" placeholder="password" name="sigpassword">
+						</div>
+						<div class="social-account">
+							<h6>
+								or
+							</h6>
+							<h6>
+								Sign up with your Social Account
+							</h6>
+							<span class="social-icons">
+								<a href="#" class="fa fa-facebook " title="facebook"></a>
+								<a href="#" class="fa fa-twitter " title="twitter"></a>
+								<a href="#" class="fa fa-paper-plane " title="telegram"></a>
+								<a href="#" class="fa fa-linkedin " title="linkedin"></a>
+								<a href="#" class="fa fa-instagram " title="instagram"></a>
+								<a href="#" class="fa fa-youtube-play " title="youtube"></a>
+							</span>
+						</div>
+						<div class="form-check">
+							<div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input class="form-check-input" type="checkbox" id="agree">
+							<label class="form-check-label agree" for="agree">
+								I agree to the Terms and Conditions
+							</label>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input class="form-check-input" type="checkbox" id="updates">
+							<label class="form-check-label" for="updates">
+								Yes, I want to get the most out of Tutor by receiving tips, updates and exclusive offers.
+							</label>
+                                    </div>
+                                </div>
+                            </div>
+							
+						</div>
+						<button type="submit" class="btn btn-maincolor btn-sign">Sign In</button>
+					</form>
+					<div class="">
+						Already have an Alison account?<button type="button" class="btn-login">Log In</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+    {{> footer }}
+</body>
+</html>
