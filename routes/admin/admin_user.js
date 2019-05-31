@@ -1,7 +1,7 @@
 var express = require('express');
 var router = new express.Router();
-const Admin = require('../models/admin');
-const { isAdmin } = require('../middleware/adminAuth')
+const Admin = require('../../models/admin');
+const { isAdmin } = require('../../middleware/adminAuth')
 
 //admin create user routes
 router.post('/signup', async ( req, res ) => {
@@ -32,7 +32,7 @@ router.post('/login', async (req, res) => {
         // return console.log(admin)
         const token = await admin.generateAuthToken()
 
-        res.status(200).send({
+        res.status(201).send({
             status: 'Success',
             admin,
             token
