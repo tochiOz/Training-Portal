@@ -1,7 +1,7 @@
 const express = require('express')
 const router = new express.Router()
-const Category = require('../models/categories');
-const { isAdmin } = require('../middleware/adminAuth')
+const Category = require('../../models/embedded/categories');
+const { isAdmin } = require('../../middleware/adminAuth')
 
 //adding categories for users
 router.post('/add_categories', isAdmin, async (req, res) => {

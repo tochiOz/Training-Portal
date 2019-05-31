@@ -17,7 +17,7 @@ const userProfileSchema = mongoose.Schema({
 
     email: {
         type: String,
-        // required: true,
+        required: true,
         unique: true,
         trim: true,
         lowercase: true,
@@ -34,7 +34,7 @@ const userProfileSchema = mongoose.Schema({
         maxLength: '60',
         trim: true,
         lowercase: true,
-        // required: true
+        required: true
     },
 
     phone_number: {
@@ -86,13 +86,12 @@ userProfileSchema.methods.generateAuthToken = async function () {
     userProfile.tokens = userProfile.tokens.concat({ token })
 
     await userProfile.save()
-
     return token;
 }
 
 userProfileSchema.statics.findByCredentials = async ( email, password ) => {
 
-    const userProfile = await User.findOne({ email })
+    const userProfile = await Trainee.findOne({ email })
 
     if( !userProfile ) {
         throw new Error('Email does not exist')
@@ -118,6 +117,6 @@ userProfileSchema.pre('save', async function (next) {
     next()
 })
 
-const User = mongoose.model('userProfile', userProfileSchema)
+const Trainee = mongoose.model('userProfile', userProfileSchema)
 
-module.exports = User;
+module.exports = Trainee;

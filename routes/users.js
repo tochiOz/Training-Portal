@@ -1,6 +1,6 @@
 var express = require('express');
 var router = new express.Router();
-const User = require('../models/user_profile')
+const Trainee = require('../models/trainee_profile')
 const sharp = require('sharp')
 const cloudinary = require('cloudinary')
 const upload = require('../config/upload')
@@ -29,7 +29,7 @@ router.post('/student/create', upload.single('avatar'), async ( req, res ) => {
       
         const image = await cloudinary.v2.uploader.upload(imageFile)
       
-        const trainee = new User({
+        const trainee = new Trainee({
             full_name : req.body.full_name,
             email: req.body.email,
             gender: req.body.gender,
@@ -55,7 +55,7 @@ router.post('/student/create', upload.single('avatar'), async ( req, res ) => {
 router.post('/student/login', async ( req, res ) => {
 
   try {
-    const trainee = await User.findByCredentials( req.body.email, req.body.password )
+    const trainee = await Trainee.findByCredentials( req.body.email, req.body.password )
     // return console.log(admin)
     const token = await trainee.generateAuthToken()
 
