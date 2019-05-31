@@ -60,8 +60,8 @@ const userProfileSchema = mongoose.Schema({
     },
 
     category: [{
-        type: Array,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        trim: true
     }],
 
     tokens: [{
