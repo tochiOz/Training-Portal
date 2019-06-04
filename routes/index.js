@@ -23,7 +23,7 @@ router.get('/trainings', function(req, res, next) {
 
 /* GET admin pages. */
 router.get('/admin/categories', function(req, res, next) {
-  res.render('admin/categories');
+  res.render('admin/categories',  { title: 'Kodehauz Training Portal' });
 });
 
 module.exports = router;
