@@ -32,5 +32,8 @@ router.get('/admin/dashboard', function (req, res, next) {
 router.get('/admin/login', function (req, res, next) {
   res.render('dashboard-login', { title: 'KodeHauz Admin Dashboard Login' });
 });
+router.get('/admin/sign-up', function (req, res, next) {
+  res.render('dashboard-signUp', { title: 'KodeHauz Admin Dashboard Sign Up' });
+});
 
 module.exports = router;
