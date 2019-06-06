@@ -15,6 +15,8 @@ router.post('/signup', async ( req, res ) => {
         await admin.save()
         const token = await admin.generateAuthToken()
         res.status(201).send({admin, token})
+        req.flash('sucess', `You Have Sucessfully Created an Admin Account`)
+        return res.redirect('/admin/login')
     } catch (err) {
         res.status(400).send(err.message)
     }
@@ -37,6 +39,8 @@ router.post('/login', async (req, res) => {
             admin,
             token
         })
+        req.flash('sucess', `You Have Sucessfully Logged In Admin ${full_name}`)
+        return res.redirect('/admin/dashboard')
     } catch (e) {
         res.status(500).send(e.message)
     }

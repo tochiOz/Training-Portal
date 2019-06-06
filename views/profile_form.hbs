@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}</title>
+</head>
+<body>
+    {{> header}}
+
+    
+
+     <div class="container card shadow border-0 my-5 ">
+
+         <h1 class="text-align-center mx-auto my-3">BioData</h1>
+        <form class="p-5">
+
+            <div class="form-group row ">
+                <div class="input-group input-group-alternative mb-3 col-xl-12 col-xs-12">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input placeholder="Full Name *" class="form-control shadow-lg" name="full_name">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+            <div class="input-group input-group-alternative mb-3 col-xl-6">
+                <select v-model="details.business_type" class="form-control bg-gradient-white shadow-lg">
+                    <option disabled>Select business type</option>
+                    <option v-for="(type, i) in businessType" :value="type.name" :key="i">{{ type.name }}</option>
+                </select>
+            </div>
+
+                <div class="input-group input-group-alternative mb-3 col-xl-6">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input v-model="details.address" placeholder="address" class="form-control bg-gradient-white shadow-lg">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="input-group input-group-alternative mb-3 col-xl-6">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input v-model="details.city" placeholder="city" class="form-control bg-gradient-white shadow-lg">
+                </div>
+
+                <div class="input-group input-group-alternative mb-3 col-xl-6">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input v-model="details.state" placeholder="state" class="form-control bg-gradient-white shadow-lg">
+                </div>
+
+
+
+            </div>
+
+            <div class="input-group input-group-alternative mb-3 col-xl-6">
+                <input accept="image/*" ref="feature_img" type="file" class="file hidden" >
+
+                <select v-model="details.category_id" class="form-control bg-gradient-white shadow-lg">
+                    <option disabled>Select business category</option>
+                    <option v-for="cat in categories" :value="cat.id" :key="cat.slug">{{ cat.name }}</option>
+                </select>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="input-group mb-3 input-group-alternative col-xl-6">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input v-model="details.phone" placeholder="(+234)000000000" type="tel" name="tel" class="form-control bg-gradient-white shadow-lg">
+                </div>
+
+                <div class="input-group input-group-alternative mb-3 col-xl-6">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input v-model="details.email" placeholder="email" class="form-control bg-gradient-white shadow-lg">
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <div class="input-group input-group-alternative mb-3 col-xl-6">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input v-model="details.website" placeholder="website" class="form-control bg-gradient-white shadow-lg">
+                </div>
+
+                <div class="input-group input-group-alternative mb-3 col-xl-6">
+                    <multiselect
+                            class="tags bg-gradient-white shadow-lg"
+                            v-model="details.tags"
+                            :options="tags"
+                            :multiple="true"
+                            :close-on-select="true"
+                            :clear-on-select="false"
+                            :hide-selected="true"
+                            label="name"
+                            tagPlaceholder = "type or click to select business tag"
+                            track-by="name"
+                            :preserve-search="false">
+                    </multiselect>
+                </div>
+
+            </div>
+
+
+            <div class="form-group row">
+                <div class="input-group input-group-alternative mb-3 col-xl-12">
+                <textarea rows="4" :maxlength="summarymax" v-model="details.summary" placeholder="summary" class="form-control bg-gradient-white shadow-lg"></textarea>
+                </div>
+                <!--Remaining Characters-->
+                <button class="btn-sm btn btn-secondary ml-3 mb-3 input-group-addon" disabled v-text="(summarymax - details.summary.length)"></button>
+
+                <div class="input-group input-group-alternative mb-3 col-xl-12">
+                    <textarea rows="8" v-model="details.description" placeholder="description" class="form-control bg-gradient-white shadow-lg"></textarea>
+                </div>
+                    Character Count:<button class="btn-sm btn-lg btn btn-secondary ml-3 input-group-addon" disabled v-text="(details.description.length)"></button>
+            </div>
+
+            
+
+            <div class="mb-3 col-xl-4 mx-auto">
+                <button class="btn btn-primary btn-lg btn-block" @click.prevent="createBusiness">Submit</button>
+            </div>
+
+            </div>
+
+        </form>
+     </div>
+
+    {{> footer}}
+</body>
+</html>
