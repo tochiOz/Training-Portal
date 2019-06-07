@@ -19,11 +19,11 @@ router.post('/add_categories', isAdmin, async (req, res) => {
     }
 })
 
-router.get('/view_categoies', isAdmin, async (req, res) => {
+router.get('/view_categoies', async (req, res) => {
     try {
         const categories = await Category.find()
-        res.status(200).send({categories})
-        res.render('admin/categories', categories);
+        // res.status(200).send({categories})
+        // res.render('admin/categories', categories);
         res.render('profile_form', {
             categories_id: categories._id,
             category: categories.category

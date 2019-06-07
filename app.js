@@ -31,6 +31,7 @@ db.on('error', console.error.bind(console, 'Database connection error:'));
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const general = require('./routes/general')
 const adminRouter = require('./routes/admin/admin_user');
 const categoryRouter = require('./routes/admin/admin_category');
 const Skill_LevelRouter = require('./routes/admin/admin_skill_level');
@@ -69,6 +70,7 @@ app.use(function ( req, res, next) {
 
 //setting routes
 app.use('/', indexRouter);
+app.use('/', general);
 app.use('/trainee', usersRouter);
 app.use('/admin', adminRouter);
 app.use('/admin', categoryRouter);

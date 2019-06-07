@@ -19,7 +19,7 @@
         </em>
 
 
-        <div class="container card shadow my-5">
+        <div class="container card shadow my-10" data-aos="fade-up" data-aos-delay="200">
             <div class="row">
                 <div class="col-md-12">
                     <div id="accordion" class="trainee_profile">
@@ -48,8 +48,8 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="inputPassword4">Password</label>
-                                                <input type="password" class="form-control" id="password" name="password"
-                                                    placeholder="Password">
+                                                <input type="password" class="form-control" id="password"
+                                                    name="password" placeholder="Password">
                                             </div>
                                         </div>
 
@@ -63,9 +63,9 @@
                                             <div class="form-group col-md-6">
                                                 <label for="category">Categories</label>
                                                 <select id="category" class="form-control" name="category_id">
-                                                    {{#each categories}}
-                                                    <option value="{{this.categories_id}}" selected>{{this.category}}
-                                                    </option>
+                                                    {{!-- console.log(a) --}}
+                                                    {{ # each categories }}
+                                                        <option value="{{this._id}}">{{ this.category }}</option>
                                                     {{/each}}
                                                 </select>
                                             </div>
@@ -77,9 +77,9 @@
 
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="avatar">Profile Image</label>
-                                                <input type="file" class="form-control" id="inputCity">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="avatar" name="avatar">
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
                                             </div>
                                         </div>
 
@@ -110,12 +110,13 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="academic_discipline">Academic Discipline</label>
-                                                <input type="text" class="form-control" id="academic_discipline" name="academic_discipline"
-                                                    placeholder="academic_discipline">
+                                                <input type="text" class="form-control" id="academic_discipline"
+                                                    name="academic_discipline" placeholder="academic_discipline">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="academic_status">Password</label>
-                                                <input type="text" class="form-control" id="academic_status" name="academic_status"
+                                                <label for="academic_status">Academic Status</label>
+                                                <input type="text" class="form-control" id="academic_status"
+                                                    name="academic_status"
                                                     placeholder="100 Level, B.Sc, B.Eng, ND, HND, Diploma">
                                             </div>
                                         </div>
@@ -138,34 +139,47 @@
 
                             <div id="collapseThree" class="panel-collapse collapse">
                                 <div class="trainee_profile-step-body">
-                                    <div class="row">
+                                    <form>
                                         <div class="form-group">
-                                            <label class="col-md-12 control-label" for="time">Time</label>
-                                            <div class="col-md-12">
-                                                <div class="radio">
-                                                    <label for="time-0">
-                                                        <input type="radio" name="time" id="time-0" value="8:00 - 9:00"
-                                                            checked="checked"> 8:00 - 9:00
-                                                    </label>
-                                                </div>
-                                                <div class="radio">
-                                                    <label for="time-1">
-                                                        <input type="radio" name="time" id="time-1"
-                                                            value="10:00 - 11:00"> 10:00 - 11:00 </label>
-                                                </div>
-                                                <div class="radio">
-                                                    <label for="time-2">
-                                                        <input type="radio" name="time" id="time-2"
-                                                            value="12:00 - 1:00"> 12:00 - 1:00 </label>
-                                                </div>
-                                                <div class="radio">
-                                                    <label for="time-3">
-                                                        <input type="radio" name="time" id="time-3" value="1:00 - 2:00">
-                                                        1:00 - 2:00 </label>
-                                                </div>
+                                            <label for="programming_skill">Do You Have any Programming Skills?</label>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="programming_skill" name="programming_skill"
+                                                    class="custom-control-input" value="Yes">
+                                                <label class="custom-control-label" for="customRadioInline1">Yes</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="programming_skill" name="programming_skill"
+                                                    class="custom-control-input" value="No">
+                                                <label class="custom-control-label" for="customRadioInline2">No</label>
                                             </div>
                                         </div>
-                                    </div>
+
+                                        <div class="form-group">
+                                            <label for="teaching_experience">Do You Have any Teaching Skills?</label>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="teaching_experience" name="teaching_experience"
+                                                    class="custom-control-input" value="Yes">
+                                                <label class="custom-control-label" for="teaching_experience">Yes</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="teaching_experience" name="teaching_experience"
+                                                    class="custom-control-input" value="No">
+                                                <label class="custom-control-label" for="teaching_experience">No</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="category">Skills Level</label>
+                                            <select id="skills" class="form-control" name="skill_level_id">
+                                                {{#each skills}}
+                                                    <option value="{{this.skill._id}}" selected>{{this.skills}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success">Save</button>
+
+                                    </form>
                                     <a class="collapsed btn btn-default" role="button" data-toggle="collapse"
                                         data-parent="#accordion" href="#collapseFour"> Next </a>
                                 </div>

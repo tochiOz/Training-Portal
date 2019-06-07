@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const Category = require('../models/embedded/categories')
 
 /* GET Static Pages. */
 router.get('/', function (req, res, next) {
