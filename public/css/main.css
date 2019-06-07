@@ -3,7 +3,7 @@
     padding: 0 10px;
 }
 
-.green-color{
+.green-color {
     color: #28a745;
 }
 
@@ -12,27 +12,32 @@
     display: flex;
     align-items: center;
 }
+
 .modal-login .modal-content {
     padding: 20px;
     border-radius: 5px;
     border: none;
 }
+
 .modal-login .modal-header {
     border-bottom: none;
     position: relative;
     justify-content: center;
 }
+
 .modal-login .close {
     position: absolute;
     top: -10px;
     right: -10px;
 }
+
 .modal-login h4 {
     color: #636363;
     text-align: center;
     font-size: 26px;
     margin-top: 0;
 }
+
 .modal-login .modal-content {
     color: #999;
     border-radius: 1px;
@@ -42,13 +47,16 @@
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     padding: 25px;
 }
+
 .modal-login .form-group {
     margin-bottom: 20px;
 }
+
 .modal-login label {
     font-weight: normal;
     font-size: 13px;
 }
+
 .modal-login .form-control {
     min-height: 38px;
     padding-left: 10px;
@@ -56,9 +64,11 @@
     border-width: 0 0 1px 0;
     border-radius: 0;
 }
+
 .modal-login .form-control:focus {
     border-color: #ccc;
 }
+
 .modal-login .input-group-addon {
     max-width: 42px;
     text-align: center;
@@ -68,7 +78,8 @@
     border-radius: 0;
     display: flex;
 }
-.modal-login .btn {        
+
+.modal-login .btn {
     font-size: 16px;
     font-weight: bold;
     background: #28a745;
@@ -77,14 +88,18 @@
     min-width: 140px;
     outline: none !important;
 }
-.modal-login .btn:hover, .modal-login .btn:focus {
+
+.modal-login .btn:hover,
+.modal-login .btn:focus {
     background: #0a0d3f;
 }
+
 .modal-login .hint-text {
     text-align: center;
     padding-top: 5px;
     font-size: 13px;
 }
+
 .modal-login .modal-footer {
     color: #999;
     border-color: #dee4e7;
@@ -93,25 +108,129 @@
     font-size: 13px;
     justify-content: center;
 }
+
 .modal-login a {
     color: #fff;
     text-decoration: underline;
 }
+
 .modal-login a:hover {
     text-decoration: none;
 }
+
 .modal-login a {
     color: #28a745;
     text-decoration: none;
-}	
+}
+
 .modal-login a:hover {
     text-decoration: underline;
 }
+
 .modal-login .fa {
     font-size: 23px;
     margin-top: 10px;
 }
+
 .trigger-btn {
     display: inline-block;
     /* margin: 100px auto; */
+}
+
+/* end of login modal */
+
+/* Begining of form css */
+.profile_form_body{
+    -webkit-clip-path: polygon(100% 0, 0 0, 0 83%);
+    clip-path: polygon(100% 0, 0 0, 0 83%);
+    z-index: -100;
+    background-color: rgb(226, 226, 226);
+}
+
+.started {
+    -webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 86%);
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 86%);
+    height: 380px;
+    width: 100%;
+    background-image: url('../images/video-image.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position-y: -270px;
+    color: #eaefe9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.started h1 {
+    font-size: 4em;
+    font-weight: 800px;
+    font-family: cursive;
+}
+
+
+.trainee_profile-wrapper {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #fafbfa;
+}
+
+.trainee_profile {
+    background-color: #fff;
+    font-size: 14px;
+}
+
+.panel {
+    margin-bottom: 0px;
+}
+
+.trainee_profile-step {
+    border-top: 1px solid #f2f2f2;
+    color: #666;
+    font-size: 14px;
+    padding: 30px;
+    position: relative;
+}
+
+.trainee_profile-step-number {
+    border-radius: 50%;
+    border: 1px solid #666;
+    display: inline-block;
+    font-size: 12px;
+    height: 32px;
+    margin-right: 26px;
+    padding: 6px;
+    text-align: center;
+    width: 32px;
+}
+
+.setup{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #28a745;
+}
+
+.trainee_profile-step-title {
+    font-size: 20px;
+    font-weight: 500;
+    vertical-align: middle;
+    display: inline-block;
+    margin: 0px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, 'cursive';
+}
+
+.checout-address-step .form-group {
+    margin-bottom: 18px;
+    display: inline-block;
+    width: 100%;
+}
+
+.trainee_profile-step-body {
+    /* padding-left: 60px; */
+    padding-top: 30px;
+}
+
+.trainee_profile-step-active {
+    display: block;
 }

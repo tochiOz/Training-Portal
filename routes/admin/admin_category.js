@@ -24,6 +24,10 @@ router.get('/view_categoies', isAdmin, async (req, res) => {
         const categories = await Category.find()
         res.status(200).send({categories})
         res.render('admin/categories', categories);
+        res.render('profile_form', {
+            categories_id: categories._id,
+            category: categories.category
+        })
         req.flash('success', 'Categories Gotten')
     } catch (e) {
         res.status(400).send(e.message)

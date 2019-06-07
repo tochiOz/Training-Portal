@@ -59,8 +59,8 @@ const userProfileSchema = mongoose.Schema({
         type: String
     },
 
-    category: [{
-        type: Array,
+    category_id: [{
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     }],
 
