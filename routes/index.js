@@ -35,7 +35,7 @@ router.get('/categories', function (req, res, next) {
   res.render('categories',  { title: 'KodeHauz Training Portal' });
 });
 
-router.get('/admin/dashboard', function (req, res, next) {
+router.get('/admin-dashboard', function (req, res, next) {
   res.render('dashboard', { title: 'KodeHauz Training Portal' });
 });
 
