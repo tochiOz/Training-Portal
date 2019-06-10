@@ -1,12 +1,12 @@
 <div class="app-admin-wrap">
-        <div class="main-header" style="background-color: #0ebb73;">
+        <div class="main-header" style="background-color: #e6e6e6;">
             <div class="logo"> 
             <a href="/">
                 <img src="images/kode-logo.png" alt="">
             </a>
             </div>
 
-            <div class="menu-toggle">
+            <div class="menu-toggle" style="color: #ffffff">
                 <div></div>
                 <div></div>
                 <div></div>
@@ -14,20 +14,20 @@
 
             <div class="d-flex align-items-center">
                
-                <div class="search-bar">
+                {{!-- <div class="search-bar">
                     <input type="text" placeholder="Search">
                     <i class="search-icon text-muted i-Magnifi-Glass1"></i>
-                </div>
+                </div> --}}
             </div>
 
             <div style="margin: auto"></div>
 
             <div class="header-part-right">
                 <!-- Full screen toggle -->
-                <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen></i>
+                <i class="fa fa-user header-icon d-none d-sm-inline-block" data-fullscreen></i>
                 <!-- Grid menu Dropdown -->
                 <div class="dropdown">
-                    <i class="i-Safe-Box text-muted header-icon" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                    <i class="fa fa-envelope text-muted header-icon" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div class="menu-icon-grid">
                             <a href="index.html"><i class="i-Shop-4"></i> Home</a>
@@ -110,15 +110,13 @@
                 <!-- User avatar dropdown -->
                 <div class="dropdown">
                     <div class="user colalign-self-end">
-                        <img src="assets/images/faces/1.jpg" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="images/kode-logo.png" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                             <div class="dropdown-header">
-                                <i class="i-Lock-User mr-1"></i> Timothy Carlson
+                                <i class="i-Lock-User mr-1"></i> {{username}}
                             </div>
-                            <a class="dropdown-item">Account settings</a>
-                            <a class="dropdown-item">Billing history</a>
-                            <a class="dropdown-item" href="signin.html">Sign out</a>
+                            <a class="dropdown-item" href="/admin/log-out">Sign out</a>
                         </div>
                     </div>
                 </div>
@@ -128,39 +126,39 @@
 
         <div class="side-content-wrap bg-dark">
             <div class="sidebar-left open" data-perfect-scrollbar data-suppress-scroll-x="true">
-                <ul class="navigation-left" style="background-color: #01133f; color: #fefefe">
+                <ul class="navigation-left" style="background-color: #e6e6e6; color: #fefefe">
                     <li class="nav-item active">
-                        <a class="nav-item-hold" href="dashboard.html">
+                        <a class="nav-item-hold" href="/admin-dashboard">
                             <i class="nav-icon i-Bar-Chart"></i>
                             <span class="nav-text">Dashboard</span>
                         </a>
                         <div class="triangle"></div>
                     </li>
-                    <li class="nav-item" data-item="catalog">
+                    <li class="nav-item" >
                         <a class="nav-item-hold" href="#">
                             <i class="nav-icon i-Library"></i>
-                            <span class="nav-text">Catalog</span>
+                            <span class="nav-text">Categories</span>
                         </a>
                         <div class="triangle"></div>
                     </li>
-                    <li class="nav-item" data-item="sales">
+                    <li class="nav-item">
                         <a class="nav-item-hold" href="#">
                             <i class="nav-icon i-Suitcase"></i>
-                            <span class="nav-text">Sales</span>
+                            <span class="nav-text">Skill Levels</span>
                         </a>
                         <div class="triangle"></div>
                     </li>
-                    <li class="nav-item" data-item="users">
+                    <li class="nav-item" >
                         <a class="nav-item-hold" href="#">
                             <i class="nav-icon i-Checked-User"></i>
-                            <span class="nav-text">Users</span>
+                            <span class="nav-text">Interest Areas</span>
                         </a>
                         <div class="triangle"></div>
                     </li>
                     <li class="nav-item" data-item="marketing">
                             <a class="nav-item-hold" href="#">
                                 <i class="nav-icon i-Computer-Secure"></i>
-                                <span class="nav-text">Marketing</span>
+                                <span class="nav-text">Messages</span>
                             </a>
                             <div class="triangle"></div>
                         </li>
@@ -171,15 +169,7 @@
                             <span class="nav-text">Profile</span>
                         </a>
                         <div class="triangle"></div>
-                    </li>
-                    <li class="nav-item" data-item="config">
-                            <a class="nav-item-hold" href="#">
-                                <i class="nav-icon i-Gear"></i>
-                                <span class="nav-text">Configuration</span>
-                            </a>
-                            <div class="triangle"></div>
-                        </li>
-                    
+                    </li>                    
                 </ul>
             </div>
 
@@ -207,42 +197,7 @@
                         </a>
                     </li>
                 </ul>
-                <ul class="childNav" data-parent="sales">
-                    <li class="nav-item">
-                        <a href="#">
-                            <i class="nav-icon i-Approved-Window"></i>
-                            <span class="item-name">Orders</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="invoice.html">
-                            <i class="nav-icon i-Add-File"></i>
-                            <span class="item-name">Invoice</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="childNav" data-parent="catalog">
-                    <li class="nav-item">
-                        <a href="addproduct.html">
-                            <i class="nav-icon i-Split-Horizontal-2-Window"></i>
-                            <span class="item-name">Add Product</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="products.html">
-                            <i class="nav-icon i-Bell1"></i>
-                            <span class="item-name">Products</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <i class="nav-icon i-Bell1"></i>
-                            <span class="item-name">Inventory</span>
-                        </a>
-                    </li>
-                    
-                   
-                </ul>
+               
                 <ul class="childNav" data-parent="marketing">
                     <li class="nav-item">
                         <a href="#">
@@ -271,56 +226,7 @@
                         </a>
                     </li>
                 </ul> 
-                <ul class="childNav" data-parent="config">
-                        <li class="nav-item">
-                                <a href="#">
-                                    <i class="nav-icon i-Gear"></i>
-                                    <span class="item-name">Store</span>
-                                </a>
-                            </li>
-                        <li class="nav-item">
-                                <a href="#">
-                                    <i class="nav-icon i-Gear"></i>
-                                    <span class="item-name">Tax</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#">
-                                    <i class="nav-icon i-Gear"></i>
-                                    <span class="item-name">Product Types</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#">
-                                    <i class="nav-icon i-Gear"></i>
-                                    <span class="item-name">Product Variation Types</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#">
-                                    <i class="nav-icon i-Gear"></i>
-                                    <span class="item-name">Payment Gateways</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#">
-                                    <i class="nav-icon i-Gear"></i>
-                                    <span class="item-name">Orders types</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#">
-                                    <i class="nav-icon i-Gear"></i>
-                                    <span class="item-name">Shipping Methods</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#">
-                                    <i class="nav-icon i-Gear"></i>
-                                    <span class="item-name">Point of Sale</span>
-                                </a>
-                            </li>
-                    </ul>
+               
             </div>
             <div class="sidebar-overlay"></div>
         </div>
