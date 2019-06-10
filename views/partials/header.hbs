@@ -18,8 +18,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
 
           <!-- Toggler -->
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-users"></i>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" style="font-size: 1.1em;">
+            &times;
           </button>
 
           <!-- Navigation -->
@@ -51,11 +51,44 @@
           </ul>
 
           <!-- Button -->
-          <a class="navbar-btn btn btn-sm btn-success lift ml-auto" href="/admin/login" target="_blank">
+          <a class="navbar-btn btn btn-sm btn-success lift ml-auto trigger-btn" href="#myModal" target="_blank" data-toggle="modal">
             Trainee Login
           </a>
 
         </div>
-  
       </div>
     </nav>
+
+     <!-- Modal HTML -->
+        <div id="myModal" class="modal fade">
+          <div class="modal-dialog modal-login">
+            <div class="modal-content">
+              <div class="modal-header">				
+                <h4 class="modal-title">Trainee Login</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">
+                <form action="/trainee/login" method="POST">
+                  <div class="form-group">
+                    <div class="input-group ">
+                      <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                      <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                      <input type="text" class="form-control" name="password" placeholder="Password" required="required">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">Sign In</button>
+                  </div>
+                  <p class="hint-text"><a href="#">Forgot Password?</a></p>
+                </form>
+              </div>
+              <div class="modal-footer">Don't have an account?  <a href="/training_registration">Get Started</a></div>
+            </div>
+          </div>
+        </div>     
+          
