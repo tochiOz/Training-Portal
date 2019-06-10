@@ -27,18 +27,20 @@ router.get('/training_registration', function (req, res, next) {
 });
 
 /* GET admin pages. */
-router.get('/admin/categories', function (req, res, next) {
-  res.render('admin/categories',  { title: 'KodeHauz Training Portal' });
+router.get('/login', function (req, res, next) {
+  res.render('login', {title: 'Admin Login' })
+})
+
+router.get('/categories', function (req, res, next) {
+  res.render('categories',  { title: 'KodeHauz Training Portal' });
 });
 
 router.get('/admin/dashboard', function (req, res, next) {
   res.render('dashboard', { title: 'KodeHauz Training Portal' });
 });
-router.get('/admin/login', function (req, res, next) {
-  res.render('dashboard_login', { title: 'KodeHauz Admin Dashboard Login' });
-});
-router.get('/admin/sign-up', function (req, res, next) {
-  res.render('dashboard_signUp', { title: 'KodeHauz Admin Dashboard Sign Up' });
+
+router.get('/dashboard-sign-up', function (req, res, next) {
+  res.render('dashboardSignUp', { title: 'Admin Dashboard Sign Up' });
 });
 
 module.exports = router;

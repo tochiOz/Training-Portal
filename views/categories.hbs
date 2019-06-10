@@ -8,6 +8,18 @@
 
 
     {{!-- {{categories}} --}}
+    <div class="form-group col-md-6">
+        <label for="category">Categories</label>
+        <select id="category" class="form-control" name="category_id">
+            {{!-- <option value="1">one</option>
+            <option value="1">two</option>
+            <option value="1">three</option>
+            <option value="1">four</option> --}}
+            {{#each categories }}
+                <option value="{{ _id}}">{{ category }}</option>
+            {{/each}}
+        </select>
+    </div>
 
 
     {{> footer}}
