@@ -24,7 +24,6 @@
                 <div class="col-md-12">
                     <div id="accordion" class="trainee_profile">
                         <div class="panel trainee_profile-step">
-
                             <div class="setup">
                                 <h4 class="trainee_profile-step-title">Trainee Personal Information</h4>
                                 <i class=" fa fa-plus" role="button" data-toggle="collapse" data-parent="#accordion"
@@ -63,14 +62,17 @@
                                             <div class="form-group col-md-6">
                                                 <label for="category">Categories</label>
                                                 <select id="category" class="form-control" name="category_id">
-                                                    {{!-- console.log(a) --}}
-                                                    {{ # each categories }}
-                                                        <option value="{{this._id}}">{{ this.category }}</option>
+                                                    {{!-- <option value="1">one</option>
+                                                    <option value="1">two</option>
+                                                    <option value="1">three</option>
+                                                    <option value="1">four</option> --}}
+                                                    {{#each categories }}
+                                                        <option value="{{ _id}}">{{ category }}</option>
                                                     {{/each}}
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="phone_number">Password</label>
+                                                <label for="phone_number">Phone Number</label>
                                                 <input type="number" class="form-control" id="number"
                                                     name="phone_number" placeholder="+234 810 xxxx xxx">
                                             </div>
@@ -202,11 +204,28 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <div id="test"></div>
 
 
     {{> footer}}
 </body>
+
+<script>
+getCat()
+
+function getCat() {
+    fetch('/categories')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(categories) {
+    console.log(JSON.stringify(categories));
+    
+    document.getElementById('test').innerHTML = JSON.stringify(categories)
+  });
+}
+</script>
 
 </html>
