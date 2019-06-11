@@ -3,8 +3,8 @@ const Admin = require('../models/admin')
 
 const isAdmin = async (req, res, next ) => {
     try {
-        const token = req.header('Authorization').replace('Bearer ', '')
-     
+        const token = req.cookies.jwt;
+        // return console.log(token)
         const decoded = jwt.verify( token, process.env.SECRET )
         // return console.log(decoded)
         // return console.log(decoded._id)

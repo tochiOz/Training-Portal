@@ -7,3 +7,13 @@ function getCat() {
     console.log(JSON.stringify(categories));
   });
 }
+
+function logOut() {
+  
+  fetch('/admin/logoutAll', {
+    method: 'post',
+    // body: JSON.stringify(opts)
+  }).then(function(response) {
+    return response.json();
+  })
+}
