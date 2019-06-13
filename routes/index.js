@@ -7,7 +7,7 @@ const {isAdmin} = require('../middleware/adminAuth')
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'KodeHauz Training Portal' });
 });
-router.get('/KodeHauzHub', function (req, res, next) {
+router.get('/KodeHauz_Hub', function (req, res, next) {
   res.render('KodeHauzHub', { title: 'KodeHauz Training Portal' });
 });
 router.get('/login', function (req, res, next) {
