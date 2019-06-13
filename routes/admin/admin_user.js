@@ -35,17 +35,9 @@ router.post('/login', async (req, res) => {
    
     try {
         const admin = await Admin.findByCredentials( req.body.email, req.body.password )
-        // return console.log(admin)
         const token = await admin.generateAuthToken()
 
-        // return res.status(201).send({
-        //     status: 'Success',
-        //     admin,
-        //     token
-        // })
-        // return  console.log(req.cookies)
-        res.cookie('jwt', token, {maxAge: 400000000 })
-        // return res.send(req.cookies.jwt)
+        res.cookie('jwt', token, {maxAge: 400000000})
         req.flash('sucess', `You Have Sucessfully Logged In Admin ${admin.email}`)
 
         return res.redirect('/admin-dashboard')
@@ -54,7 +46,6 @@ router.post('/login', async (req, res) => {
             req.flash('danger', 'You are not Authorised')
             return res.redirect('/login')
         }
-        // console.log(e.message)
     }
 }) 
 
@@ -64,12 +55,9 @@ router.post('/logoutAll', isAdmin, async(req, res) => {
         
         adminProfile.tokens = []
         await adminProfile.save()
-        res.send()
-        req.flash('success', 'Thank You for using our Portal')
         res.clearCookie('jwt')
-
-        return res.redirect('/login')
-
+        req.flash('success', 'Thank You for using our Portal')
+        return res.redirect('/')
     } catch (e) {
         res.status(400).send(e.message)
     }

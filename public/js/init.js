@@ -8,12 +8,11 @@ function getCat() {
   });
 }
 
-function logOut() {
+function logOut(req, res, next ) {
   
   fetch('/admin/logoutAll', {
     method: 'post',
-    // body: JSON.stringify(opts)
-  }).then(function(response) {
-    return response.json();
+  }).then(function() {
+    next()
   })
 }

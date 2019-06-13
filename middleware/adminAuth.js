@@ -3,6 +3,9 @@ const Admin = require('../models/admin')
 
 const isAdmin = async (req, res, next ) => {
     try {
+        if (!req.cookies.jwt) {
+            return res.redirect('/login')
+        }
         const token = req.cookies.jwt;
         // return console.log(token)
         const decoded = jwt.verify( token, process.env.SECRET )
@@ -11,9 +14,7 @@ const isAdmin = async (req, res, next ) => {
         const admin = await Admin.findOne({ _id: decoded._id})
         // return console.log(admin)
         if ( !admin ) {
-            // throw new Error('You are not an Admin')
-            throw new Error('invalid User Admin')
-            // res.redirect('/admin/login')
+            return res.redirect('/login')
         }
         
         adminToken = token

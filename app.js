@@ -14,10 +14,10 @@ dotenv.config()
 
 // database connection
 mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-}, function(err, client) {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+}, function (err, client) {
   if (err) console.log(err);
   console.log(chalk.red('Connection passed'));
 })
@@ -41,7 +41,7 @@ const app = express();
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-app.engine('hbs', exphbs({ defaultLayout: 'template', extname: '.hbs'}))
+app.engine('hbs', exphbs({ defaultLayout: 'template', extname: '.hbs' }))
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
@@ -63,7 +63,7 @@ app.use(
 
 //Express Messages middleware
 app.use(require('connect-flash')())
-app.use(function ( req, res, next) {
+app.use(function (req, res, next) {
   res.locals.message = require('express-messages')(req, res)
   next();
 })
@@ -78,12 +78,12 @@ app.use('/admin', Skill_LevelRouter);
 app.use('/admin', interst_AreaRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.render('error')
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
