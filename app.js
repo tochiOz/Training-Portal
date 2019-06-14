@@ -8,7 +8,6 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
 const MongoStore = require('connect-mongo')(session)
 dotenv.config()
 
@@ -41,12 +40,12 @@ const app = express();
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-app.engine('hbs', exphbs({ defaultLayout: 'template', extname: '.hbs' }))
-app.set('view engine', 'hbs');
+app.engine('.hbs', exphbs({ defaultLayout: 'template', extname: '.hbs'}))
+app.set('view engine', '.hbs');
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -68,7 +67,6 @@ app.use(function (req, res, next) {
   next();
 })
 
-//setting routes
 app.use('/', indexRouter);
 app.use('/', general);
 app.use('/trainee', usersRouter);
