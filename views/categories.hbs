@@ -13,7 +13,6 @@
     {{> dashboard_nav}}
 
     <div class="main-content-wrap sidenav-open d-flex flex-column">
-
         <div class="breadcrumb">
             <h1>{{title}}</h1>
             <ul>
@@ -56,29 +55,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Watch</td>
-                                        <td>
+                                    {{#each categories}}
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>{{this.category}}</td>
+                                            <td>
 
-                                            12-10-2019
+                                                {{this._id}}
 
-                                        </td>
+                                            </td>
 
-                                        <td>
-                                            <a href="#" class="text-success mr-2">
-                                                <i class="nav-icon fa fa-code font-weight-bold"></i>
-                                            </a>
-                                        </td>
-                                       
-                                        <td>
-                                            <a href="#" class="text-danger mr-2">
-                                                <i class="nav-icon fas fa-trash-alt font-weight-bold"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    
-
+                                            <td>
+                                                <a href="#" class="text-success mr-2">
+                                                    <i class="nav-icon fa fa-code font-weight-bold"></i>
+                                                </a>
+                                            </td>
+                                        
+                                            <td>
+                                                <a href="#" class="text-danger mr-2">
+                                                    <i class="nav-icon fas fa-trash-alt font-weight-bold"></i>
+                                                </a>
+                                            </td>
+                                        </tr>   
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>

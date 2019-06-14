@@ -45,14 +45,10 @@ const adminSchema = mongoose.Schema({
 })
 
 //methods to locate admin
-adminSchema.statics.findByCredentials = async ( full_name, password) => {
-    const admin = await Admin.findOne({ full_name })
+adminSchema.statics.findByCredentials = async ( email, password) => {
+    const admin = await Admin.findOne({ email })
    
-    if(!admin ) {
-        throw new Error('You are not Authorised')
-    }
-
-    if (full_name === admin.full_name ) {
+    if ( !email === admin.email ) {
         throw new Error('You are not Authorised')
     }
 
@@ -63,6 +59,13 @@ adminSchema.statics.findByCredentials = async ( full_name, password) => {
         throw new Error('Invalid Password')
     }
 
+    return admin;
+}
+
+//methods to locate admin
+adminSchema.statics.findEmail = async ( email ) => {
+    const admin = await Admin.findOne({ email })
+   
     return admin;
 }
 

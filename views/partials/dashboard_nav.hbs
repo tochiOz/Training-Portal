@@ -107,7 +107,6 @@
                 </div>
                 <!-- Notificaiton End -->
 
-                <!-- User avatar dropdown -->
                 <div class="dropdown">
                     <div class="user colalign-self-end">
                         <img src="images/kode-logo.png" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -116,10 +115,13 @@
                             <div class="dropdown-header">
                                 <i class="i-Lock-User mr-1"></i> {{username}}
                             </div>
-                            <a class="dropdown-item" href="/admin/log-out">Sign out</a>
+                            <a href="/"><button class="dropdown-item" onclick="logOut()">Sign out</button></a>
                         </div>
                     </div>
                 </div>
+                {{!-- <div>
+                    <button class="btn btn-danger px-3 mx-3"  onclick="logOut()">Log Out</button>
+                </div> --}}
             </div>
 
         </div>
@@ -179,7 +181,7 @@
                 <ul class="childNav" data-parent="profile">
                    
                     <li class="nav-item">
-                            <a href="/categories">
+                            <a href="/admin-departments">
                                 <i class="nav-icon i-Male"></i>
                                 <span class="item-name">Departments</span>
                             </a>

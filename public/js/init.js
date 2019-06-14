@@ -7,3 +7,12 @@ function getCat() {
     console.log(JSON.stringify(categories));
   });
 }
+
+function logOut(req, res, next ) {
+  
+  fetch('/admin/logoutAll', {
+    method: 'post',
+  }).then(function() {
+    next()
+  })
+}

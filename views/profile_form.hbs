@@ -21,76 +21,72 @@
 
         <div class="container card shadow my-10" data-aos="fade-up" data-aos-delay="200">
             <div class="row">
-                <div class="col-md-12">
-                    <div id="accordion" class="trainee_profile">
-                        <div class="panel trainee_profile-step">
-                            <div class="setup">
-                                <h4 class="trainee_profile-step-title">Trainee Personal Information</h4>
-                                <i class=" fa fa-plus" role="button" data-toggle="collapse" data-parent="#accordion"
-                                    href="#collapseOne"></i>
+                <div class="col-md-12 px-8">
+                    <h1 class="d-flex justify-content-center py-10">Personal Information</h1>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name:</label>
+                            <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Full Name *">
+                        </div>
+                    
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="traineee@gmail.com">
                             </div>
-
-                            <div id="collapseOne" class="collapse in">
-                                <div class="trainee_profile-step-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="name">Full Name</label>
-                                            <input type="text" class="form-control" id="full_name" name="full_name"
-                                                placeholder="Full Name *">
-                                        </div>
-
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" name="email"
-                                                    placeholder="traineee@gmail.com">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="inputPassword4">Password</label>
-                                                <input type="password" class="form-control" id="password"
-                                                    name="password" placeholder="Password">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="inputAddress">Address</label>
-                                            <input type="text" class="form-control" id="inputAddress"
-                                                placeholder="1234 Main St">
-                                        </div>
-
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="category">Categories</label>
-                                                <select id="category" class="form-control" name="category_id">
-                                                    {{!-- <option value="1">one</option>
-                                                    <option value="1">two</option>
-                                                    <option value="1">three</option>
-                                                    <option value="1">four</option> --}}
-                                                    {{#each categories }}
-                                                        <option value="{{ _id}}">{{ category }}</option>
-                                                    {{/each}}
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="phone_number">Phone Number</label>
-                                                <input type="number" class="form-control" id="number"
-                                                    name="phone_number" placeholder="+234 810 xxxx xxx">
-                                            </div>
-
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="avatar" name="avatar">
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
-                                            </div>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-success">Save</button>
-
-                                    </form>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            </div>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="inputAddress">Address</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                        </div>
+                    
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="category">Categories</label>
+                                <select id="category" class="form-control" name="category_id">
+                                    {{!-- <option value="1">one</option>
+                                    <option value="1">two</option>
+                                    <option value="1">three</option>
+                                    <option value="1">four</option> --}}
+                                    {{#each categories }}
+                                    <option value="{{ _id}}">{{ category }}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="phone_number">Phone Number</label>
+                                <input type="number" class="form-control" id="number" name="phone_number" placeholder="+234 810 xxxx xxx">
+                            </div>
+                    
+                        </div>
+                        <div class="form-row">
+                            <div class="custom-file">
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="file" class="custom-file-input" id="avatar" name="avatar" accept="image/*" onchange="readURL(this);">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                    
+                                <div class="col-md-6 col-xs-12">
+                                    <img id="blah" src="http://placehold.it/200" alt="service logo" />
                                 </div>
                             </div>
                         </div>
+                    
+                        <button type="submit" class="btn btn-success">Save</button>
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+                   
 
                         <div class="panel trainee_profile-step">
 
@@ -161,7 +157,8 @@
                                             <div class="custom-control custom-radio custom-control-inline">
                                                 <input type="radio" id="teaching_experience" name="teaching_experience"
                                                     class="custom-control-input" value="Yes">
-                                                <label class="custom-control-label" for="teaching_experience">Yes</label>
+                                                <label class="custom-control-label"
+                                                    for="teaching_experience">Yes</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
                                                 <input type="radio" id="teaching_experience" name="teaching_experience"
@@ -174,7 +171,7 @@
                                             <label for="category">Skills Level</label>
                                             <select id="skills" class="form-control" name="skill_level_id">
                                                 {{#each skills}}
-                                                    <option value="{{this.skill._id}}" selected>{{this.skills}}</option>
+                                                <option value="{{this.skill._id}}" selected>{{this.skills}}</option>
                                                 {{/each}}
                                             </select>
                                         </div>
@@ -213,19 +210,32 @@
 </body>
 
 <script>
-getCat()
+    getCat()
 
-function getCat() {
-    fetch('/categories')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(categories) {
-    console.log(JSON.stringify(categories));
-    
-    document.getElementById('test').innerHTML = JSON.stringify(categories)
-  });
-}
+    function getCat() {
+        fetch('/categories')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (categories) {
+                console.log(JSON.stringify(categories));
+
+                document.getElementById('test').innerHTML = JSON.stringify(categories)
+            });
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById('blah')
+                    .src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 
 </html>

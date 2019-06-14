@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const Category = require('../models/embedded/categories')
+const {isAdmin} = require('../middleware/adminAuth')
 
 /* GET Static Pages. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'KodeHauz Training Portal' });
 });
-router.get('/KodeHauzHub', function (req, res, next) {
+router.get('/KodeHauz_Hub', function (req, res, next) {
   res.render('KodeHauzHub', { title: 'KodeHauz Training Portal' });
 });
 router.get('/login', function (req, res, next) {
@@ -31,19 +32,19 @@ router.get('/login', function (req, res, next) {
   res.render('login', {title: 'Admin Login' })
 })
 
-router.get('/admin-departments', function (req, res, next) {
+router.get('/admin-departments', isAdmin, function (req, res, next) {
   res.render('categories',  { title: 'KodeHauz Training Portal' });
 });
 
-router.get('/admin-interest-areas', function (req, res, next) {
+router.get('/admin-interest-areas', isAdmin, function (req, res, next) {
   res.render('interest-area',  { title: 'KodeHauz Training Portal' });
 });
 
-router.get('/admin-skill-levels', function (req, res, next) {
+router.get('/admin-skill-levels', isAdmin, function (req, res, next) {
   res.render('skill_levels',  { title: 'KodeHauz Training Portal' });
 });
 
-router.get('/admin-dashboard', function (req, res, next) {
+router.get('/admin-dashboard', isAdmin, function (req, res, next) {
   res.render('dashboard', { title: 'KodeHauz Training Portal' });
 });
 
