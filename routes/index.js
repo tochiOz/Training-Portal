@@ -22,6 +22,9 @@ router.get('/trainer', function (req, res, next) {
 router.get('/trainings', function (req, res, next) {
   res.render('trainings', { title: 'KodeHauz Training Portal' });
 });
+router.get('/internship', function (req, res, next) {
+  res.render('internship', { title: 'KodeHauz Training Portal' });
+});
 
 router.get('/training_registration', function (req, res, next) {
   res.render('profile_form', { title: 'KodeHauz Training Portal' });
