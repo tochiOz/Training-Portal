@@ -24,7 +24,7 @@ const traineeSkillSchema = mongoose.Schema({
     }
 })
 
-const TraineeSkill = mongoose.model('traineeEducation', traineeSkillSchema)
+const TraineeSkill = mongoose.model('traineeSkill', traineeSkillSchema)
 
 module.exports = TraineeSkill;
 

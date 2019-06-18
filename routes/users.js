@@ -9,89 +9,127 @@ const path = require('path')
 const isUser = require('../middleware/userAuth')
 require('../config/cloudinary')
 const dUri = new Datauri();
+const Education = require('../models/trainee_education')
+const Skill = require('../models/trainee_skill')
+const Internet = require('../models/internet')
 
 //testing server
-router.get('/test', async ( req, res ) => {
+router.get('/test', async (req, res) => {
   res.send('We are just Testing \nThis is just a DRILL!!!.....')
 })
 
 // //creating the user
-router.post('/student/create', upload.single('avatar'), async ( req, res ) => {
+router.post('/student/create', upload.single('avatar'), async (req, res) => {
 
   try {
 
-        const buffer = await sharp(req.file.buffer).resize({
-          width: 200, height: 200
-        }).png().toBuffer()
-        
-        const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
-        const imageFile = dataUri.content;
-      
-        const image = await cloudinary.v2.uploader.upload(imageFile)
-      
-        const trainee = new Trainee({
-            full_name : req.body.full_name,
-            email: req.body.email,
-            gender: req.body.gender,
-            phone_number: req.body.phone_number,
-            address: req.body.address,
-            avatar: image.secure_url,
-            password: req.body.password
-        }) 
+    const buffer = await sharp(req.file.buffer).resize({
+      width: 200, height: 200
+    }).png().toBuffer()
 
-        await trainee.save()
-        const token = await trainee.generateAuthToken()
-        res.status(201).send({ trainee, token })
-      
-      
+    const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
+    const imageFile = dataUri.content;
+
+    const image = await cloudinary.v2.uploader.upload(imageFile)
+
+    const trainee = new Trainee({
+      full_name: req.body.full_name,
+      email: req.body.email,
+      gender: req.body.gender,
+      phone_number: req.body.phone_number,
+      address: req.body.address,
+      avatar: image.secure_url,
+      password: req.body.password
+    })
+
+    await trainee.save()
+
+    //ex tracting the user_id
+    const userId = trainee._id
+
+    //creating new instance of educational table
+    const trainee_education = new Education({
+      school: req.body.school,
+      academic_disciple: req.body.academic_disciple,
+      academic_status: req.body.academic_status,
+      trainee_id: userId,
+    })
+
+    await trainee_education.save()
+
+    //creating new instance of internet details 
+    const training_skill = new Skill({
+      programming_skill: req.body.programming_skill,
+      teaching_experience: req.body.teaching_experience,
+      skillLevel_id: req.body.skillLevel_id,
+      trainee_id: userId,
+    })
+
+    await training_skill.save()
+
+
+    //creating new instance of programming skill
+    const training_internet_account = new Internet({
+      account_name: req.body.account_name,
+      account_password: req.body.account_password,
+      trainee_id: userId,
+    })
+
+    await training_internet_account.save()
+
+    const token = await trainee.generateAuthToken()
+    res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
+
+
   } catch (e) {
-      res.status(400).send(e.message)
-      
-      console.log(e.message)
+    res.status(400).send(e.message)
+
+    console.log(e.message)
   }
 })
 
 //POST Trainee Login
-router.post('/student/login', async ( req, res ) => {
+router.post('/student/login', async (req, res) => {
 
   try {
-    const trainee = await Trainee.findByCredentials( req.body.email, req.body.password )
-    // return console.log(admin)
+    const trainee = await Trainee.findByCredentials(req.body.email, req.body.password)
     const token = await trainee.generateAuthToken()
+    res.cookie('jwt', token, { maxAge: 400000000 })
 
-    res.status(200).send({
-        status: 'Success',
-        trainee,
-        token
-    })
+    // res.status(200).send({
+    //   status: 'Success',
+    //   trainee,
+    //   token
+    // })
+    return res.redirect('/trainee-profile')
   } catch (e) {
-      res.status(500).send(e.message)
+    res.status(500).send(e.message)
   }
 })
 
 //get Profile for user details only
 //Will still load other files
-router.get('/student/me', isUser, async ( req, res ) => {
-  if(trainee_profile ) {
-    if( trainee_profile.tokens == '' ) {
-      res.status(404).send({ Error: 'Please Trainee must be signed in'})
+router.get('/student/me', isUser, async (req, res) => {
+  if (trainee_profile) {
+    if (trainee_profile.tokens == '') {
+      res.status(404).send({ Error: 'Please Trainee must be signed in' })
       return req.flash('danger', 'Please sign IN!!!')
     }
 
     res.status(200).send(trainee_profile)
   }
-    
+
 })
 
 //PATCH trainee can edit his profile
-router.patch('/student/me/edit_profile-info', isUser, async ( req, res ) => {
+router.patch('/student/me/edit_profile-info', isUser, async (req, res) => {
 
   const updates = Object.keys(req.body)
-  const eligibleUpdateKeys = [ 'email', 'full_name', 'phone_number', 'address']
+  const eligibleUpdateKeys = ['email', 'full_name', 'phone_number', 'address']
   const isValid = updates.every((update) => eligibleUpdateKeys.includes(update))
 
-  if( !isValid ) {
-    return res.status(404).send({ Error: 'Invalid Key Update'})
+  if (!isValid) {
+    return res.status(404).send({ Error: 'Invalid Key Update' })
   }
 
   try {
@@ -113,18 +151,18 @@ router.patch('/student/me/update-profile-picture', isUser, async (req, res) => {
 
 })
 
-//logout a single session for a trainee
-router.post('/student/logout', isUser, async ( req, res ) => {
-    try {
-      
-      trainee_profile.tokens = []
+//logout
+router.post('/logoutAll', isUser, async (req, res) => {
+  try {
 
-      await trainee_profile.save()
-      res.send()
-      req.flash('success', 'You have successfully Logged out of the portal')
-    } catch (error) {
-      res.status(401).send(error.message)
-    }
-})
+    trainee_profile.tokens = []
+    await trainee_profile.save()
+    res.clearCookie('jwt')
+    req.flash('success', 'Thank You for using our Portal')
+    return res.redirect('/')
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+});
 
 module.exports = router;
