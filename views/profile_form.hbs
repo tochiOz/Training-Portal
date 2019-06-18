@@ -16,10 +16,12 @@
             <div class="signup-content">
                 <div class="signup-desc">
                     <div class="signup-desc-content">
-                        <h2><span>Au</span>Creative</h2>
-                        <p class="title">Sign up now to try undraw 30 days for free</p>
+                        <a class="navbar-brand" href="/">
+                            <img src="images/kodehauz-logo.png" class="navbar-brand-img" alt="...">
+                        </a>
+                        <p class="title">Sign up now and get access to our Training services</p>
                         <p class="desc">
-                            MIT licensed illustrations for every project you can imagine and create
+                            KodeHauz Training Portal is here for you.
                         </p>
                         <img src="images/signup-img.jpg" alt="" class="signup-img">
                     </div>
@@ -28,50 +30,88 @@
                     <form method="POST" id="signup-form" class="signup-form" enctype="multipart/form-data">
                         <h3></h3>
                         <fieldset>
-                            <span class="step-current">Step 1 / 4</span>
+                            <span class="step-current">Step 1 / 5</span>
+                            <h2 class="pt-6">Trainee info</h2>
+                            <p>Please enter your infomation and proceed to next step so we can build your
+                                account</p>
+                            <div class="form-group">
+                                <input type="text" name="your_name" id="full_name" required />
+                                <label for="full_name">Your Full Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" required />
+                                <label for="email">Email</label>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" name="password" id="password" required />
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="phone_number" id="phone_number" required />
+                                <label for="phone_number">Phone Number</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" name="dob" id="dob" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="address" id="address" required />
+                                <label for="address">Your Address</label>
+                            </div>
+                            
+{{!-- 
+                            <div class=";justify-content-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        Default radio
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                        Second default radio
+                                    </label>
+                                </div>
+                            </div> --}}
                             
                             <div class="form-group">
-                                <input type="text" name="your_name" id="full_name" required />
-                                <label for="your_name">Your Full Name</label>
+                                <select name="category_id" id="" class="form-control form-select">
+                                    <option value="">Male</option>
+                                    <option value="">Male</option>
+                                    <option value="">Male</option>
+                                </select>
+                            </div>        
+                        </fieldset>
+
+                        {{!-- Fieldset One Ended --}}
+
+                        {{!-- Trainee Education  --}}
+                        <h3></h3>
+                        <fieldset>
+                            <span class="step-current">Step 2 / 5</span>
+                            <h2 class="pt-6">Educational Information</h2>
+                            <p>Please enter your Educational infomation and move to the next stage</p>
+                            <div class="form-group">
+                                <input type="text" name="school" id="school" required />
+                                <label for="school">Your School Name</label>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="academic_discipline" id="academic_discipline" required />
+                                <label for="academic_discipline">Course Of Study</label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="your_name" id="full_name" required />
-                                <label for="your_name">Your Full Name</label>
+                                <input type="text" name="academic_status" id="academic_status" required />
+                                <label for="academic_status">Academic Level, E.g 100L, B.Eng</label>
                             </div>
-                            <div class="form-group">
-                                <input type="text" name="your_name" id="full_name" required />
-                                <label for="your_name">Your Full Name</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="your_name" id="full_name" required />
-                                <label for="your_name">Your Full Name</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="your_name" id="full_name" required />
-                                <label for="your_name">Your Full Name</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="your_name" id="full_name" required />
-                                <label for="your_name">Your Full Name</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="your_name" id="full_name" required />
-                                <label for="your_name">Your Full Name</label>
-                            </div>
+
+                          
                         </fieldset>
 
                         <h3></h3>
                         <fieldset>
-                            <span class="step-current">Step 2 / 4</span>
-                            <div class="form-group">
-                                <input type="text" name="email" id="email" required />
-                                <label for="email">Your Email</label>
-                            </div>
-                        </fieldset>
-
-                        <h3></h3>
-                        <fieldset>
-                            <span class="step-current">Step 3 / 4</span>
+                            <span class="step-current">Step 3 / 5</span>
                             <div class="form-group">
                                 <input type="text" name="your_password" id="your_password" required />
                                 <label for="your_password">Your Password</label>
@@ -82,6 +122,16 @@
                         <h3></h3>
                         <fieldset>
                             <span class="step-current">Step 4 / 4</span>
+                            <div class="form-group">
+                                <input type="text" name="your_password" id="your_password" required />
+                                <label for="your_password">Your Password</label>
+                                <span toggle="#your_password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            </div>
+                        </fieldset>
+
+                        <h3></h3>
+                        <fieldset>
+                            <span class="step-current">Step 5 / 5</span>
                             <div class="form-group">
                                 <input type="text" name="confirm_password" id="confirm_password" required />
                                 <label for="confirm_password">Confirm your password</label>

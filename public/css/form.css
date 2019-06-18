@@ -299,13 +299,27 @@ input:-webkit-autofill {
   clear: both;
 }
 
+.form-select {
+  background-color: transparent;
+  border: 1px solid #ccc;
+}
+
 h2 {
   font-size: 27px;
   color: #222;
   font-weight: 800;
   font-family: 'Muli';
   margin: 0px;
-  padding-bottom: 65px;
+  padding-bottom: 15px;
+}
+
+h3 {
+  font-size: 27px;
+  color: #222;
+  font-weight: 800;
+  font-family: 'Muli';
+  margin: 0px;
+  padding-bottom: 4px;
 }
 
 h2 span {
@@ -338,7 +352,7 @@ p {
 }
 
 p.desc {
-  padding-bottom: 330px;
+  /* padding-bottom: 330px; */
   color: #999;
   line-height: 1.92;
 }
@@ -349,7 +363,7 @@ p.title {
 }
 
 .signup-img {
-  padding-bottom: 43px;
+  padding-bottom: 25px;
 }
 
 fieldset {
@@ -365,6 +379,8 @@ fieldset {
 
 .signup-desc-content {
   padding: 45px 55px;
+  display: flex;
+  flex-direction: column;
 }
 
 .signup-form-conent {
@@ -382,8 +398,7 @@ input {
   border-bottom: 1px solid #bfbfbf;
   box-sizing: border-box;
   font-family: 'Poppins';
-  font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
   transition: 0.3s ease;
   -moz-transition: 0.3s ease;
   -webkit-transition: 0.3s ease;
@@ -403,9 +418,9 @@ input+label {
   -o-transition: 0.25s ease;
   -ms-transition: 0.25s ease;
   left: 0;
-  top: 25px;
-  font-size: 24px;
-  font-weight: bold;
+  top: 24px;
+  font-size: 18px;
+  font-weight: 600;
   color: #888;
 }
 
@@ -443,8 +458,8 @@ input:valid+label {
 
 .step-current {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 20;
+  /* top: 0; */
   font-family: 'Montserrat';
   text-transform: uppercase;
   font-weight: 800;
