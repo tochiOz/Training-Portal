@@ -21,7 +21,7 @@ router.post('/student/create', upload.single('avatar'), async ( req, res ) => {
   try {
 
         const buffer = await sharp(req.file.buffer).resize({
-          width: 250, height: 250
+          width: 200, height: 200
         }).png().toBuffer()
         
         const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);

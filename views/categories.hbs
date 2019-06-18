@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{title}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/vendor/datatables.min.css">
+    <link rel="stylesheet" href="css/vendor/perfect-scrollbar.css">
+    <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
+</head>
+
+<body>
+    {{> dashboard_nav}}
+
+    <div class="main-content-wrap sidenav-open d-flex flex-column">
+        <div class="breadcrumb">
+            <h1>{{title}}</h1>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li>Departments</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+
+        <div class="col-xs-12 col-md-7">
+            <form action="/add_categories" method="post" class="form-group">
+                <label for="category">Add Department</label>
+                <div class="d-flex align-items-center align-content-center">
+                    <input type="text" class="form-control">
+                    <buttun class="btn btn-success mx-5" type="submit">Add Department</buttun>
+                </div>
+            </form>
+        </div>
+
+        <div class="row mt-4">
+
+            <div class="col-md-12 ">
+                <div class="card o-hidden mb-4">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="w-50 float-left card-title m-0">Departments</h3>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Department</th>
+                                        <th scope="col">id</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each categories}}
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>{{this.category}}</td>
+                                            <td>
+
+                                                {{this._id}}
+
+                                            </td>
+
+                                            <td>
+                                                <a href="#" class="text-success mr-2">
+                                                    <i class="nav-icon fa fa-code font-weight-bold"></i>
+                                                </a>
+                                            </td>
+                                        
+                                            <td>
+                                                <a href="#" class="text-danger mr-2">
+                                                    <i class="nav-icon fas fa-trash-alt font-weight-bold"></i>
+                                                </a>
+                                            </td>
+                                        </tr>   
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/perfect-scrollbar.min.js"></script>
+        <script src="js/echarts.min.js"></script>
+        <script src="js/datatables.mijs"></script>
+        <script src="js/echart.options.min.js"></script>
+        <script src="js/dashboard.v2.script.min.js"></script>
+        <script src="js/script.min.js"></script>
+</body>
+
+</html>

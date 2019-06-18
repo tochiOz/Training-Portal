@@ -7,7 +7,7 @@ const traineeSkillSchema = mongoose.Schema({
         trim: true
     },
 
-    teaching_experience: {
+    teaching_experienceteaching_experience: {
         type: Boolean,
         trim: true
     },

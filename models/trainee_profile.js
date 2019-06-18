@@ -59,9 +59,9 @@ const userProfileSchema = mongoose.Schema({
         type: String
     },
 
-    category: [{
+    category_id: [{
         type: mongoose.Schema.Types.ObjectId,
-        trim: true
+        required: true
     }],
 
     tokens: [{
