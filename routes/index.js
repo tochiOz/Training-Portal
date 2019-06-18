@@ -31,9 +31,9 @@ router.get('/training_registration', async function (req, res, next) {
   try {
     const categories = await Category.find()
     res.status(200).render('profile_form', {
-      categories: categories,
+      departments : categories,
       _id: categories._id,
-      Category: categories.Category,
+      department : categories.Category,
       title: 'Training Registration zone'
     })
   } catch (e) {
@@ -53,8 +53,19 @@ router.get('/login', function (req, res, next) {
   res.render('login', {title: 'Admin Login' })
 })
 
-router.get('/admin-departments', isAdmin, function (req, res, next) {
-  res.render('categories',  { title: 'KodeHauz Training Portal' });
+router.get('/admin-departments', isAdmin, async function (req, res, next) {
+  try {
+    const categories = await Category.find()
+    let count = 1
+    res.render('categories', {
+      title: 'KodeHauz Training Portal',
+      count: count++,
+      categories
+    });
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+ 
 });
 
 router.get('/admin-interest-areas', isAdmin, function (req, res, next) {

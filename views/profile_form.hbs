@@ -77,8 +77,9 @@
                             <div class="form-group">
                                 <select name="category_id" id="category" class="form-control form-select">
                                     <option value="">Please Choose The Department You Belong to</option>
-                                    <option value="">Male</option>
-                                    <option value="">Male</option>
+                                {{#each departments}}  
+                                    <option value="{{this._id}}">{{this.category}}</option>
+                                {{/each}}
                                 </select>
                             </div>
                         </fieldset>
