@@ -54,7 +54,7 @@ const userProfileSchema = mongoose.Schema({
             }
         }
     },
-
+    
     avatar: {
         type: String
     },
