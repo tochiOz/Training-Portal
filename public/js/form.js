@@ -1,5 +1,5 @@
 (function ($) {
-
+   
     var form = $("#signup-form");
     form.steps({
         headerTag: "h3",
@@ -13,7 +13,12 @@
         },
         titleTemplate: '<h3 class="title">#title#</h3>',
         onFinished: function (event, currentIndex) {
-            alert('Sumited');
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+                
+            )
         },
     });
 

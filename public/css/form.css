@@ -592,14 +592,14 @@ input:valid+label {
 .profile-pic:after {
   font-family: FontAwesome;
   content: "\f007";
-  top: 0;
+  top: -10;
   left: 0;
   width: 100%;
   height: 100%;
   position: absolute;
-  font-size: 190px;
+  font-size: 180px;
   background: #ecf0f1;
-  color: #34495e;
+  color: #0f0aff93;
   text-align: center;
 }
 
