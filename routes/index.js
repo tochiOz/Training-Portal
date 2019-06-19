@@ -32,9 +32,7 @@ router.get('/training_registration', async function (req, res, next) {
     const categories = await Category.find()
     res.status(200).render('profile_form', {
       departments : categories,
-      _id: categories._id,
-      department : categories.Category,
-      title: 'Training Registration zone'
+     title: 'Training Registration zone'
     })
   } catch (e) {
     res.status(400).send(e.message)
@@ -44,7 +42,9 @@ router.get('/training_registration', async function (req, res, next) {
 router.get('/trainee-profile', isUser, function (req, res, next) {
   res.render('trainee_profile', {
     title: 'Trainee HomePage',
-    profile_name: trainee_profile.full_name
+    profile_name: trainee_profile.full_name,
+    avatar: trainee_profile.avatar,
+    email: trainee_profile.email
   });
 });
 
@@ -55,8 +55,8 @@ router.get('/login', function (req, res, next) {
 
 router.get('/admin-departments', isAdmin, async function (req, res, next) {
   try {
-    const categories = await Category.find()
-    let count = 1
+    const categories = await Category.find();
+    let count = 0;
     res.render('categories', {
       title: 'KodeHauz Training Portal',
       count: count++,
