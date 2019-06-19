@@ -22,7 +22,7 @@ module.exports = {
 
         try {
 
-            const buffer = await sharp(req.file.buffer).resize({
+            const buffer = await sharp(req.body.avatar).resize({
                 width: 200, height: 200
             }).png().toBuffer()
 
@@ -81,11 +81,11 @@ module.exports = {
             //login trainees at once
             res.cookie('jwt', token, { maxAge: 400000000 })
 
-            // return res.redirect('/trainee-profile')
-            res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
+            //  return res.redirect('/trainee-profile')
+            // res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
         } catch (e) {
             res.status(400).send(e.message)
-            console.log(e.message)
+            console.log(e)
         }
     },
 

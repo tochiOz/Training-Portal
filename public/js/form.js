@@ -13,12 +13,23 @@
         },
         titleTemplate: '<h3 class="title">#title#</h3>',
         onFinished: function (event, currentIndex) {
-            Swal.fire(
-                'Good job!',
-                'You clicked the button!',
-                'success'
-                
-            )
+            fetch('/trainee/student/create', {
+                method: 'post'
+            }).then(() => {
+                Swal.fire(
+                    'Good job!',
+                    'You created the account successfully',
+                    'success'
+                )
+                return res.redirect('/trainee-profile')
+            }).catch((e) => {
+                console.log(e)
+                Swal.fire(
+                    'Oppss!',
+                    `${e} occured`,
+                    'error'
+                )
+            })
         },
     });
 
