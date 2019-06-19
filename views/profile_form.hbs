@@ -129,8 +129,9 @@
                             <div class="form-group">
                                 <select name="category_id" id="" class="form-control form-select">
                                     <option value="">Choose Your Skill Level</option>
-                                    <option value="">Male</option>
-                                    <option value="">Male</option>
+                                    {{#each skills}}
+                                    <option value="{{this._id}}">{{this.skill}}</option>
+                                    {{/each}}
                                 </select>
                             </div>
 

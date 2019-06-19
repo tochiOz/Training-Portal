@@ -28,18 +28,24 @@ router.get('/internship', function (req, res, next) {
   res.render('internship', { title: 'KodeHauz Training Portal' });
 });
 
+//get profile form
 router.get('/training_registration', user_controller.get_formDetails)
-router.get('/trainee-profile', isUser, user_controller.profile);
+
+//get trainee Profile
+router.get('/trainee-profile', isUser, user_controller.get_trainee_profile);
 
 /* GET admin pages. */
 router.get('/login', function (req, res, next) {
   res.render('login', {title: 'Admin Login' })
 })
 
+//get admin categories
 router.get('/admin-departments', isAdmin, admin_controller.get_categories)
 
+//get admin interest-areas
 router.get('/admin-interest-areas', isAdmin, admin_controller.get_interest_area);
 
+//get admin skill levels
 router.get('/admin-skill-levels', isAdmin, admin_controller.get_Skills);
 
 router.get('/admin-dashboard', isAdmin, function (req, res, next) {
