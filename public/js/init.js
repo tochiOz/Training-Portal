@@ -1,13 +1,11 @@
-function getCat() {
-    fetch('/categories')
-  .then(function(response) {
-    return response.json();
+//used to create admin departments
+function createDepartment() {
+  fetch('/admin/add_categories', {
+    method: 'post'
   })
-  .then(function(categories) {
-    console.log(JSON.stringify(categories));
-  });
 }
 
+//Used ti logout admin users from authentication
 function logOut(req, res, next ) {
   
   fetch('/admin/logoutAll', {

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Category = require('../models/embedded/categories')
 const {isAdmin} = require('../middleware/adminAuth')
+const isUser = require('../middleware/userAuth')
 
 /* GET Static Pages. */
 router.get('/', function (req, res, next) {
@@ -26,8 +27,25 @@ router.get('/internship', function (req, res, next) {
   res.render('internship', { title: 'KodeHauz Training Portal' });
 });
 
-router.get('/training_registration', function (req, res, next) {
-  res.render('profile_form', { title: 'KodeHauz Training Portal' });
+router.get('/training_registration', async function (req, res, next) {
+  try {
+    const categories = await Category.find()
+    res.status(200).render('profile_form', {
+      departments : categories,
+      _id: categories._id,
+      department : categories.Category,
+      title: 'Training Registration zone'
+    })
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+});
+
+router.get('/trainee-profile', isUser, function (req, res, next) {
+  res.render('trainee_profile', {
+    title: 'Trainee HomePage',
+    profile_name: trainee_profile.full_name
+  });
 });
 
 /* GET admin pages. */
@@ -35,8 +53,19 @@ router.get('/login', function (req, res, next) {
   res.render('login', {title: 'Admin Login' })
 })
 
-router.get('/admin-departments', isAdmin, function (req, res, next) {
-  res.render('categories',  { title: 'KodeHauz Training Portal' });
+router.get('/admin-departments', isAdmin, async function (req, res, next) {
+  try {
+    const categories = await Category.find()
+    let count = 1
+    res.render('categories', {
+      title: 'KodeHauz Training Portal',
+      count: count++,
+      categories
+    });
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+ 
 });
 
 router.get('/admin-interest-areas', isAdmin, function (req, res, next) {

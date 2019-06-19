@@ -54,7 +54,7 @@ const userProfileSchema = mongoose.Schema({
             }
         }
     },
-
+    
     avatar: {
         type: String
     },
@@ -73,6 +73,30 @@ const userProfileSchema = mongoose.Schema({
 }, {
     timestamps: true
 })
+
+
+//using virtual to create a relationship between user and owned directories
+userProfileSchema.virtual('traineeEducation', {
+    ref: 'traineeEducation',
+    localField: '_id',
+    foreignField: 'trainee_id'
+})
+userProfileSchema.virtual('traineeInternet', {
+    ref: 'traineeInternet',
+    localField: '_id',
+    foreignField: 'trainee_id'
+})
+userProfileSchema.virtual('traineeSkill', {
+    ref: 'traineeSkill',
+    localField: '_id',
+    foreignField: 'trainee_id'
+})
+userProfileSchema.virtual('traineeGuardian', {
+    ref: 'traineeGuardian',
+    localField: '_id',
+    foreignField: 'trainee_id'
+})
+
 
 //method to generate token
 userProfileSchema.methods.generateAuthToken = async function () {

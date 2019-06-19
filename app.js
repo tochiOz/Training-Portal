@@ -68,7 +68,7 @@ app.use(function (req, res, next) {
 })
 
 app.use('/', indexRouter);
-app.use('/', general);
+// app.use('/', general);
 app.use('/trainee', usersRouter);
 app.use('/admin', adminRouter);
 app.use('/admin', categoryRouter);

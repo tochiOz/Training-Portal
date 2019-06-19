@@ -2,6 +2,7 @@ const express = require('express')
 const router = new express.Router()
 const Category = require('../../models/embedded/categories');
 const { isAdmin } = require('../../middleware/adminAuth')
+const Swal = require('sweetalert2')
 
 //adding categories for users
 router.post('/add_categories', isAdmin, async (req, res) => {
@@ -9,30 +10,20 @@ router.post('/add_categories', isAdmin, async (req, res) => {
 
     try {
         await category.save()
-        res.status(201).send({category})
-        
-        //send messages
-        req.flash('success', 'You have successfully added a new Category')
+
+        //alert
+        Swal.fire(
+            'Department Created Succefully!',
+            'success'
+        )
+
+        res.redirect('/admin-departments')
     } catch (error) {
         console.log(error.message)
         req.flash('danger', 'The category was not added')
     }
 })
 
-router.get('/view_categoies', async (req, res) => {
-    try {
-        const categories = await Category.find()
-        // res.status(200).send({categories})
-        // res.render('admin/categories', categories);
-        res.render('profile_form', {
-            categories_id: categories._id,
-            category: categories.category
-        })
-        req.flash('success', 'Categories Gotten')
-    } catch (e) {
-        res.status(400).send(e.message)
-    }
-})
 
 //categories edit
 router.patch('/categories/edit/:id', isAdmin, async (req, res) => {
