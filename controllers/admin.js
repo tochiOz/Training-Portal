@@ -2,6 +2,7 @@ const Category = require('../models/embedded/categories')
 const Skills = require('../models/embedded/skill_level');
 const Interest_Area = require('../models/embedded/interest_area');
 const Swal = require('sweetalert2')
+const Admin = require('../models/admin')
 
 module.exports = {
     async createAdmin(req, res) {
