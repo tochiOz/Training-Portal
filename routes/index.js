@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const Category = require('../models/embedded/categories')
 const {isAdmin} = require('../middleware/adminAuth')
 const isUser = require('../middleware/userAuth')
+const admin_controller = require('../controllers/admin')
+const user_controller = require('../controllers/user')
 
 /* GET Static Pages. */
 router.get('/', function (req, res, next) {
@@ -27,54 +28,19 @@ router.get('/internship', function (req, res, next) {
   res.render('internship', { title: 'KodeHauz Training Portal' });
 });
 
-router.get('/training_registration', async function (req, res, next) {
-  try {
-    const categories = await Category.find()
-    res.status(200).render('profile_form', {
-      departments : categories,
-     title: 'Training Registration zone'
-    })
-  } catch (e) {
-    res.status(400).send(e.message)
-  }
-});
-
-router.get('/trainee-profile', isUser, function (req, res, next) {
-  res.render('trainee_profile', {
-    title: 'Trainee HomePage',
-    profile_name: trainee_profile.full_name,
-    avatar: trainee_profile.avatar,
-    email: trainee_profile.email
-  });
-});
+router.get('/training_registration', user_controller.get_formDetails)
+router.get('/trainee-profile', isUser, user_controller.profile);
 
 /* GET admin pages. */
 router.get('/login', function (req, res, next) {
   res.render('login', {title: 'Admin Login' })
 })
 
-router.get('/admin-departments', isAdmin, async function (req, res, next) {
-  try {
-    const categories = await Category.find();
-    let count = 0;
-    res.render('categories', {
-      title: 'KodeHauz Training Portal',
-      count: count++,
-      categories
-    });
-  } catch (e) {
-    res.status(400).send(e.message)
-  }
- 
-});
+router.get('/admin-departments', isAdmin, admin_controller.get_categories)
 
-router.get('/admin-interest-areas', isAdmin, function (req, res, next) {
-  res.render('interest-area',  { title: 'KodeHauz Training Portal' });
-});
+router.get('/admin-interest-areas', isAdmin, admin_controller.get_interest_area);
 
-router.get('/admin-skill-levels', isAdmin, function (req, res, next) {
-  res.render('skill_levels',  { title: 'KodeHauz Training Portal' });
-});
+router.get('/admin-skill-levels', isAdmin, admin_controller.get_Skills);
 
 router.get('/admin-dashboard', isAdmin, function (req, res, next) {
   res.render('dashboard', { title: 'KodeHauz Training Portal' });
