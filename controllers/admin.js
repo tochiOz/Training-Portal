@@ -124,20 +124,19 @@ module.exports = {
     },
 
     //delete categories
-    async delete_categories(req, res) {
+    async delete_categories(req, res, next) {
         const _id = req.params.id
 
         try {
             const deletedCategory = await Category.findByIdAndDelete({ _id })
 
             if (!deletedCategory) {
-                res.flash('danger', 'Category not Deleted')
-                res.statas(404).send({ Error: 'Category not found' })
+                res.status(404).send({ Error: 'Category not found' })
             }
 
-            res.send(deletedCategory)
+            return res.redirect('/admin-departments')
         } catch (error) {
-            res.statas(400).send(error.message)
+            res.status(400).send(error.message)
         }
     },
 

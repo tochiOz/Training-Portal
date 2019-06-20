@@ -4,10 +4,16 @@
 <head>
 	<title>{{ title }}</title>
 	<link rel="stylesheet" href="libs/jarallax/dist/jarallax.css">
+	<style>
+		}
+.navbar-light .navbar-nav .nav-link {
+    color: #031546 !important;
+
+	</style>
 </head>
 
 <body>
-	{{> header }}
+	
 
 	{{!-- <div style="background-image: url("images/cover-4.jpg")"> --}}
 
@@ -15,8 +21,9 @@
 	</div>
 	<!-- WELCOME
 	    ================================================== -->
-	<section data-jaralax="" data-speed="1.0" class="pt-12 pb-10 pt-md-15 pb-md-14" style="background-image: url(images/cover-3.jpg); z-index: 100;">
-		<div class="container">
+	<section data-jaralax="" data-speed="1.0"  style="background-image: url(images/cover-3.jpg); z-index: -40; background-repeat: no-repeat; background-size: 100% 100%;">
+		{{> header }}
+		<div class="container pt-12 pb-10 pt-md-15 pb-md-14">
 			<div class="row align-items-center">
 				<div class="col-12 col-md-8 col-lg-6">
 	

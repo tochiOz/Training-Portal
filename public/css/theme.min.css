@@ -4648,29 +4648,28 @@ input[type=submit].btn-block {
 .navbar-light .navbar-brand:hover {
     color: #335eea
 }
-
 .navbar-light .navbar-nav .nav-link {
-    color: #506690
+    color: #031546
 }
 
 .navbar-light .navbar-nav .nav-link:focus,
 .navbar-light .navbar-nav .nav-link:hover {
-    color: #335eea
+    color: #053fff
 }
 
 .navbar-light .navbar-nav .nav-link.disabled {
-    color: rgba(22, 28, 45, .3)
+    color: rgba(72, 121, 255, 0.3)
 }
 
 .navbar-light .navbar-nav .active>.nav-link,
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .show>.nav-link {
-    color: #335eea
+    color: #031546
 }
 
 .navbar-light .navbar-toggler {
-    color: #506690;
+    color: #031546;
     border-color: transparent
 }
 
@@ -4679,13 +4678,13 @@ input[type=submit].btn-block {
 }
 
 .navbar-light .navbar-text {
-    color: #506690
+    color: #031546
 }
 
 .navbar-light .navbar-text a,
 .navbar-light .navbar-text a:focus,
 .navbar-light .navbar-text a:hover {
-    color: #335eea
+    color: #031546
 }
 
 .navbar-dark .navbar-brand,

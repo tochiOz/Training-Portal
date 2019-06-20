@@ -38,23 +38,6 @@
 <script src="libs/highlightjs/highlight.pack.min.js"></script>
 <script src="libs/%40fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
 
-<!-- Map -->
-{{!-- <script src='../api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script> --}}
-
 <!-- Theme JS -->
 <script src="js/theme.min.js"></script>
 <script src="js/init.js"></script>
-<script>
-  $(window).scroll(function () {
-    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
-      $('#return-to-top').fadeIn(200);    // Fade in the arrow
-    } else {
-      $('#return-to-top').fadeOut(200);   // Else fade out the arrow
-    }
-  });
-  $('#return-to-top').click(function () {      // When arrow is clicked
-    $('body,html').animate({
-      scrollTop: 0                       // Scroll to top of body
-    }, 500);
-  });
-</script>
