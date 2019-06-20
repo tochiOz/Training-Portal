@@ -5,6 +5,7 @@ function createDepartment() {
   })
 }
 
+
 //Used ti logout admin users from authentication
 function logOut(req, res, next ) {
   

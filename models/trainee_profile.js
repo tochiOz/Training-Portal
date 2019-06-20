@@ -28,13 +28,17 @@ const userProfileSchema = mongoose.Schema({
         }
     },
 
+    dob: {
+        type: String,
+        trim: true
+    },
+
     address: {
         type: String,
         minLength: '10',
         maxLength: '60',
         trim: true,
         lowercase: true,
-        required: true
     },
 
     phone_number: {

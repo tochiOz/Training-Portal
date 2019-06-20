@@ -127,10 +127,11 @@
                                 <label for="academic_discipline">Do You Have Any Teaching Experience?</label>
                             </div>
                             <div class="form-group">
-                                <select name="category_id" id="" class="form-control form-select">
+                                <select name="skillLevel_id" id="" class="form-control form-select">
                                     <option value="">Choose Your Skill Level</option>
-                                    <option value="">Male</option>
-                                    <option value="">Male</option>
+                                    {{#each skills}}
+                                    <option value="{{this._id}}">{{this.skill}}</option>
+                                    {{/each}}
                                 </select>
                             </div>
 
@@ -177,7 +178,7 @@
                                     <div class="upload-button">
                                         <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                                     </div>
-                                    <input class="file-upload" type="file" accept="image/*" />
+                                    <input class="file-upload" type="file" accept="image/*" name="avatar" />
                                 </div>
                             </div>
                         </fieldset>

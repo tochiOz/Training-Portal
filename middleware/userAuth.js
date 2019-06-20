@@ -21,7 +21,7 @@ const isUser = async (req, res, next ) => {
 
         next()
     } catch (error) {
-        res.status(401).send({ Error: 'Please Make Sure You Inputted The Right Details!!!'})
+        res.redirect('/')
     }
 }
 

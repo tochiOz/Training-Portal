@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const traineeEducationSchema = mongoose.Schema({
+const traineeGuadianSchema = mongoose.Schema({
 
     full_name: {
         type: String,
@@ -45,6 +45,6 @@ const traineeEducationSchema = mongoose.Schema({
     }
 })
 
-const TraineeEducation = mongoose.model('traineeGuardian', traineeEducationSchema)
+const TraineeGuardian = mongoose.model('traineeGuardian', traineeGuadianSchema)
 
-module.exports = TraineeEducation;
+module.exports = TraineeGuardian;

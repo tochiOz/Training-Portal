@@ -137,6 +137,10 @@
     /* margin: 100px auto; */
 }
 
+.fa .fas .far {
+    cursor: pointer;
+}
+
 /* end of login modal */
 
 /* Begining of form css */

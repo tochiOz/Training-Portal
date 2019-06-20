@@ -1,11 +1,263 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <title>{{title}}</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 </head>
-<body>
-    {{> traineeHeader}}
-    <h1>This is {{profile_name}} profile page</h1>
-    {{> footer}}
+
+<body >
+    <div class="container-fluid main-secction">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 image-section">
+                <img src="images/cover-3.jpg" class="image-responsive">
+            </div>
+            <div class="row user-left-part">
+
+                <div class="col-md-2 col-sm-2 col-xs-12 user-profil-part pull-left">
+                    <div class="row ">
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+                            <img src="{{trainee.avatar}}"
+                                class="rounded-circle">
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+                            <button id="btn-contact" (click)="clearModal()" data-toggle="modal" data-target="#contact"
+                                class="btn btn-success btn-block follow">Contact Admin</button>
+                        </div>
+                        <div class="row user-detail-row mt-5">
+                            <ul class="d-flex justify-content-center ">
+                                <li class="list-inline-item list-social-item">
+                                    <a href="https://www.instagram.com/kodehauz/" target="_blank" class="text-decoration-none">
+                                        <img src="images/icons/social/instagram.svg" class="list-social-icon" alt="...">
+                                    </a>
+                                </li>
+                                <li class="list-inline-item list-social-item ">
+                                    <a href="https://www.facebook.com/kodehauz/" target="_blank" class="text-decoration-none">
+                                        <img src="images/icons/social/facebook.svg" class="list-social-icon" alt="...">
+                                    </a>
+                                </li>
+                                <li class="list-inline-item list-social-item ">
+                                    <a href="https://twitter.com/kodehauz" target="_blank" class="text-decoration-none">
+                                        <img src="images/icons/social/twitter.svg" class="list-social-icon" alt="...">
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <!-- Button -->
+                            <form action="/trainee/logoutAll" method="POST">
+                                <button class="navbar-btn btn btn-sm btn-danger lift ml-auto trigger-btn">
+                                    Log Out
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="row mt-12 ">
+                            <div class="col-md-2 d-flex align-items-flex-end justify-content-flex-end">
+                                <a class="navbar-brand" href="/">
+                                    <img src="images/kodehauz-logo.png" class="navbar-brand-img" alt="...">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-10 col-sm-10 col-xs-12 pull-right profile-right-section">
+                    <div class="row profile-right-section-row">
+                       
+                        <div class="col-md-12 profile-header">
+                            <div class="row">
+                                <div class="col-md-10 col-sm-10 col-xs-8 profile-header-section1 pull-left">
+                                    <h1>{{trainee.full_name}}</h1>
+                                    <h5>{{skill.skillLevel_id}}</h5>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-4 profile-header-section1 text-right pull-rigth">
+                                    <a href="/search" class="btn btn-primary btn-block">Edit Profile</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="nav nav-tabs tab_no mt-6" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><i
+                                                    class="fas fa-user-circle px-2"></i> Personal Information</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#education" role="tab" data-toggle="tab"><i
+                                                class="fa fa-university px-2"></i> Educational Information</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"><i
+                                                class="fas fa-certificate px-2"></i>Programming Skills</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"><i
+                                                class="fas fa-users px-2"></i>Guardians</a>
+                                        </li>
+                                    </ul>
+
+                                    <ul class="nav nav-tabs tab_show my-6" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><i
+                                                    class="fas fa-user-circle"></i> </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#education" role="tab" data-toggle="tab"><i
+                                                class="fa fa-university"></i></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#skill" role="tab" data-toggle="tab"><i
+                                                class="fas fa-certificate"></i></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#guardian" role="tab" data-toggle="tab"><i
+                                                class="fas fa-users"></i></a>
+                                        </li>
+                                    </ul>
+    
+                                    <!-- Tab panes -->
+                                    <div class="tab-content my-7">
+                                        <div role="tabpanel" class="tab-pane fade show active" id="profile">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label>Full Name:</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{trainee.full_name}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label>Email:</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{trainee.email}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label>Gender:</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{trainee.gender}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label>Phone Number:</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{trainee.phone_number}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label><Address>Address:</Address></label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <p>{{trainee.address}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    
+                                        <div role="tabpanel" class="tab-pane fade show " id="education">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Name Of Institution:</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p>{{education.school}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Academic Discipline:</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p>{{education.academic_discipline}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Academic Status:</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p>{{education.academic_status}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane fade" id="skill">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Programming Skill:</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p>{{education.school}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane fade" id="guardian">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label>Guardians not Avialable</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p>{{education.school}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contact">Contact Admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p for="msj">Please Feel Free To share your thoughts or problems with speed by filling the form and submitting it.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtFullname">Name:</label>
+                        <input type="text" id="txtFullname" class="form-control" value="{{trainee.full_name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEmail">Email</label>
+                        <input type="text" id="txtEmail" class="form-control"  value="{{trainee.email}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPhone">Message:</label>
+                        <textarea type="textarea" id="txtPhone" class="form-control" rows="7"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" (click)="openModal()"
+                        data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
