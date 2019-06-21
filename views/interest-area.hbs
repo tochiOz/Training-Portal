@@ -24,18 +24,18 @@
         <div class="separator-breadcrumb border-top"></div>
 
         <div class="col-xs-12 col-md-7">
-            <form action="/add_categories" method="post" class="form-group">
-                <label for="category">Add Department</label>
+            <form action="/admin/add-interest-area" method="post" class="form-group">
+                <label for="interest">Add Interest-Areas</label>
                 <div class="d-flex align-items-center align-content-center">
-                    <input type="text" class="form-control">
-                    <buttun class="btn btn-success mx-5" type="submit">Add Interest Areas</buttun>
+                    <input type="text" class="form-control" name="interest">
+                    <button class="btn btn-success mx-5" onclick="notify()" type="submit">Add Interest Areas</button>
                 </div>
             </form>
         </div>
 
         <div class="row mt-4">
 
-            <div class="col-md-12 ">
+            <div class="col-md-8 ">
                 <div class="card o-hidden mb-4">
                     <div class="card-header d-flex align-items-center">
                         <h3 class="w-50 float-left card-title m-0">Interest Areas</h3>
@@ -48,37 +48,32 @@
                             <table class="table text-center">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
                                         <th scope="col">Interest Area</th>
-                                        <th scope="col">id</th>
                                         <th scope="col">Edit</th>
                                         <th scope="col">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#each interests}}
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Watch</td>
+                                        <td>{{this.interest}}</td>
                                         <td>
-
-                                            12-10-2019
-
-                                        </td>
-
-                                        <td>
-                                            <a href="#" class="text-success mr-2">
+                                            <a href="#myMoaio" target="_blank" data-toggle="modal"
+                                                class="text-warning mr-2">
                                                 <i class="nav-icon fa fa-code font-weight-bold"></i>
                                             </a>
                                         </td>
-                                       
+
                                         <td>
-                                            <a href="#" class="text-danger mr-2">
-                                                <i class="nav-icon fas fa-trash-alt font-weight-bold"></i>
-                                            </a>
+                                            <div class="text-danger mr-2">
+                                                <a href="/admin-interest-areas" class="text-danger">
+                                                    <i class="nav-icon fas fa-trash-alt  font-weight-bold"
+                                                        onclick=deleteInterest("{{this._id}}") style="cursor: pointer"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
-                                    
-
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>
@@ -88,13 +83,15 @@
         </div>
     </div>
 
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/perfect-scrollbar.min.js"></script>
-        <script src="js/echarts.min.js"></script>
-        <script src="js/datatables.mijs"></script>
-        <script src="js/echart.options.min.js"></script>
-        <script src="js/dashboard.v2.script.min.js"></script>
-        <script src="js/script.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/perfect-scrollbar.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/datatables.mijs"></script>
+    <script src="js/echart.options.min.js"></script>
+    <script src="js/dashboard.v2.script.min.js"></script>
+    <script src="js/script.min.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 
 </html>

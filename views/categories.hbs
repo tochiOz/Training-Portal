@@ -35,7 +35,7 @@
 
         <div class="row mt-4">
 
-            <div class="col-md-12 ">
+            <div class="col-md-8">
                 <div class="card o-hidden mb-4">
                     <div class="card-header d-flex align-items-center">
                         <h3 class="w-50 float-left card-title m-0">Departments</h3>
@@ -147,7 +147,7 @@
     </div>
     {{/each }} --}}
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/perfect-scrollbar.min.js"></script>
     {{!-- <script src="js/echarts.min.js"></script> --}}
@@ -156,37 +156,7 @@
     <script src="js/dashboard.v2.script.min.js"></script>
     <script src="js/script.min.js"></script>
     <script src="js/init.js"></script>
-
-    <script>
-
-        async function deleteCat(id) {
-            // return console.log(id)
-            //if(!)
-            try {
-                await fetch(`/admin/categories/delete/${id}`, {
-                    method: 'delete'
-                })
-
-                Swal.fire(
-                    'Good job!',
-                    'Category Deleted Successfully',
-                    'success'
-                )
-
-                next()
-            } catch (e) {
-                console.log(e.message)
-            }
-        }
-
-        function notify() {
-            Swal.fire(
-                'Good job!',
-                'Category Added Successfully',
-                'success'
-            )
-        }
-    </script>
+    <script src="js/admin.js"></script>
 </body>
 
 </html>
