@@ -140,9 +140,38 @@ module.exports = {
         }
     },
 
+     //editing trainee profile picture
+    async edit_trainee_profile_avatar(req, res) {
+        const updates = Object.keys(req.body.avatar)
+        const eligibleUpdateKeys = ["avatar"]
+        const isValid = updates.every((update) => eligibleUpdateKeys.includes(update))
 
-    //editing trainee profile
-    async edit_trainee(req, res) {
+        if (!isValid) {
+            return res.status(404).send({ Error: 'Invalid Key Update'})
+        }
+
+        try {
+
+            const buffer = await sharp(req.body.avatar).resize({
+                width: 200, height: 200
+            }).png().toBuffer()
+
+            const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
+            const imageFile = dataUri.content;
+
+            const updatedImage = await cloudinary.v2.uploader.upload(imageFile)
+
+            trainee_profile.avatar = updatedImage.secure_url
+
+            await trainee_profile.save()
+        } catch (error) {
+            return res.status(400).send(error.message)
+        }
+    },
+
+
+    //editing trainee profile 
+    async edit_trainee_profile(req, res) {
 
         const updates = Object.keys(req.body)
         const eligibleUpdateKeys = ['email', 'full_name', 'phone_number', 'address']
@@ -159,6 +188,36 @@ module.exports = {
             res.status(200).send({
                 Update: 'Details updated Succefully',
                 trainee_profile
+            })
+            return req.flash('success', 'Personal Profile Updated successfully')
+        } catch (error) {
+            return res.status(400).send(error.message)
+        }
+    },
+
+   
+    //editing trainee education profile
+    async edit_trainee_education_profile(req, res) {
+
+        const educationalUpdates = Object.keys(req.body)
+        const eligibleUpdateKeys = ['school', 'academic_discipline', 'academic_status' ]
+        const isValid = educationalUpdates.every((update) => eligibleUpdateKeys.includes(update))
+
+        if (!isValid) {
+            return res.status(404).send({ Error: 'Invalid Key Update' })
+        }
+
+        try {
+            const _id = trainee_profile._id
+
+            const education = await Education.findOne({ _id })
+
+            educationalUpdates.forEach((update) => education[update] = req.body[update])
+            await education.save()
+
+            res.status(200).send({
+                Update: 'Details updated Succefully',
+                education
             })
             return req.flash('success', 'Personal Profile Updated successfully')
         } catch (error) {

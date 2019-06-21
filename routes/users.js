@@ -16,10 +16,13 @@ router.post('/student/create', upload.single('avatar'), user_controller.trainee_
 router.post('/student/login', user_controller.trainee_login)
 
 //PATCH trainee can edit his profile
-router.patch('/student/me/edit_profile-info', isUser, )
+router.patch('/student/me/edit_profile-info', isUser, user_controller.edit_trainee_profile)
+
+//PATCH trainee can edit his profile
+router.patch('/student/me/edit_profile_education', isUser, user_controller.edit_trainee_education_profile)
 
 //PATCH update profile picture
-router.patch('/student/me/update-profile-picture', isUser, user_controller.edit_trainee )
+router.patch('/student/me/update-profile-picture', isUser, user_controller.edit_trainee_profile_avatar )
 
 //logout
 router.post('/logoutAll', isUser, user_controller.trainee_logout);
