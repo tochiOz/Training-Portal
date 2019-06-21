@@ -78,9 +78,10 @@ module.exports = {
 
     //get-categories
     async get_categories(req, res) {
+    
         try {
+            var count = 0;
             const categories = await Category.find();
-            let count = 0;
             res.render('categories', {
                 title: 'KodeHauz Training Portal',
                 count: count++,
@@ -93,12 +94,12 @@ module.exports = {
 
     //updating categories
     async update_categories(req, res) {
-
+        // return console.log(req.body)
         //checking if the sent keys is equilvalent to the stored schema
         const updates = Object.keys(req.body)
-        const eligibleEdit = ['category', 'description']
+        const eligibleEdit = ['category']
         const isValid = updates.every((update) => eligibleEdit.includes(update))
-
+        // return console.log(isValid)
         if (!isValid) {
             res.status(404).send('Error: Invalid Category Key')
             return req.flash('danger', 'Invalid Category Key')
@@ -119,6 +120,7 @@ module.exports = {
             res.status(200).send({ updatedCategory })
             req.flash('success', 'Category Updated Successfully')
         } catch (error) {
+            return console.log(e.message)
             res.status(400).send(error.message)
         }
     },
@@ -134,7 +136,7 @@ module.exports = {
                 res.status(404).send({ Error: 'Category not found' })
             }
 
-            return res.redirect('/admin-departments')
+           next()
         } catch (error) {
             res.status(400).send(error.message)
         }

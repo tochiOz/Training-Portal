@@ -16,7 +16,8 @@
         <div class="breadcrumb">
             <h1>{{title}}</h1>
             <ul>
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="/admin-dashboard">Dashboard</a></li>
+                <li>Utilities</li>
                 <li>Departments</li>
             </ul>
         </div>
@@ -47,7 +48,6 @@
                             <table class="table text-center">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No.</th>
                                         <th scope="col">Department</th>
                                         <th scope="col">Edit</th>
                                         <th scope="col">Action</th>
@@ -57,19 +57,19 @@
 
                                     {{#each categories}}
                                     <tr>
-                                        <th scope="row">{{count}}</th>
                                         <td>{{this.category}}</td>
                                         <td>
-                                            <a href="#" class="text-success mr-2" data-toggle="modal"
-                                                data-target="#exampleModalLong">
+                                            <a href="#myMoaio" target="_blank" data-toggle="modal" class="text-warning mr-2" >
                                                 <i class="nav-icon fa fa-code font-weight-bold"></i>
                                             </a>
                                         </td>
 
                                         <td>
                                             <div class="text-danger mr-2">
-                                                <i class="nav-icon fas fa-trash-alt font-weight-bold"
-                                                    onclick=deleteCat("{{this._id}}") style="cursor: pointer"></i>
+                                                <a href="/admin-departments" class="text-danger">
+                                                    <i class="nav-icon fas fa-trash-alt  font-weight-bold"
+                                                        onclick=deleteCat("{{this._id}}") style="cursor: pointer"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -86,12 +86,44 @@
 
     <!-- Modal HTML -->
     {{#each categories}}
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    <div id="myMoaio" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content"  role="document">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Category</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="/admin/categories/edit/{{this._id}}" method="POST">
+                        <div class="form-group">
+                            <div class="input-group ">
+                                <input type="text" class="form-control" name="category" placeholder="{{this.category}}"
+                                    required="required">
+                            </div>
+                        </div>
+                
+                        <div class=" modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary ">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <!-- Modal HTML -->
+    {{!-- {{#each categories}}
+
+
+
+    <div class="modal fade" id="{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="{{this._id}}"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Category</h5>
+                    <h5 class="modal-title" id="{{this._id}}">Edit Category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -108,18 +140,19 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    {{/each }}
+    {{/each }} --}}
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"> </script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/perfect-scrollbar.min.js"></script>
-    <script src="js/echarts.min.js"></script>
+    {{!-- <script src="js/echarts.min.js"></script> --}}
     <script src="js/datatables.mijs"></script>
-    <script src="js/echart.options.min.js"></script>
+    {{!-- <script src="js/echart.options.min.js"></script> --}}
     <script src="js/dashboard.v2.script.min.js"></script>
     <script src="js/script.min.js"></script>
     <script src="js/init.js"></script>
@@ -127,25 +160,29 @@
     <script>
 
         async function deleteCat(id) {
-            return console.log(id)
-            await fetch(`/admin/categories/delete/${id}`, {
-                method: 'delete'
-            }).then(() => {
-                swal('Category Deleted Succefully', {
-                    icon: "success",
+            // return console.log(id)
+            //if(!)
+            try {
+                await fetch(`/admin/categories/delete/${id}`, {
+                    method: 'delete'
                 })
-            }).catch((e) {
-                swal('Category is not deleted' {
-                    icon: 'danger'
-                })
-            }
 
+                Swal.fire(
+                    'Good job!',
+                    'Category Deleted Successfully',
+                    'success'
+                )
+
+                next()
+            } catch (e) {
+                console.log(e.message)
             }
+        }
 
         function notify() {
             Swal.fire(
                 'Good job!',
-                'Category Added Succefully',
+                'Category Added Successfully',
                 'success'
             )
         }
