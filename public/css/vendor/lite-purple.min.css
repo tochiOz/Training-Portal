@@ -12961,7 +12961,7 @@ h6 {
     width: 100%;
     padding: 26px 0;
     display: block;
-    color: #0e1836;
+    color: #461f44;
 }
 
 .sidebar-left .navigation-left .nav-item .nav-item-hold:active,
@@ -12971,7 +12971,7 @@ h6 {
 
 .sidebar-left .navigation-left .nav-item .nav-item-hold .feather,
 .sidebar-left .navigation-left .nav-item .nav-item-hold .nav-icon {
-    font-size: 32px;
+    font-size: 24px;
     height: 32px;
     width: 32px;
     display: block;

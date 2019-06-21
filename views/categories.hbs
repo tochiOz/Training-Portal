@@ -69,7 +69,7 @@
                                         <td>
                                             <div class="text-danger mr-2">
                                                 <i class="nav-icon fas fa-trash-alt font-weight-bold"
-                                                    onclick=logout('{{this._id}}') style="cursor: pointer"></i>
+                                                    onclick=deleteCat("{{this._id}}") style="cursor: pointer"></i>
                                             </div>
                                         </td>
                                     </tr>
@@ -113,58 +113,43 @@
         </div>
     </div>
     {{/each }}
-        
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"> </script>
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/perfect-scrollbar.min.js"></script>
-        <script src="js/echarts.min.js"></script>
-        <script src="js/datatables.mijs"></script>
-        <script src="js/echart.options.min.js"></script>
-        <script src="js/dashboard.v2.script.min.js"></script>
-        <script src="js/script.min.js"></script>
-        <script src="js/init.js"></script>
 
-        <script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"> </script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/perfect-scrollbar.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/datatables.mijs"></script>
+    <script src="js/echart.options.min.js"></script>
+    <script src="js/dashboard.v2.script.min.js"></script>
+    <script src="js/script.min.js"></script>
+    <script src="js/init.js"></script>
 
-            async function logout(id) {
-                return console.log(id)
-                swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
+    <script>
+
+        async function deleteCat(id) {
+            return console.log(id)
+            await fetch(`/admin/categories/delete/${id}`, {
+                method: 'delete'
+            }).then(() => {
+                swal('Category Deleted Succefully', {
+                    icon: "success",
                 })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            await fetch(`/admin/categories/delete/${id}`, {
-                                method: 'delete'
-                            }).then(() => {
-                                swal('Category Deleted Succefully', {
-                                    icon: "success",
-                                })
-                            }).catch((e) {
-                                swal('Category is not deleted' {
-                                    icon: 'danger'
-                                })
-                            })
-
-                        } else {
-                            swal("Your file is safe!");
-                        }
-                    });
-
+            }).catch((e) {
+                swal('Category is not deleted' {
+                    icon: 'danger'
+                })
+            }
 
             }
 
-            function notify() {
-                Swal.fire(
-                    'Good job!',
-                    'Category Added Succefully',
-                    'success'
-                )
-            }
-        </script>
+        function notify() {
+            Swal.fire(
+                'Good job!',
+                'Category Added Succefully',
+                'success'
+            )
+        }
+    </script>
 </body>
 
 </html>
