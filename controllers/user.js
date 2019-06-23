@@ -21,8 +21,8 @@ module.exports = {
     async trainee_SignUp(req, res) {
 
         try {
-
-            const buffer = await sharp(req.body.avatar).resize({
+            return console.log(req.body.email)
+            const buffer = await sharp(req.file).resize({
                 width: 200, height: 200
             }).png().toBuffer()
 

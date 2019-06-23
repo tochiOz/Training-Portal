@@ -12,8 +12,13 @@ const traineeSkillSchema = mongoose.Schema({
         trim: true
     },
     
-    skillLevel_id: {
-        type: Array,
+    interest_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        trim: true
+    },
+
+    level_id: {
+        type: mongoose.Schema.Types.ObjectId,
         trim: true
     },
 

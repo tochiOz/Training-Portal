@@ -302,6 +302,7 @@ input:-webkit-autofill {
 .form-select {
   background-color: transparent;
   border: 1px solid #ccc;
+  cursor: pointer;
 }
 
 h2 {
@@ -614,7 +615,7 @@ input:valid+label {
 
 
 .upload-button:hover .fa-arrow-circle-up {
-  opacity: .9;
+  opacity: .7;
 }
 
 

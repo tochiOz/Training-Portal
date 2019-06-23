@@ -8,20 +8,22 @@
         labels: {
             previous: 'Previous',
             next: 'Next',
-            finish: 'Finish',
+            finish: 'Submit',
             current: ''
         },
         titleTemplate: '<h3 class="title">#title#</h3>',
         onFinished: function (event, currentIndex) {
+            event.preventDefault()
+
             fetch('/trainee/student/create', {
                 method: 'post'
-            }).then(() => {
+            }).then((res) => {
                 Swal.fire(
-                    'Good job!',
+                    'Goxod job!',
                     'You created the account successfully',
                     'success'
                 )
-                return res.redirect('/trainee-profile')
+                // return res.redirect('/trainee-profile')
             }).catch((e) => {
                 console.log(e)
                 Swal.fire(
