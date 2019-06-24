@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{title}}</title>
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/form.css">
+    <!-- Google Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="main">
+
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-desc">
+                    <div class="signup-desc-content">
+                        <a class="navbar-brand" href="/">
+                            <img src="images/kodehauz-logo.png" class="navbar-brand-img" alt="...">
+                        </a>
+                        <p class="title">Sign up now and get access to our Training services</p>
+                        <p class="desc">
+                            KodeHauz Training Portal is here for you.
+                        </p>
+                        <img src="images/signup-img.jpg" alt="" class="signup-img img-fluid image-responsive pt-md-12">
+                    </div>
+                </div>
+                <div class="signup-form-conent">
+                    <form method="POST" id="signup-form" class="signup-form" action="/trainee/student/create">
+                        <h3></h3>
+                        <fieldset>
+                            <span class="step-current">Step 1 / 5</span>
+                            <h2 class="pt-6">Trainee info</h2>
+                            <p>Please enter your infomation and proceed to next step so we can build your
+                                account</p>
+                            <div class="form-group">
+                                <input type="text" name="your_name" id="full_name" required />
+                                <label for="full_name">Your Full Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" required />
+                                <label for="email">Email</label>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" name="password" id="password" required />
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="phone_number" id="phone_number" required />
+                                <label for="phone_number">Phone Number</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" name="dob" id="dob" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="address" id="address" required />
+                                <label for="address">Your Address</label>
+                            </div>
+
+                            {{!-- 
+                            <div class=";justify-content-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        Default radio
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                        Second default radio
+                                    </label>
+                                </div>
+                            </div> --}}
+
+                            <div class="form-group">
+                                <select name="category_id" id="category" class="form-control form-select">
+                                    <option value="">Please Choose The Department You Belong to</option>
+                                {{#each departments}}  
+                                    <option value="{{this._id}}">{{this.category}}</option>
+                                {{/each}}
+                                </select>
+                            </div>
+                        </fieldset>
+
+                        {{!-- Fieldset One Ended --}}
+
+                        {{!-- Trainee Education  --}}
+                        <h3></h3>
+                        <fieldset>
+                            <span class="step-current">Step 2 / 5</span>
+                            <h2 class="pt-6">Educational Information</h2>
+                            <p>Please enter your Educational infomation and move to the next stage</p>
+                            <div class="form-group">
+                                <input type="text" name="school" id="school" required />
+                                <label for="school">Your School Name</label>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="academic_discipline" id="academic_discipline" required />
+                                <label for="academic_discipline">Course Of Study</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="academic_status" id="academic_status" required />
+                                <label for="academic_status">Academic Level, E.g 100L, B.Eng</label>
+                            </div>
+                        </fieldset>
+
+                        {{!-- End of Educational Section --}}
+
+
+
+                        {{!-- Trainee Skills --}}
+                        <h3></h3>
+                        <fieldset>
+                            <span class="step-current">Step 3 / 5</span>
+                            <h2 class="pt-6">Programming Skills</h2>
+                            <p>Please state your Programming skill level and choice</p>
+                            
+                            <div class="form-group">
+                                <select name="school" id="school" required class="form-control form-select">
+                                    <option value="">Do You Have Any Programming Experience?</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select name="academic_discipline" id="academic_discipline" required class="form-control form-select">
+                                    <option value="">Do You Have Any Teaching Experience?</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select name="level_id" id="level_id" class="form-control form-select">
+                                    <option value="">Choose Your Skill Level</option>
+                                    {{#each skills}}
+                                    <option value="{{this._id}}">{{this.skill}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="interest_id" id="interest_id" class="form-control form-select">
+                                    <option value="">Choose Your Interest Areas</option>
+                                    {{#each interests}}
+                                    <option value="{{this._id}}">{{this.interest}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                        </fieldset>
+
+
+                        {{!-- End of skill Section --}}
+
+
+
+                        {{!-- Account Skills --}}
+                        <h3></h3>
+                        <fieldset>
+                            <span class="step-current">Step 4 / 4</span>
+                            <h2 class="pt-6">Internet Information</h2>
+                            <p>Please Create An <strong>Training Account</strong> to acces KodeHauz Internet Services
+                            </p>
+                            <div class="form-group">
+                                <input type="text" name="account_name" id="account_name" required />
+                                <label for="account_name">Account Username</label>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="account_password" id="account_password" required />
+                                <label for="account_password">Account Password</label>
+                            </div>
+
+                        </fieldset>
+
+
+                        {{!-- End of internet Section --}}
+
+
+
+                        {{!-- Upload section --}}
+                        <h3></h3>
+                        <fieldset>
+                            <span class="step-current">Step 5 / 5</span>
+                            <h2 class="pt-6">Profile Picture</h2>
+                            <p>Please upload a <strong>Profile Picture</strong> or Choose an <strong>Avatar</strong></p>
+                            <div class="form-group d-flex justify-content-center pt-7 pb-4">
+                                <div class="avatar-wrapper">
+                                    <img class="profile-pic" src="" />
+                                    <div class="upload-button">
+                                        <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                                    </div>
+                                    <input class="file-upload" type="file" accept="image/*" name="avatar" />
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="vendor/jquery-steps/jquery.steps.min.js"></script>
+    <script src="js/form.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            var readURL = function (input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.profile-pic').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(".file-upload").on('change', function () {
+                readURL(this);
+            });
+
+            $(".upload-button").on('click', function () {
+                $(".file-upload").click();
+            });
+        });
+    </script>
+</body>
+
+</html>

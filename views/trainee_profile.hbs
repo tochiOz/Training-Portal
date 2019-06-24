@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="css/profile.css"><!-- Google Fonts -->
+    <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+</head>
+
+<body>
+    <div class="card user-profile">
+        <div class="header-cover"
+            style="background-image: url('images/photo-wide-2.jpg'); background-position-y: -100px;"></div>
+        <div class="user-info">
+            <img class="profile-picture avatar-xl mb-2" src="{{trainee.avatar}}" alt="">
+            <p class="m-0 text-24">{{trainee.full_name}}</p>
+            <p class="text-muted m-0">{{skill.skillLevel_id}}</p>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs profile-nav mb-4" id="profileTab" role="tablist">
+
+                <li class="nav-item">
+                    <a class="nav-link active" id="about-tab" data-toggle="tab" href="#about" role="tab"
+                        aria-controls="about" aria-selected="false">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab"
+                        aria-controls="education" aria-selected="fasle">Education</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="skill-tab" data-toggle="tab" href="#skill" role="tab" aria-controls="skill"
+                        aria-selected="false">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="guardians-tab" data-toggle="tab" href="#guardians" role="tab"
+                        aria-controls="guardians" aria-selected="true">Guardians</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="profileTabContent">
+
+                <div class="tab-pane fade active show" id="about" role="tabpanel" aria-labelledby="about-tab">
+                    <h4>Personal Information</h4>
+                    <p>This shows a complete profile of each user based on their registration. You can also update
+                        profile by clicking the icons on the right.
+                    </p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4 col-6">
+
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Full Name</p>
+                                <span>{{trainee.full_name}}</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-Calendar text-16 mr-1"></i> Birth Date</p>
+                                <span>{{trainee.dob}}</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-Globe text-16 mr-1"></i> Lives In</p>
+                                <span>{{trainee.address}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Gender</p>
+                                <span>{{trainee.gender}}</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Email</p>
+                                <span>{{trainee.email}}</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Phone Number:
+                                </p>
+                                <span>{{trainee.phone_number}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-Face-Style-4 text-16 mr-1"></i> Profession</p>
+                                <span>Digital Marketer</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i> Experience</p>
+                                <span>8 Years</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-Home1 text-16 mr-1"></i> School</p>
+                                <span>School of Digital Marketing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="about-tab">
+                    <h4>Education Information</h4>
+                    <p>
+                        User Educational Information
+                    </p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4 col-6">
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Name Of
+                                    Institution:</p>
+                                <span>{{education.school}}</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Academic
+                                    Discipline:</p>
+                                <span>{{education.academic_discipline}}</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Academic
+                                    Status:
+                                </p>
+                                <span>{{education.academic_status}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="tab-pane fade" id="skill" role="tabpanel" aria-labelledby="skill-tab">
+                    <h4>Programming Skills</h4>
+                    <p>
+                        Trainee Qualification Skills
+                    </p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4 col-6">
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i>Programming Skill:
+                                </p>
+                                <span>{{education.school}}</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Academic
+                                    Skill Level:</p>
+                                <span>{{education.academic_discipline}}</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Interest Area:
+                                </p>
+                                <span>{{education.academic_status}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="guardians" role="tabpanel" aria-labelledby="guardians-tab">
+                <h4>Programming Skills</h4>
+                <p>
+                    Trainee Qualification Skills
+                </p>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4 col-6">
+                        <div class="mb-4">
+                            <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i>Guardians Not
+                                Avialable</p>
+                            {{!-- <span>{{education.school}}</span> --}}
+                        </div>
+                        {{!-- <div class="mb-4">
+                            <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Academic
+                                Skill Level:</p>
+                            <span>{{education.academic_discipline}}</span>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Interest Area:
+                            </p>
+                            <span>{{education.academic_status}}</span>
+                        </div> --}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
