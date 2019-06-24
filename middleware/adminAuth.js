@@ -3,10 +3,10 @@ const Admin = require('../models/admin')
 
 const isAdmin = async (req, res, next ) => {
     try {
-        if (!req.cookies.jwt) {
+        if (!req.cookies.admin_jwt) {
             return res.redirect('/login')
         }
-        const token = req.cookies.jwt;
+        const token = req.cookies.admin_jwt;
         // return console.log(token)
         const decoded = jwt.verify( token, process.env.SECRET )
         // return console.log(decoded)

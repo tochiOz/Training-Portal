@@ -32,7 +32,7 @@ module.exports = {
             const admin = await Admin.findByCredentials(req.body.email, req.body.password)
             const token = await admin.generateAuthToken()
 
-            res.cookie('jwt', token, { maxAge: 400000000 })
+            res.cookie('admin_jwt', token, { maxAge: 400000000 })
             req.flash('sucess', `You Have Sucessfully Logged In Admin ${admin.email}`)
 
             return res.redirect('/admin-dashboard')

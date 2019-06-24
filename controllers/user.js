@@ -21,7 +21,7 @@ module.exports = {
     async trainee_SignUp(req, res) {
 
         try {
-            return console.log(req.body.email)
+            // return console.log(req.body.email)
             const buffer = await sharp(req.file).resize({
                 width: 200, height: 200
             }).png().toBuffer()
@@ -34,6 +34,7 @@ module.exports = {
             const trainee = new Trainee({
                 full_name: req.body.full_name,
                 email: req.body.email,
+                category_id: req.body.category_id,
                 gender: req.body.gender,
                 phone_number: req.body.phone_number,
                 address: req.body.address,
@@ -114,6 +115,7 @@ module.exports = {
                 const trainee = trainee_profile
 
                 const trainee_id = trainee._id
+                const category = trainee.category_id
 
                 //get trainee education
                 const education = await Education.findOne({ trainee_id })
@@ -124,13 +126,17 @@ module.exports = {
                 //get guardian
                 const guardian = await Guardian.findOne({ trainee_id })
 
+                //Getting the category
+                const department = await Category.findOne({ category })
+
                 // return res.send(trainee)
                 res.status(200).render('trainee_profile', {
                     title: 'Training Registration zone',
                     trainee,
                     guardian,
                     skill,
-                    education
+                    education,
+                    department
                 })
 
             }
