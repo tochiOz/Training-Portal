@@ -32,7 +32,7 @@ module.exports = {
             const admin = await Admin.findByCredentials(req.body.email, req.body.password)
             const token = await admin.generateAuthToken()
 
-            res.cookie('jwt', token, { maxAge: 400000000 })
+            res.cookie('admin_jwt', token, { maxAge: 400000000 })
             req.flash('sucess', `You Have Sucessfully Logged In Admin ${admin.email}`)
 
             return res.redirect('/admin-dashboard')
@@ -148,10 +148,14 @@ module.exports = {
 
         try {
             await skill.save()
-            res.status(201).send({ skill })
 
-            //send messages
-            req.flash('success', 'You have successfully added a new Skill-Level')
+            Swal.fire(
+                'Good job!',
+                'Item Added Successfully',
+                'success'
+            )
+           
+            res.redirect('/admin-skill-levels')
         } catch (error) {
             console.log(error.message)
             req.flash('danger', 'The Skill-Level was not added')
@@ -161,9 +165,12 @@ module.exports = {
     async get_Skills(req, res) {
         try {
             const skills = await Skills.find()
-            res.status(200).send({ skills })
-            // res.render('admin/categories', categories);
-            req.flash('success', 'Skill-Levels Gotten')
+            // res.status(200).send({ skills })
+            res.render('skill_levels', {
+                skills,
+                title: 'KodeHauz Training Portal',
+            });
+            // req.flash('success', 'Skill-Levels Gotten')
         } catch (e) {
             res.status(400).send(e.message)
         }
@@ -210,7 +217,7 @@ module.exports = {
 
             if (!deletedSkillLevel) {
                 res.flash('danger', 'SkilL-Level not Deleted')
-                res.statas(404).send({ Error: 'SkilL-Level not found' })
+                res.status(404).send({ Error: 'SkilL-Level not found' })
             }
 
             res.send(deletedSkillLevel)
@@ -225,10 +232,13 @@ module.exports = {
 
         try {
             await interest.save()
-            res.status(201).send({ interest })
+            Swal.fire(
+                'Good job!',
+                'Item Added Successfully',
+                'success'
+            )
 
-            //send messages
-            req.flash('success', 'You have successfully added a new Interest-Area')
+            res.redirect('/admin-interest-areas')
         } catch (error) {
             console.log(error.message)
             req.flash('danger', 'The Interest-Area was not added')
@@ -239,9 +249,12 @@ module.exports = {
     async get_interest_area(req, res) {
         try {
             const interests = await Interest_Area.find()
-            res.status(200).send({ interests })
-            // res.render('admin/categories', categories);
-            req.flash('success', 'Interest-Areas Gotten')
+            // res.status(200).send({ interests })
+            res.render('interest-area', {
+                interests,
+                title: 'KodeHauz Training Portal',
+            });
+            // req.flash('success', 'Interest-Areas Gotten')
         } catch (e) {
             res.status(400).send(e.message)
         }
@@ -293,7 +306,7 @@ module.exports = {
 
             res.send(deletedInterest)
         } catch (error) {
-            res.statas(400).send(error.message)
+            res.status(400).send(error.message)
         }
     }
 }

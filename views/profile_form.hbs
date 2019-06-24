@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="signup-form-conent">
-                    <form method="POST" id="signup-form" class="signup-form" enctype="multipart/form-data">
+                    <form method="POST" id="signup-form" class="signup-form" action="/trainee/student/create">
                         <h3></h3>
                         <fieldset>
                             <span class="step-current">Step 1 / 5</span>
@@ -119,20 +119,36 @@
                             <span class="step-current">Step 3 / 5</span>
                             <h2 class="pt-6">Programming Skills</h2>
                             <p>Please state your Programming skill level and choice</p>
+                            
                             <div class="form-group">
-                                <input type="text" name="school" id="school" required />
-                                <label for="school">Do You Have Any Programming Experience?</label>
+                                <select name="school" id="school" required class="form-control form-select">
+                                    <option value="">Do You Have Any Programming Experience?</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" name="academic_discipline" id="academic_discipline" required />
-                                <label for="academic_discipline">Do You Have Any Teaching Experience?</label>
+                                <select name="academic_discipline" id="academic_discipline" required class="form-control form-select">
+                                    <option value="">Do You Have Any Teaching Experience?</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
                             </div>
+
                             <div class="form-group">
-                                <select name="skillLevel_id" id="" class="form-control form-select">
+                                <select name="level_id" id="level_id" class="form-control form-select">
                                     <option value="">Choose Your Skill Level</option>
                                     {{#each skills}}
                                     <option value="{{this._id}}">{{this.skill}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="interest_id" id="interest_id" class="form-control form-select">
+                                    <option value="">Choose Your Interest Areas</option>
+                                    {{#each interests}}
+                                    <option value="{{this._id}}">{{this.interest}}</option>
                                     {{/each}}
                                 </select>
                             </div>
@@ -201,7 +217,6 @@
     <script>
 
         $(document).ready(function () {
-
             var readURL = function (input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -222,7 +237,6 @@
                 $(".file-upload").click();
             });
         });
-
     </script>
 </body>
 
