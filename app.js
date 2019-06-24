@@ -8,16 +8,15 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
 const MongoStore = require('connect-mongo')(session)
 dotenv.config()
 
 // database connection
 mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-}, function(err, client) {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+}, function (err, client) {
   if (err) console.log(err);
   console.log(chalk.red('Connection passed'));
 })
@@ -31,21 +30,18 @@ db.on('error', console.error.bind(console, 'Database connection error:'));
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const adminRouter = require('./routes/admin/admin_user');
-const categoryRouter = require('./routes/admin/admin_category');
-const Skill_LevelRouter = require('./routes/admin/admin_skill_level');
-const interst_AreaRouter = require('./routes/admin/admin_interest_area');
+const adminRouter = require('./routes/admin_user');
 
 const app = express();
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-app.engine('hbs', exphbs({ defaultLayout: 'template', extname: '.hbs'}))
-app.set('view engine', 'hbs');
+app.engine('.hbs', exphbs({ defaultLayout: 'template', extname: '.hbs'}))
+app.set('view engine', '.hbs');
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -62,26 +58,22 @@ app.use(
 
 //Express Messages middleware
 app.use(require('connect-flash')())
-app.use(function ( req, res, next) {
+app.use(function (req, res, next) {
   res.locals.message = require('express-messages')(req, res)
   next();
 })
 
-//setting routes
 app.use('/', indexRouter);
 app.use('/trainee', usersRouter);
 app.use('/admin', adminRouter);
-app.use('/admin', categoryRouter);
-app.use('/admin', Skill_LevelRouter);
-app.use('/admin', interst_AreaRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.render('error')
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
