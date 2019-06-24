@@ -63,10 +63,10 @@ const userProfileSchema = mongoose.Schema({
         type: String
     },
 
-    category_id: [{
+    category_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
-    }],
+        ref: 'user_Profile'
+    },
 
     tokens: [{
         token: {
@@ -80,23 +80,23 @@ const userProfileSchema = mongoose.Schema({
 
 
 //using virtual to create a relationship between user and owned directories
-userProfileSchema.virtual('traineeEducation', {
-    ref: 'traineeEducation',
+userProfileSchema.virtual('trainee_Education', {
+    ref: 'trainee_Education',
     localField: '_id',
     foreignField: 'trainee_id'
 })
-userProfileSchema.virtual('traineeInternet', {
-    ref: 'traineeInternet',
+userProfileSchema.virtual('trainee_Internet', {
+    ref: 'trainee_Internet',
     localField: '_id',
     foreignField: 'trainee_id'
 })
-userProfileSchema.virtual('traineeSkill', {
-    ref: 'traineeSkill',
+userProfileSchema.virtual('trainee_Skill', {
+    ref: 'trainee_Skill',
     localField: '_id',
     foreignField: 'trainee_id'
 })
-userProfileSchema.virtual('traineeGuardian', {
-    ref: 'traineeGuardian',
+userProfileSchema.virtual('trainee_Guardian', {
+    ref: 'trainee_Guardian',
     localField: '_id',
     foreignField: 'trainee_id'
 })
@@ -145,6 +145,6 @@ userProfileSchema.pre('save', async function (next) {
     next()
 })
 
-const Trainee = mongoose.model('userProfile', userProfileSchema)
+const Trainee = mongoose.model('trainee_Profile', userProfileSchema)
 
 module.exports = Trainee;

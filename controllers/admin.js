@@ -165,7 +165,7 @@ module.exports = {
     async get_Skills(req, res) {
         try {
             const skills = await Skills.find()
-            // res.status(200).send({ skills })
+            // return console.log(skills)
             res.render('skill_levels', {
                 skills,
                 title: 'KodeHauz Training Portal',
@@ -249,7 +249,7 @@ module.exports = {
     async get_interest_area(req, res) {
         try {
             const interests = await Interest_Area.find()
-            // res.status(200).send({ interests })
+            // return console.log(interests)
             res.render('interest-area', {
                 interests,
                 title: 'KodeHauz Training Portal',

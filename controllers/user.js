@@ -22,14 +22,14 @@ module.exports = {
 
         try {
             // return console.log(req.body.email)
-            const buffer = await sharp(req.file).resize({
-                width: 200, height: 200
-            }).png().toBuffer()
+            // const buffer = await sharp(req.body.avatar).resize({
+            //     width: 200, height: 200
+            // }).png().toBuffer()
 
-            const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
-            const imageFile = dataUri.content;
+            // const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
+            // const imageFile = dataUri.content;
 
-            const image = await cloudinary.v2.uploader.upload(imageFile)
+            // const image = await cloudinary.v2.uploader.upload(imageFile)
 
             const trainee = new Trainee({
                 full_name: req.body.full_name,
@@ -38,7 +38,7 @@ module.exports = {
                 gender: req.body.gender,
                 phone_number: req.body.phone_number,
                 address: req.body.address,
-                avatar: image.secure_url,
+                // avatar: image.secure_url,
                 password: req.body.password
             })
 
@@ -61,7 +61,8 @@ module.exports = {
             const training_skill = new Skill({
                 programming_skill: req.body.programming_skill,
                 teaching_experience: req.body.teaching_experience,
-                skillLevel_id: req.body.skillLevel_id,
+                level_id: req.body.level_id,
+                interest_id: req.body.interest_id,
                 trainee_id: userId,
             })
 
@@ -80,10 +81,10 @@ module.exports = {
             const token = await trainee.generateAuthToken()
 
             //login trainees at once
-            res.cookie('jwt', token, { maxAge: 400000000 })
+            // res.cookie('jwt', token, { maxAge: 400000000 })
 
             //  return res.redirect('/trainee-profile')
-            // res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
+            res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
         } catch (e) {
             res.status(400).send(e.message)
             console.log(e)
@@ -143,6 +144,39 @@ module.exports = {
         } catch (error) {
             console.log(error.message)
             return res.send(error.message)
+        }
+    },
+
+    // Getting Trainee and users for Admin
+    async get_total_trainees(req, res) {
+        try {
+            const total_users = await Trainee.find()
+            const traineesCount = total_users.length
+            // return console.log(total_users)
+            res.render('dashboard_trainee', {
+                traineesCount,
+                total_users,
+                title: 'KodeHauz Admin Dashboard',
+            })
+        } catch (error) {
+            console.log(error.message)   
+        }
+    },
+
+    async get_training_interns(req, res) {
+        try {
+
+            //get all trainees
+            const trainees = await Trainee.find()
+            const dept = await Category.find()
+
+            res.render('dashboard_trainee', {
+                trainees,
+                dept,
+                title: 'KodeHauz Admin Dashboard',
+            })
+        } catch (error) {
+            console.log(error.message)
         }
     },
 
