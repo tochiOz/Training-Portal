@@ -2,179 +2,379 @@
 <html lang="en">
 
 <head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  	<!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139612600-1"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-139612600-1');
-  </script>
-
   <title>{{title}}</title>
-
-  <!-- Custom fonts for this template-->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-    crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link rel="shortcut icon" href="images/kode-logo.png" type="image/x-icon">
-
-  <!-- Custom styles for this template-->
-  <link href="/stylesheets" rel="stylesheet" />
-
-  <style type="text/css">
-    .sidebar{
-      background-color: #11122C;
-    }
-    .bg-blue{
-       background-color: #11122C;
-    }
-    .dashboard{
-      height:14vh;
-      width: 100%;
-      background-color: #11144C;
-      color: white;
-    }
-  </style>
-
+  <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+  <link rel="stylesheet" href="css/vendor/datatables.min.css">
+  <link rel="stylesheet" href="css/vendor/perfect-scrollbar.css">
+  <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
 </head>
 
-<body id="page-top">
+<body>
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+  <!-- Sidebar -->
+  {{> dashboard_nav }}
 
-    <!-- Sidebar -->
-    {{> dashboard_nav }}
+  <!-- ============ Body content start ============= -->
+  <div class="main-content-wrap sidenav-open d-flex flex-column">
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div class="breadcrumb">
+      <h1>{{title}}</h1>
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li>Home</li>
+      </ul>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
 
-      <!-- Main Content -->
-      <div id="content">
-
-      
-        <!-- Begin Page Content -->
-        
-
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-center mb-4 dashboard">
-            <h1 class="h3 mb-0 text-blue-700">DevAlert Admin Dashboard</h1>
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <!-- CARD ICON -->
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="card card-icon mb-4">
+              <div class="card-body text-center">
+                <p class="text-primary text-24 line-height-1 m-0">54</p>
+                <p class="text-muted mt-2 mb-2">Total Interns</p>
+              </div>
+            </div>
           </div>
-            
-<div class="container-fluid">
-          <!-- Content Row -->
-          <div class="row">
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-6 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-5">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xl font-weight-bold text-primary text-uppercase mb-1">Total subscribers</div>
-                      <div class="h4 mb-0 font-weight-bold text-gray-800">{{usersCount}}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-check fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="card card-icon mb-4">
+              <div class="card-body text-center">
+                <p class="text-primary text-24 line-height-1 m-0">17</p>
+                <p class="text-muted mt-2 mb-2">Total Official Trainees</p>
               </div>
             </div>
+          </div>
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-6 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-5">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xl font-weight-bold text-success text-uppercase mb-1">Total jobs</div>
-                      <div class="h4 mb-0 font-weight-bold text-gray-800">{{jobCount}}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-sign fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="card card-icon mb-4">
+              <div class="card-body text-center">
+                <p class="text-primary text-24 line-height-1 m-0">16</p>
+                <p class="text-muted mt-2 mb-2">KodeHauz Hub Trainers</p>
               </div>
             </div>
+          </div>
 
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-6 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-5">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xl font-weight-bold text-warning text-uppercase mb-1">Agents</div>
-                      <div class="h4 mb-0 font-weight-bold text-gray-800">{{agentsCount}}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-secret fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
+
+          <div class="col-lg-6 col-md-4 col-sm-6">
+            <div class="card card-icon-big mb-4">
+              <div class="card-body text-center">
+                <p class="line-height-1 text-title text-18 mt-2 mb-0">18</p>
+                <p class="text-muted mt-2 mb-2">Total Trainers</p>
               </div>
             </div>
+          </div>
 
-
-          <!-- Pending Requests Card Example -->
-            <div class="col-xl-6 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-5">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xl font-weight-bold text-warning text-uppercase mb-1">Total Payments</div>
-                      <div class="h4 mb-0 font-weight-bold text-gray-800">{{paymentsCount}}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-users fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-icon-big mb-4">
+              <div class="card-body text-center">
+                <p class="line-height-1 text-title text-18 mt-2 mb-0">18</p>
+                <p class="text-muted mt-2 mb-2">Total Trainees In All</p>
               </div>
             </div>
+          </div>
 
-                        <!-- Total payments  -->
-            {{!-- <div class="col-xl-6 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-5">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xl font-weight-bold text-success text-uppercase mb-1">Total Payments</div>
-                      <div class="h4 mb-0 font-weight-bold text-gray-800">{{paymentsCount}}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-sign fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> --}}
-          </div>           
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- end of row -->
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="card o-hidden mb-4">
+          <div class="card-header d-flex align-items-center">
+            <h3 class="w-50 float-left card-title m-0">Orders</h3>
+            <div class="dropdown dropleft text-right w-50 float-right">
+              <button class="btn bg-gray-100" type="button" id="dropdownMenuButton_table2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="nav-icon i-Gear-2"></i>
+              </button>
+              
+            </div>
+
+          </div>
+          <div class="card-body">
+
+            <div class="table-responsive">
+
+              <table class="table text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Date</th>
+
+                    <th scope="col">Price</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Watch</td>
+                    <td>
+
+                      12-10-2019
+
+                    </td>
+
+                    <td>$30</td>
+                    <td><span class="badge badge-success">Delivered</span></td>
+
+                    <td>
+                      <a href="#" class="text-success mr-2">
+                        <i class="nav-icon fa fa-code font-weight-bold"></i>
+                      </a>
+                      <a href="#" class="text-danger mr-2">
+                        <i class="nav-icon fa fa-delete font-weight-bold"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Iphone</td>
+                    <td>
+
+                      23-10-2019
+
+                    </td>
+
+                    <td>$300</td>
+                    <td><span class="badge badge-info">Pending</span></td>
+                    <td>
+                      <a href="#" class="text-success mr-2">
+                        <i class="nav-icon fa fa-code font-weight-bold"></i>
+                      </a>
+                      <a href="#" class="text-danger mr-2">
+                        <i class="nav-icon fa fa-delete font-weight-bold"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Watch</td>
+                    <td>
+
+                      12-10-2019
+
+                    </td>
+
+                    <td>$30</td>
+                    <td><span class="badge badge-warning">Not Delivered</span></td>
+
+                    <td>
+                      <a href="#" class="text-success mr-2">
+                        <i class="nav-icon fa fa-code font-weight-bold"></i>
+                      </a>
+                      <a href="#" class="text-danger mr-2">
+                        <i class="nav-icon fa fa-delete font-weight-bold"></i>
+                      </a>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of col-->
+
+     
+
+
+
+    </div>
+    <!-- end of row-->
+
+    <!-- Footer Start -->
+    <div class="flex-grow-1"></div>
+    <div class="app-footer">
+      <div class="row">
+        <div class="col-md-12">
+          <h5><strong>KodeHauz Training Portal</strong></h5>
+        </div>
+      </div>
+      <div class="footer-bottom border-top pt-3 d-flex flex-column flex-sm-row align-items-center">
+        <!-- <a class="btn btn-primary text-white btn-rounded" href="#" target="_blank"></a> -->
+        <span class="flex-grow-1"></span>
+        <div class="d-flex align-items-center">
+          <!-- <img class="logo" src="assets/images/logo.png" alt=""> -->
+          <div>
+            <p class="m-0">&copy; 2019 KodeHauz</p>
           </div>
         </div>
       </div>
     </div>
-        
-              
+    <!-- fotter end -->
+  </div>
+  <!-- ============ Body content End ============= -->
+  </div>
+  <!--=============== End app-admin-wrap ================-->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-  
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-  {{!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
-  {{!-- <script src="/js/sb-admin-2.min.js"></script> --}}
+  <!-- ============ Search UI Start ============= -->
+  <div class="search-ui">
+    <div class="search-header">
+      <img src="assets/images/logo.png" alt="" class="logo">
+      <button class="search-close btn btn-icon bg-transparent float-right mt-2">
+        <i class="fa fa-delete text-22 text-muted"></i>
+      </button>
+    </div>
 
+    <input type="text" placeholder="Type here" class="search-input" autofocus>
+
+    <div class="search-title">
+      <span class="text-muted">Search results</span>
+    </div>
+
+    <div class="search-results list-horizontal">
+      <div class="list-item col-md-12 p-0">
+        <div class="card o-hidden flex-row mb-4 d-flex">
+          <div class="list-thumb d-flex">
+            <!-- TUMBNAIL -->
+            <img src="assets/images/products/headphone-1.jpg" alt="">
+          </div>
+          <div class="flex-grow-1 pl-2 d-flex">
+            <div
+              class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+              <!-- OTHER DATA -->
+              <a href="#" class="w-40 w-sm-100">
+                <div class="item-title">Headphone 1</div>
+              </a>
+              <p class="m-0 text-muted text-small w-15 w-sm-100">Gadget</p>
+              <p class="m-0 text-muted text-small w-15 w-sm-100">
+                $300
+                <del class="text-secondary">$400</del>
+              </p>
+              <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                <span class="badge badge-danger">Sale</span>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="list-item col-md-12 p-0">
+        <div class="card o-hidden flex-row mb-4 d-flex">
+          <div class="list-thumb d-flex">
+            <!-- TUMBNAIL -->
+            <img src="assets/images/products/headphone-2.jpg" alt="">
+          </div>
+          <div class="flex-grow-1 pl-2 d-flex">
+            <div
+              class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+              <!-- OTHER DATA -->
+              <a href="#" class="w-40 w-sm-100">
+                <div class="item-title">Headphone 1</div>
+              </a>
+              <p class="m-0 text-muted text-small w-15 w-sm-100">Gadget</p>
+              <p class="m-0 text-muted text-small w-15 w-sm-100">
+                $300
+                <del class="text-secondary">$400</del>
+              </p>
+              <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                <span class="badge badge-primary">New</span>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="list-item col-md-12 p-0">
+        <div class="card o-hidden flex-row mb-4 d-flex">
+          <div class="list-thumb d-flex">
+            <!-- TUMBNAIL -->
+            <img src="assets/images/products/headphone-3.jpg" alt="">
+          </div>
+          <div class="flex-grow-1 pl-2 d-flex">
+            <div
+              class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+              <!-- OTHER DATA -->
+              <a href="#" class="w-40 w-sm-100">
+                <div class="item-title">Headphone 1</div>
+              </a>
+              <p class="m-0 text-muted text-small w-15 w-sm-100">Gadget</p>
+              <p class="m-0 text-muted text-small w-15 w-sm-100">
+                $300
+                <del class="text-secondary">$400</del>
+              </p>
+              <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                <span class="badge badge-primary">New</span>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="list-item col-md-12 p-0">
+        <div class="card o-hidden flex-row mb-4 d-flex">
+          <div class="list-thumb d-flex">
+            <!-- TUMBNAIL -->
+            <img src="assets/images/products/headphone-4.jpg" alt="">
+          </div>
+          <div class="flex-grow-1 pl-2 d-flex">
+            <div
+              class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+              <!-- OTHER DATA -->
+              <a href="#" class="w-40 w-sm-100">
+                <div class="item-title">Headphone 1</div>
+              </a>
+              <p class="m-0 text-muted text-small w-15 w-sm-100">Gadget</p>
+              <p class="m-0 text-muted text-small w-15 w-sm-100">
+                $300
+                <del class="text-secondary">$400</del>
+              </p>
+              <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                <span class="badge badge-primary">New</span>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- PAGINATION CONTROL -->
+    <div class="col-md-12 mt-5 text-center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination d-inline-flex">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <!-- ============ Search UI End ============= -->
+
+
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/perfect-scrollbar.min.js"></script>
+  {{!-- <script src="js/echarts.min.js"></script> --}}
+  <script src="js/datatables.min.js"></script>
+  {{!-- <script src="js/echart.options.min.js"></script> --}}
+  {{!-- <script src="js/dashboard.v2.script.min.js"></script> --}}
+  <script src="js/script.min.js"></script>
+  <script src="js/init.js"></script>
+  {{!-- <script src="js/sidebar.script.js"></script> --}}
 </body>
 
 </html>

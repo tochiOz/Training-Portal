@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{title}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/vendor/datatables.min.css">
+    <link rel="stylesheet" href="css/vendor/perfect-scrollbar.css">
+    <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
+</head>
+
+<body>
+    {{> dashboard_nav}}
+
+    <div class="main-content-wrap sidenav-open d-flex flex-column">
+
+        <div class="breadcrumb">
+            <h1>{{title}}</h1>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li>Skill Levels</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+
+        <div class="col-xs-12 col-md-7">
+            <form action="/admin/add-skill-level" method="post" class="form-group" >
+                <label for="skill">Skill Levels</label>
+                <div class="d-flex align-items-center align-content-center">
+                    <input type="text" class="form-control" name="skill">
+                    <button class="btn btn-success mx-5" onclick="notify()" type="submit">Add Levels</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row mt-4">
+
+            <div class="col-md-8 ">
+                <div class="card o-hidden mb-4">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="w-50 float-left card-title m-0">Skill Levels</h3>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Levels</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each skills}}
+                                    <tr>
+                                        <td>{{this.skill}}</td>
+                                        <td>
+                                            <a href="#myMoaio" target="_blank" data-toggle="modal"
+                                                class="text-warning mr-2">
+                                                <i class="nav-icon fa fa-code font-weight-bold"></i>
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            <div class="text-danger mr-2">
+                                                <a href="/admin-skill-levels" class="text-danger">
+                                                    <i class="nav-icon fas fa-trash-alt  font-weight-bold"
+                                                        onclick=deleteSkill("{{this._id}}") style="cursor: pointer"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/perfect-scrollbar.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/datatables.mijs"></script>
+    <script src="js/echart.options.min.js"></script>
+    <script src="js/dashboard.v2.script.min.js"></script>
+    <script src="js/script.min.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>
