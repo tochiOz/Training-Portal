@@ -38,6 +38,7 @@ module.exports = {
                 gender: req.body.gender,
                 phone_number: req.body.phone_number,
                 address: req.body.address,
+                dob: req.body.dob,
                 // avatar: image.secure_url,
                 password: req.body.password
             })
@@ -50,7 +51,7 @@ module.exports = {
             //creating new instance of educational table
             const trainee_education = new Education({
                 school: req.body.school,
-                academic_disciple: req.body.academic_disciple,
+                academic_discipline: req.body.academic_discipline,
                 academic_status: req.body.academic_status,
                 trainee_id: userId,
             })
@@ -116,8 +117,8 @@ module.exports = {
                 const trainee = trainee_profile
 
                 const trainee_id = trainee._id
-                const category = trainee.category_id
-
+                const deptId = trainee.category_id
+                
                 //get trainee education
                 const education = await Education.findOne({ trainee_id })
 
@@ -128,16 +129,27 @@ module.exports = {
                 const guardian = await Guardian.findOne({ trainee_id })
 
                 //Getting the category
-                const department = await Category.findOne({ category })
+                const dept = await Category.findOne(deptId)
+                
+                //Getting Id's
+                const skill_id = skill.level_id
+                const interest_id = skill.interest_id
 
-                // return res.send(trainee)
+                //Getting skills
+                const skillSet = await Skill.findOne(skill_id)
+
+                //Getting Interest-area
+                const interestSet = await Interest_Area.findOne(interest_id)
+              
                 res.status(200).render('trainee_profile', {
                     title: 'Training Registration zone',
                     trainee,
                     guardian,
                     skill,
                     education,
-                    department
+                    dept,
+                    skillSet,
+                    interestSet
                 })
 
             }
@@ -152,7 +164,7 @@ module.exports = {
         try {
             const total_users = await Trainee.find()
             const traineesCount = total_users.length
-            // return console.log(total_users)
+            
             res.render('dashboard_trainee', {
                 traineesCount,
                 total_users,
@@ -164,6 +176,38 @@ module.exports = {
     },
 
     async get_training_interns(req, res) {
+        const match = {}
+        const sort = {}
+
+        if (req.query.completed) {
+            match.completed = req.query.completed === 'true'
+        }
+
+        if (req.query.sortBy) {
+            //accessing the string query to make your sorting process
+            const pathSort = req.query.sortBy.split(':')
+            sort[pathSort[0]] = pathSort[1] === 'desc' ? -1 : 1
+        }
+
+        try {
+            // const tasks = await Task.find({ owner: userProfile._id })
+            await Trainee.populate({
+                path: 'trainee_Profile',
+                match,
+                options: {
+                    //this is used for pagination of data pages
+                    limit: parseInt(req.query.limit),
+                    skip: parseInt(req.query.skip),
+                    //this new function helps to sort
+                    sort
+                }
+            }).execPopulate()
+
+            res.send(userProfile.tasks)
+        } catch (e) {
+            res.status(400).send(e)
+        }
+        
         try {
 
             //get all trainees

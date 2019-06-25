@@ -14,6 +14,12 @@ const categorySchema = mongoose.Schema({
 
 });
 
+categorySchema.virtual('trainee_Education', {
+    ref: 'trainee_Profile',
+    localField: '_id',
+    foreignField: 'category_id'
+})
+
 const Category = mongoose.model( 'categories', categorySchema )
 
 module.exports = Category;
