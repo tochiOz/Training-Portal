@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/vendor/datatables.min.css">
     <link rel="stylesheet" href="css/vendor/perfect-scrollbar.css">
     <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
+    <link rel="stylesheet" href="css/Feather/css/feathericon.css">
 </head>
 
 <body>
@@ -47,28 +48,40 @@
                         <div class="table-responsive">
                             <table id="zero_configuration_table" class="display table table-striped table-bordered"
                                 style="width:100%">
-                                <thead>
+                                <thead class="text-center">
                                     <tr>
                                         <th>Name</th>
-                                        <th>Department</th>
                                         <th>Email</th>
                                         <th>Gender</th>
                                         <th>Phone Number</th>
                                         <th>Date Registered</th>
+                                        <th>View</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {{#each total_users}}
+                                <tbody class="text-center">
+                                    {{#each intern}}
                                     <tr>
-                                        <td></td>
-                                        <td>{{total_users.full_name}}</td>
-                                        <td>{{total_users.full_name}}</td>
-                                        <td>{{total_users.full_name}}</td>
-                                        <td>{{total_users.full_name}}</td>
-                                        <td>{{total_users.full_name}}</td>
+                                        <td>{{this.full_name}}</td>
+                                        <td>{{this.email}}</td>
+                                        <td>{{this.gender}}</td>
+                                        <td>{{this.phone_number}}</td>
+                                        <td>{{this.createdAt}}</td>
+                                        <td>
+                                            <button class="btn btn-success">View Profile</button>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="text-success mr-2">
+                                                <i class="nav-icon fe fe-edit font-weight-bold"></i>
+                                            </a>
+                                            <a href="#" class="text-danger mr-2">
+                                                <i class="nav-icon fe fe-trash font-weight-bold"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     {{/each}}
                                 </tbody>
+
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
@@ -76,7 +89,8 @@
                                         <th>Email</th>
                                         <th>Gender</th>
                                         <th>Phone Number</th>
-                                        <th>Date Registered</th>
+                                        <th>View</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </tfoot>
                             </table>

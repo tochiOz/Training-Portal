@@ -162,9 +162,9 @@ module.exports = {
     // Getting Trainee and users for Admin
     async get_total_trainees(req, res) {
         try {
-            const total_users = await Trainee.find()
+            const total_users = await Trainee.findAll()
             const traineesCount = total_users.length
-            
+
             res.render('dashboard_trainee', {
                 traineesCount,
                 total_users,
@@ -176,52 +176,26 @@ module.exports = {
     },
 
     async get_training_interns(req, res) {
-        const match = {}
-        const sort = {}
-
-        if (req.query.completed) {
-            match.completed = req.query.completed === 'true'
-        }
-
-        if (req.query.sortBy) {
-            //accessing the string query to make your sorting process
-            const pathSort = req.query.sortBy.split(':')
-            sort[pathSort[0]] = pathSort[1] === 'desc' ? -1 : 1
-        }
-
         try {
-            // const tasks = await Task.find({ owner: userProfile._id })
-            await Trainee.populate({
-                path: 'trainee_Profile',
-                match,
-                options: {
-                    //this is used for pagination of data pages
-                    limit: parseInt(req.query.limit),
-                    skip: parseInt(req.query.skip),
-                    //this new function helps to sort
-                    sort
-                }
-            }).execPopulate()
-
-            res.send(userProfile.tasks)
+            
+            const _id = '5d0d0cb60662a763fc42c5c4'
+            const training_id = '5d1344b6cd7cf841fccae987'
+           
+            const intern = await Trainee.find({ category_id: _id })
+            const dept = await Category.findOne({ _id })
+            // return console.log(dept)
+            const training = await Trainee.find({ category_id: training_id })
+            res.render('dashboard_trainee', {
+                intern,
+                training,
+                dept,
+                title: 'KodeHauz Admin Dashboard',
+            })
         } catch (e) {
             res.status(400).send(e)
         }
         
-        try {
-
-            //get all trainees
-            const trainees = await Trainee.find()
-            const dept = await Category.find()
-
-            res.render('dashboard_trainee', {
-                trainees,
-                dept,
-                title: 'KodeHauz Admin Dashboard',
-            })
-        } catch (error) {
-            console.log(error.message)
-        }
+        
     },
 
      //editing trainee profile picture

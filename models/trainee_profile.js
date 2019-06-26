@@ -80,10 +80,10 @@ const userProfileSchema = mongoose.Schema({
 
 
 //using virtual to create a relationship between user and owned directories
-userProfileSchema.virtual('trainee_Education', {
-    ref: 'trainee_Education',
+userProfileSchema.virtual('categories', {
+    ref: 'categories',
     localField: '_id',
-    foreignField: 'trainee_id'
+    foreignField: 'category_id'
 })
 userProfileSchema.virtual('trainee_Internet', {
     ref: 'trainee_Internet',
