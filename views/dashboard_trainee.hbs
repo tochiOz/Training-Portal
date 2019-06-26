@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{title}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/vendor/datatables.min.css">
+    <link rel="stylesheet" href="css/vendor/perfect-scrollbar.css">
+    <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    {{> dashboard_nav }}
+
+    <!-- ============ Body content start ============= -->
+    <div class="main-content-wrap sidenav-open d-flex flex-column">
+
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="breadcrumb">
+            <h1>{{title}}</h1>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li>{{code}}</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h4>KodeHauz {{code}}</h4>
+                <p>
+                    This Table display the total amount of {{code}} that had Registered to KodeHauz for Training.
+                </p>
+            </div>
+        </div>
+        <!-- end of row -->
+
+        <div class="row mb-4">
+            <div class="col-md-12 mb-4">
+                <div class="card text-left">
+
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">KodeHauz Traineees</h4>
+                       
+                        <div class="table-responsive">
+                            <table id="zero_configuration_table" class="display table table-striped table-bordered align-items-center "
+                                style="width:100%">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Gender</th>
+                                        <th>Phone Number</th>
+                                        <th>Date </th>
+                                        <th>View</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    {{#each trainee}}
+                                    <tr>
+                                        <td>{{this.full_name}}</td>
+                                        <td>{{this.email}}</td>
+                                        <td>{{this.gender}}</td>
+                                        <td>{{this.phone_number}}</td>
+                                        <td>{{this.createdAt}}</td>
+                                        <td>
+                                            <a href="">
+                                                <button class="btn btn-success">View Profile</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="text-success mr-2">
+                                                <i class="nav-icon fe fe-edit font-weight-bold"></i>
+                                            </a>
+                                            <a href="#" class="text-danger mr-2">
+                                                <i class="nav-icon fe fe-trash font-weight-bold"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+
+                                <tfoot class="text-center">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Email</th>
+                                        <th>Gender</th>
+                                        <th>Date</th>
+                                        <th>View</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ============ Search UI End ============= -->
+
+
+
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/perfect-scrollbar.min.js"></script>
+            <script src="js/datatables.min.js"></script>
+            <script src="js/script.min.js"></script>
+            <script src="js/init.js"></script>
+</body>
+
+</html>

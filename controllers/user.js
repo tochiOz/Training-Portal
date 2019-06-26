@@ -22,14 +22,14 @@ module.exports = {
 
         try {
             // return console.log(req.body.email)
-            const buffer = await sharp(req.file).resize({
-                width: 200, height: 200
-            }).png().toBuffer()
+            // const buffer = await sharp(req.body.avatar).resize({
+            //     width: 200, height: 200
+            // }).png().toBuffer()
 
-            const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
-            const imageFile = dataUri.content;
+            // const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
+            // const imageFile = dataUri.content;
 
-            const image = await cloudinary.v2.uploader.upload(imageFile)
+            // const image = await cloudinary.v2.uploader.upload(imageFile)
 
             const trainee = new Trainee({
                 full_name: req.body.full_name,
@@ -38,7 +38,8 @@ module.exports = {
                 gender: req.body.gender,
                 phone_number: req.body.phone_number,
                 address: req.body.address,
-                avatar: image.secure_url,
+                dob: req.body.dob,
+                // avatar: image.secure_url,
                 password: req.body.password
             })
 
@@ -50,7 +51,7 @@ module.exports = {
             //creating new instance of educational table
             const trainee_education = new Education({
                 school: req.body.school,
-                academic_disciple: req.body.academic_disciple,
+                academic_discipline: req.body.academic_discipline,
                 academic_status: req.body.academic_status,
                 trainee_id: userId,
             })
@@ -61,7 +62,8 @@ module.exports = {
             const training_skill = new Skill({
                 programming_skill: req.body.programming_skill,
                 teaching_experience: req.body.teaching_experience,
-                skillLevel_id: req.body.skillLevel_id,
+                level_id: req.body.level_id,
+                interest_id: req.body.interest_id,
                 trainee_id: userId,
             })
 
@@ -80,10 +82,10 @@ module.exports = {
             const token = await trainee.generateAuthToken()
 
             //login trainees at once
-            res.cookie('jwt', token, { maxAge: 400000000 })
+            // res.cookie('jwt', token, { maxAge: 400000000 })
 
             //  return res.redirect('/trainee-profile')
-            // res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
+            res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
         } catch (e) {
             res.status(400).send(e.message)
             console.log(e)
@@ -115,8 +117,8 @@ module.exports = {
                 const trainee = trainee_profile
 
                 const trainee_id = trainee._id
-                const category = trainee.category_id
-
+                const deptId = trainee.category_id
+                
                 //get trainee education
                 const education = await Education.findOne({ trainee_id })
 
@@ -127,22 +129,116 @@ module.exports = {
                 const guardian = await Guardian.findOne({ trainee_id })
 
                 //Getting the category
-                const department = await Category.findOne({ category })
+                const dept = await Category.findOne(deptId)
+                
+                //Getting Id's
+                const skill_id = skill.level_id
+                const interest_id = skill.interest_id
 
-                // return res.send(trainee)
+                //Getting skills
+                const skillSet = await Skill.findOne(skill_id)
+
+                //Getting Interest-area
+                const interestSet = await Interest_Area.findOne(interest_id)
+              
                 res.status(200).render('trainee_profile', {
                     title: 'Training Registration zone',
                     trainee,
                     guardian,
                     skill,
                     education,
-                    department
+                    dept,
+                    skillSet,
+                    interestSet
                 })
 
             }
         } catch (error) {
             console.log(error.message)
             return res.send(error.message)
+        }
+    },
+
+    // Getting Trainee and users for Admin
+    async get_total_trainees(req, res) {
+        try {
+            const total_users = await Trainee.findAll()
+            const traineesCount = total_users.length
+
+            res.render('dashboard_trainee', {
+                traineesCount,
+                total_users,
+                title: 'KodeHauz Admin Dashboard',
+            })
+        } catch (error) {
+            console.log(error.message)   
+        }
+    },
+
+    async get_interns(req, res) {
+        try {
+            
+            const _id = '5d135c14c8207807bc7e1a9f'
+            const trainee = await Trainee.find({ category_id: _id })
+           
+            res.render('dashboard_trainee', {
+                trainee,
+                title: 'KodeHauz Admin Dashboard',
+                code: 'Intern'
+            })
+        } catch (e) {
+            res.status(400).send(e)
+        }        
+    },
+
+    //Getting trainings
+    async get_trainings(req, res) {
+        try {
+            
+            const _id = '5d135c27c8207807bc7e1aa1'
+        
+            const trainee = await Trainee.find({ category_id: _id })
+            res.render('dashboard_trainee', {
+                code: 'Trainees',
+                title: 'KodeHauz Admin Dashboard',
+                trainee,
+            })
+        } catch (e) {
+            res.status(400).send(e)
+        }
+    },
+
+    //Getting trainings
+    async get_hub(req, res) {
+        try {
+            
+            const _id = '5d135c1ec8207807bc7e1aa0'
+        
+            const trainee = await Trainee.find({ category_id: _id })
+            res.render('dashboard_trainee', {
+                code: 'Hub Users',
+                title: 'KodeHauz Admin Dashboard',
+                trainee,
+            })
+        } catch (e) {
+            res.status(400).send(e)
+        }
+    },
+
+    //Getting trainers
+    async get_trainer(req, res) {
+        try {
+            
+            const _id = '5d135c4e2bc64035f4d1f8fa'
+        
+            const trainee = await Trainee.find({ category_id: _id })
+            res.render('dashboard_trainee', {
+                code: 'Train The Trainer',
+                title: 'KodeHauz Admin Dashboard',
+                trainee,
+            })
+        } catch (e) {
+            res.status(400).send(e)
         }
     },
 

@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const skillLevelSchema = mongoose.Schema({
 
-    skill: {
+    number: {
+        type: Number
+    },
+
+    name: {
         type: String,
         trim: true
     }

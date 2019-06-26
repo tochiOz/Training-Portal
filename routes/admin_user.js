@@ -30,7 +30,7 @@ router.patch('/admin/categories/edit/:id', isAdmin, admin_controller.update_cate
 
 
 //delete categories 
-router.delete('/admin/categories/delete/:id', isAdmin, admin_controller.delete_categories)
+router.delete('/admin/utlity/delete/:id', isAdmin, admin_controller.delete_categories)
 
 //adding interest areas for users
 router.post('/admin/add-interest-area', isAdmin, admin_controller.add_interest_area)

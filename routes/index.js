@@ -39,6 +39,18 @@ router.get('/login', function (req, res, next) {
   res.render('login', {title: 'Admin Login' })
 })
 
+//GET admin Trainees
+router.get('/dashboard-trainees', isAdmin, user_controller.get_trainings)
+
+//GET admin Interns
+router.get('/dashboard-interns', isAdmin, user_controller.get_interns )
+
+//GET admin Hub users
+router.get('/dashboard-hub', isAdmin, user_controller.get_hub )
+
+//GET admin Traine the Trainer
+router.get('/dashboard-trainer', isAdmin, user_controller.get_trainer )
+
 //get admin categories
 router.get('/admin-departments', isAdmin, admin_controller.get_categories)
 

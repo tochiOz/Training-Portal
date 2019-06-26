@@ -12,11 +12,21 @@
     <div class="card user-profile">
         <div class="header-cover"
             style="background-image: url('images/photo-wide-2.jpg'); background-position-y: -100px;"></div>
-        <div class="user-info">
-            <img class="profile-picture avatar-xl mb-2" src="{{trainee.avatar}}" alt="">
-            <p class="m-0 text-24">{{trainee.full_name}}</p>
-            <p class="text-muted m-0">{{skill.skillLevel_id}}</p>
+        
+        <div class="d-flex justify-content-space-between">
+            <div class="user-info">
+                <img class="profile-picture avatar-xl mb-2" src="{{trainee.avatar}}" alt="">
+                <h2 class="text-24">{{trainee.full_name}}</h2>
+                <h5 class="text-muted m-0">{{dept.category}}</h5>
+            </div>
+            <!-- Button -->
+            <form action="/trainee/logoutAll" method="POST">
+                <button class="navbar-btn btn btn-sm btn-danger lift ml-auto trigger-btn">
+                    Log Out
+                </button>
+            </form>
         </div>
+       
         <div class="card-body">
             <ul class="nav nav-tabs profile-nav mb-4" id="profileTab" role="tablist">
 

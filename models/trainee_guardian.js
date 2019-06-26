@@ -45,6 +45,6 @@ const traineeGuadianSchema = mongoose.Schema({
     }
 })
 
-const TraineeGuardian = mongoose.model('traineeGuardian', traineeGuadianSchema)
+const TraineeGuardian = mongoose.model('trainee_Guardian', traineeGuadianSchema)
 
 module.exports = TraineeGuardian;

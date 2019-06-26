@@ -3,7 +3,7 @@ async function deleteCat(id) {
     // return console.log(id)
     //if(!)
     try {
-        await fetch(`/admin/categories/delete/${id}`, {
+        await fetch(`/admin/utility/delete/${id}`, {
             method: 'delete'
         })
 

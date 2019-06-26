@@ -17179,7 +17179,8 @@ ngb-rating .half {
     justify-content: center;
     align-items: center;
     margin-top: -40px;
-    z-index: 9
+    z-index: 9;
+    width: 95%;
 }
 
 .user-profile .profile-picture {

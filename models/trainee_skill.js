@@ -14,22 +14,22 @@ const traineeSkillSchema = mongoose.Schema({
     
     interest_id: {
         type: mongoose.Schema.Types.ObjectId,
-        trim: true
+        ref: 'user_Profile'
     },
 
     level_id: {
         type: mongoose.Schema.Types.ObjectId,
-        trim: true
+        ref: 'user_Profile'
     },
 
     trainee_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'userProfile'
+        ref: 'user_Profile'
     }
 })
 
-const TraineeSkill = mongoose.model('traineeSkill', traineeSkillSchema)
+const TraineeSkill = mongoose.model('trainee_Skill', traineeSkillSchema)
 
 module.exports = TraineeSkill;
 

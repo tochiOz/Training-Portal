@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const categorySchema = mongoose.Schema({
 
-    category: {
+    number: {
+        type: Number
+    },
+    
+    name: {
         type: String,
         trim: true
     },
@@ -13,6 +17,12 @@ const categorySchema = mongoose.Schema({
     },
 
 });
+
+categorySchema.virtual('trainee_Education', {
+    ref: 'trainee_Profile',
+    localField: '_id',
+    foreignField: 'category_id'
+})
 
 const Category = mongoose.model( 'categories', categorySchema )
 
