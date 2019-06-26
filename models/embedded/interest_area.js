@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const interestAreaSchema = mongoose.Schema({
 
-    interest: {
+    number: {
+        type: Number
+    },
+
+    name: {
         type: String,
         trim: true
     },

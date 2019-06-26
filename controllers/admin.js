@@ -63,12 +63,6 @@ module.exports = {
         try {
             await category.save()
 
-            //alert
-            Swal.fire(
-                'Department Created Succefully!',
-                'success'
-            )
-
             res.redirect('/admin-departments')
         } catch (error) {
             console.log(error.message)
@@ -81,11 +75,14 @@ module.exports = {
     
         try {
             var count = 0;
-            const categories = await Category.find();
-            res.render('categories', {
+            const utility = await Category.find();
+            res.render('utility', {
                 title: 'KodeHauz Training Portal',
+                utility_addLlink: '/admin/add_categories',
+                utility_link: '/admin-departments',
+                utility_name: 'Departments',
                 count: count++,
-                categories
+                utility
             });
         } catch (e) {
             res.status(400).send(e.message)

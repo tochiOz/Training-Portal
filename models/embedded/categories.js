@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const categorySchema = mongoose.Schema({
 
-    category: {
+    number: {
+        type: Number
+    },
+    
+    name: {
         type: String,
         trim: true
     },
