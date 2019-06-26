@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/vendor/datatables.min.css">
     <link rel="stylesheet" href="css/vendor/perfect-scrollbar.css">
     <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
-    <link rel="stylesheet" href="css/Feather/css/feathericon.css">
 </head>
 
 <body>
@@ -23,16 +22,16 @@
             <h1>{{title}}</h1>
             <ul>
                 <li><a href="#">Dashboard</a></li>
-                <li>Trainees</li>
+                <li>{{code}}</li>
             </ul>
         </div>
         <div class="separator-breadcrumb border-top"></div>
 
         <div class="row mb-4">
             <div class="col-md-12">
-                <h4>KodeHauz Trainees & Interns</h4>
+                <h4>KodeHauz {{code}}</h4>
                 <p>
-                    This Table display the total amount of Trainees and Interns that had Registered to KodeHauz for Training.
+                    This Table display the total amount of {{code}} that had Registered to KodeHauz for Training.
                 </p>
             </div>
         </div>
@@ -43,10 +42,10 @@
                 <div class="card text-left">
 
                     <div class="card-body">
-                        <h4 class="card-title mb-3">KodeHauz Traineees & Interns</h4>
+                        <h4 class="card-title mb-3">KodeHauz Traineees</h4>
                        
                         <div class="table-responsive">
-                            <table id="zero_configuration_table" class="display table table-striped table-bordered"
+                            <table id="zero_configuration_table" class="display table table-striped table-bordered align-items-center "
                                 style="width:100%">
                                 <thead class="text-center">
                                     <tr>
@@ -54,13 +53,13 @@
                                         <th>Email</th>
                                         <th>Gender</th>
                                         <th>Phone Number</th>
-                                        <th>Date Registered</th>
+                                        <th>Date </th>
                                         <th>View</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    {{#each intern}}
+                                    {{#each trainee}}
                                     <tr>
                                         <td>{{this.full_name}}</td>
                                         <td>{{this.email}}</td>
@@ -68,7 +67,9 @@
                                         <td>{{this.phone_number}}</td>
                                         <td>{{this.createdAt}}</td>
                                         <td>
-                                            <button class="btn btn-success">View Profile</button>
+                                            <a href="">
+                                                <button class="btn btn-success">View Profile</button>
+                                            </a>
                                         </td>
                                         <td>
                                             <a href="#" class="text-success mr-2">
@@ -82,13 +83,13 @@
                                     {{/each}}
                                 </tbody>
 
-                                <tfoot>
+                                <tfoot class="text-center">
                                     <tr>
                                         <th>Name</th>
                                         <th>Department</th>
                                         <th>Email</th>
                                         <th>Gender</th>
-                                        <th>Phone Number</th>
+                                        <th>Date</th>
                                         <th>View</th>
                                         <th>Actions</th>
                                     </tr>

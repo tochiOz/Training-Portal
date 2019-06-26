@@ -175,27 +175,71 @@ module.exports = {
         }
     },
 
-    async get_training_interns(req, res) {
+    async get_interns(req, res) {
         try {
             
             const _id = '5d0d0cb60662a763fc42c5c4'
-            const training_id = '5d1344b6cd7cf841fccae987'
+            const trainee = await Trainee.find({ category_id: _id })
            
-            const intern = await Trainee.find({ category_id: _id })
-            const dept = await Category.findOne({ _id })
-            // return console.log(dept)
-            const training = await Trainee.find({ category_id: training_id })
             res.render('dashboard_trainee', {
-                intern,
-                training,
-                dept,
+                trainee,
                 title: 'KodeHauz Admin Dashboard',
+                code: 'Intern'
+            })
+        } catch (e) {
+            res.status(400).send(e)
+        }        
+    },
+
+    //Getting trainings
+    async get_trainings(req, res) {
+        try {
+            
+            const _id = '5d1344b6cd7cf841fccae987'
+        
+            const trainee = await Trainee.find({ category_id: _id })
+            res.render('dashboard_trainee', {
+                code: 'Trainees',
+                title: 'KodeHauz Admin Dashboard',
+                trainee,
             })
         } catch (e) {
             res.status(400).send(e)
         }
+    },
+
+    //Getting trainings
+    async get_hub(req, res) {
+        try {
+            
+            const _id = '5d10c7c686eac035203e8b0a'
         
+            const trainee = await Trainee.find({ category_id: _id })
+            res.render('dashboard_trainee', {
+                code: 'Hub Users',
+                title: 'KodeHauz Admin Dashboard',
+                trainee,
+            })
+        } catch (e) {
+            res.status(400).send(e)
+        }
+    },
+
+    //Getting trainers
+    async get_trainer(req, res) {
+        try {
+            
+            const _id = '5d0ced0181dcae2d007aa9a6'
         
+            const trainee = await Trainee.find({ category_id: _id })
+            res.render('dashboard_trainee', {
+                code: 'Train The Trainer',
+                title: 'KodeHauz Admin Dashboard',
+                trainee,
+            })
+        } catch (e) {
+            res.status(400).send(e)
+        }
     },
 
      //editing trainee profile picture
