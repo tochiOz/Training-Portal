@@ -118,22 +118,18 @@ module.exports = {
             req.flash('success', 'Category Updated Successfully')
         } catch (error) {
             return console.log(e.message)
-            res.status(400).send(error.message)
+            // res.status(400).send(error.message)
         }
     },
 
     //delete categories
     async delete_categories(req, res, next) {
-        const _id = req.params.id
+        const _id = req.query.id
 
         try {
-            const deletedCategory = await Category.findByIdAndDelete({ _id })
-
-            if (!deletedCategory) {
-                res.status(404).send({ Error: 'Category not found' })
-            }
-
-           next()
+            const deleteCat =  await Category.findByIdAndDelete({ _id })
+            res.status(200).send({ deleteCat})
+        //    next()
         } catch (error) {
             res.status(400).send(error.message)
         }
@@ -161,11 +157,15 @@ module.exports = {
 
     async get_Skills(req, res) {
         try {
-            const skills = await Skills.find()
+            const utility = await Skills.find()
+            const count = parseInt('0')
             // return console.log(skills)
-            res.render('skill_levels', {
-                skills,
+            res.render('utility', {
                 title: 'KodeHauz Training Portal',
+                utility_addLlink: '/admin/add-skill-level',
+                utility_link: '/admin-skill-levels',
+                utility_name: 'Skills',
+                utility
             });
             // req.flash('success', 'Skill-Levels Gotten')
         } catch (e) {
@@ -207,19 +207,13 @@ module.exports = {
 
     //delete skill levels
     async deleteSkills(req, res) {
-        const _id = req.params.id
+        const _id = req.query.id
 
         try {
             const deletedSkillLevel = await Skills.findByIdAndDelete({ _id })
-
-            if (!deletedSkillLevel) {
-                res.flash('danger', 'SkilL-Level not Deleted')
-                res.status(404).send({ Error: 'SkilL-Level not found' })
-            }
-
             res.send(deletedSkillLevel)
         } catch (error) {
-            res.statas(400).send(error.message)
+            res.status(400).send(error.message)
         }
     },
 
@@ -245,13 +239,14 @@ module.exports = {
     //get interest
     async get_interest_area(req, res) {
         try {
-            const interests = await Interest_Area.find()
-            // return console.log(interests)
-            res.render('interest-area', {
-                interests,
+            const utility = await Interest_Area.find()
+            res.render('utility', {
                 title: 'KodeHauz Training Portal',
+                utility_addLlink: '/admin/add-interest-area',
+                utility_link: '/admin-interest-areas',
+                utility_name: 'Interest Area',
+                utility
             });
-            // req.flash('success', 'Interest-Areas Gotten')
         } catch (e) {
             res.status(400).send(e.message)
         }
@@ -291,19 +286,14 @@ module.exports = {
 
     //delete interest
     async delete_interest_area(req, res) {
-        const _id = req.params.id
+        const _id = req.query.id
 
         try {
             const deletedInterest = await Interest_Area.findByIdAndDelete({ _id })
 
-            if (!deletedInterest) {
-                res.flash('danger', 'Interest-Area not Deleted')
-                res.status(404).send({ Error: 'Interest-Area not found' })
-            }
-
-            res.send(deletedInterest)
+            return res.send(deletedInterest)
         } catch (error) {
-            res.status(400).send(error.message)
+            return console.log(error.message)
         }
     }
 }

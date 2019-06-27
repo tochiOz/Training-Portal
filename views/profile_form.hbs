@@ -80,7 +80,7 @@
                                 <select name="category_id" id="category" class="form-control form-select">
                                     <option value="">Please Choose The Department You Belong to</option>
                                 {{#each departments}}  
-                                    <option value="{{this._id}}">{{this.category}}</option>
+                                    <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}
                                 </select>
                             </div>
@@ -140,7 +140,7 @@
                                 <select name="level_id" id="level_id" class="form-control form-select">
                                     <option value="">Choose Your Skill Level</option>
                                     {{#each skills}}
-                                    <option value="{{this._id}}">{{this.skill}}</option>
+                                    <option value="{{this._id}}">{{this.name}}</option>
                                     {{/each}}
                                 </select>
                             </div>
@@ -148,7 +148,7 @@
                                 <select name="interest_id" id="interest_id" class="form-control form-select">
                                     <option value="">Choose Your Interest Areas</option>
                                     {{#each interests}}
-                                    <option value="{{this._id}}">{{this.interest}}</option>
+                                    <option value="{{this._id}}">{{this.name}}</option>
                                     {{/each}}
                                 </select>
                             </div>
