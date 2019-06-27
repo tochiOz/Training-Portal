@@ -81,6 +81,7 @@ module.exports = {
                 utility_addLlink: '/admin/add_categories',
                 utility_link: '/admin-departments',
                 utility_name: 'Departments',
+                utility_edit: '/admin/categories/edit',
                 count: count++,
                 utility
             });
@@ -94,20 +95,20 @@ module.exports = {
         // return console.log(req.body)
         //checking if the sent keys is equilvalent to the stored schema
         const updates = Object.keys(req.body)
-        const eligibleEdit = ['category']
+        const eligibleEdit = ['name']
         const isValid = updates.every((update) => eligibleEdit.includes(update))
         // return console.log(isValid)
         if (!isValid) {
             res.status(404).send('Error: Invalid Category Key')
-            return req.flash('danger', 'Invalid Category Key')
         }
 
         //querying the db,to get the picked id
-        const _id = req.params.id
+        const _id = req.query.id
 
         //storing the editted category
         try {
             const updatedCategory = await Category.findOne({ _id })
+            // return console.log(updatedCategory)
             if (!updatedCategory) return res.status(404).send('Category not found')
 
             updates.forEach((update) => updatedCategory[update] = req.body[update])
@@ -115,10 +116,8 @@ module.exports = {
             await updatedCategory.save()
 
             res.status(200).send({ updatedCategory })
-            req.flash('success', 'Category Updated Successfully')
-        } catch (error) {
+        } catch (e) {
             return console.log(e.message)
-            // res.status(400).send(error.message)
         }
     },
 
@@ -165,6 +164,7 @@ module.exports = {
                 utility_addLlink: '/admin/add-skill-level',
                 utility_link: '/admin-skill-levels',
                 utility_name: 'Skills',
+                utility_edit: '/admin/skill-level/edit',
                 utility
             });
             // req.flash('success', 'Skill-Levels Gotten')
@@ -178,30 +178,28 @@ module.exports = {
 
         //checking if the sent keys is equilvalent to the stored schema
         const updates = Object.keys(req.body)
-        const eligibleEdit = ['skill']
+        const eligibleEdit = ['name']
         const isValid = updates.every((update) => eligibleEdit.includes(update))
 
         if (!isValid) {
             res.status(404).send('Error: Invalid Skill-Level Key')
-            return req.flash('danger', 'Invalid Skill-Level Key')
         }
 
         //querying the db,to get the picked id
-        const _id = req.params.id
+        const _id = req.query.id
 
         //storing the editted category
         try {
             const updatedSkillLevel = await Skills.findOne({ _id })
-            if (!updatedSkillLevel) return res.status(404).send('Skill-Level not found')
+            // if (!updatedSkillLevel) return res.status(404).send('Skill-Level not found')
 
             updates.forEach((update) => updatedSkillLevel[update] = req.body[update])
 
             await updatedSkillLevel.save()
 
             res.status(200).send({ updatedSkillLevel })
-            req.flash('success', 'Skill-Level Updated Successfully')
-        } catch (error) {
-            res.status(400).send(error.message)
+        } catch (e) {
+            return console.log(e.message)
         }
     },
 
@@ -245,6 +243,7 @@ module.exports = {
                 utility_addLlink: '/admin/add-interest-area',
                 utility_link: '/admin-interest-areas',
                 utility_name: 'Interest Area',
+                utility_edit: '/admin/interest-area/edit',
                 utility
             });
         } catch (e) {
@@ -257,30 +256,28 @@ module.exports = {
 
         //checking if the sent keys is equilvalent to the stored schema
         const updates = Object.keys(req.body)
-        const eligibleEdit = ['interest', 'description']
+        const eligibleEdit = ['name']
         const isValid = updates.every((update) => eligibleEdit.includes(update))
 
         if (!isValid) {
             res.status(404).send('Error: Invalid Interest-Area Key')
-            return req.flash('danger', 'Invalid Interest-Area Key')
         }
 
         //querying the db,to get the picked id
-        const _id = req.params.id
+        const _id = req.query.id
 
         //storing the editted category
         try {
             const updatedinterest = await Interest_Area.findOne({ _id })
-            if (!updatedinterest) return res.status(404).send('Interest-Area not found')
+            // if (!updatedinterest) return res.status(404).send('Interest-Area not found')
 
             updates.forEach((update) => updatedinterest[update] = req.body[update])
 
             await updatedinterest.save()
 
             res.status(200).send({ updatedinterest })
-            req.flash('success', 'Interest-Area Updated Successfully')
-        } catch (error) {
-            res.status(400).send(error.message)
+        } catch (e) {
+            return console.log(e.message)
         }
     },
 

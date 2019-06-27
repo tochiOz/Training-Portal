@@ -17,7 +17,7 @@ router.post('/admin/logoutAll', isAdmin, admin_controller.adminLogout);
 router.post('/admin/add-skill-level', isAdmin, admin_controller.addSkills)
 
 //categories edit
-router.patch('/admin/skill-level/edit/:id', isAdmin, admin_controller.update_skills)
+router.patch('/admin/skill-level/edit', isAdmin, admin_controller.update_skills)
 
 //delete categories 
 router.delete('/admin/utlity/apiSki/delete', isAdmin, admin_controller.deleteSkills)
@@ -26,7 +26,7 @@ router.delete('/admin/utlity/apiSki/delete', isAdmin, admin_controller.deleteSki
 router.post('/admin/add_categories', isAdmin, admin_controller.add_categories)
 
 //categories edit
-router.patch('/admin/categories/edit/:id', isAdmin, admin_controller.update_categories)
+router.patch('/admin/categories/edit', isAdmin, admin_controller.update_categories)
 
 //delete categories 
 router.delete('/admin/utlity/apiCat/delete', isAdmin, admin_controller.delete_categories)
@@ -35,7 +35,7 @@ router.delete('/admin/utlity/apiCat/delete', isAdmin, admin_controller.delete_ca
 router.post('/admin/add-interest-area', isAdmin, admin_controller.add_interest_area)
 
 //interest areas edit
-router.patch('/admin/interest-area/edit/:id', isAdmin, admin_controller.update_interest_area)
+router.patch('/admin/interest-area/edit', isAdmin, admin_controller.update_interest_area)
 
 //delete interest areas for users
 router.delete('/admin/utlity/apiInt/delete', isAdmin, admin_controller.delete_interest_area )
