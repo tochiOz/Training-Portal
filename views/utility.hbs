@@ -63,7 +63,7 @@
                                         <td>{{this.number}}</td>
                                         <td>{{this.name}}</td>
                                         <td>
-                                            <a href="#d{{this._id}}" target="_blank" data-toggle="modal"
+                                            <a href="#d-{{this._id}}" target="_blank" data-toggle="modal"
                                                 class="text-warning mr-2">
                                                 <i class="nav-icon fe fe-edit font-weight-bold"></i>
                                             </a>
@@ -89,7 +89,7 @@
 
     <!-- Modal HTML -->
     {{#each utility}}
-    <div id="d{{this._id}}" class="modal fade">
+    <div id="d-{{this._id}}" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content" role="document">
                 <div class="modal-header">
@@ -98,20 +98,20 @@
                 </div>
 
                 <div class="modal-body">
-                    <form enctype="multipart/form-data" id="form">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="name" id="item" value="{{this.name}}"
-                                    required="required">
-                            </div>
-                        </div>
 
-                        <div class=" modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" onclick=update("{{this._id}}") class="btn btn-primary">Save
-                                changes</button>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="name" id="item-{{this._id}}" value="{{this.name}}"
+                                required="required">
                         </div>
-                    </form>
+                    </div>
+
+                    <div class=" modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" onclick=updateMe("{{this._id}}") class="btn btn-primary">Save
+                            Update</button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -128,158 +128,84 @@
     <script src="js/script.min.js"></script>
     <script>
 
-        async function update(id) {
-            const url = `{{utility_edit}}`
-            var form = new FormData(document.getElementById("form"));
-            
-            try {
-                await fetch(url + `?id=${id}`, {
-                    method: 'PATCH',
-                    body: JSON.stringify({
-                        name: this.form
-                    })
+      //import axios from 'axios'
+
+      function updateMe(id) {
+        const url = `{{utility_edit}}?id=${id}`;
+        // const form = new FormData()
+
+        let form = document.querySelector(`#item-${id}`).value;
+        alert('this is new input ' + form)
+
+        try {
+            fetch(url, {
+                method: 'PUT',
+                body: JSON.stringify({
+                  name: form
                 })
+            }).then((res) => {
+            console.log(JSON.stringify(res.json()))
+          }).catch((e) => console.log(e));
 
-                await Swal.fire(
-                    'Good Job!',
-                    'Item Updated Successfully',
-                    'success'
-                )
+         //  Swal.fire(
+         //   'Good Job!',
+         //   'Item Updated Successfully',
+         //   'success'
+         // );
 
-              window.location.reload()
-            } catch (e) {
-                console.log(e.message)
-            }
+          // window.location.reload()
+        } catch (e) {
+          console.log(e.message)
         }
+      }
 
-        async function deleteUtility(id) {
-            const param = "{{utility_link}}"
+      async function deleteUtility(id) {
+        const param = "{{utility_link}}";
 
-            try {
-                switch (param) {
-                    case "/admin-skill-levels":
-                        await fetch(`/admin/utlity/apiSki/delete?id=${id}`, {
-                            method: 'delete'
-                        })
-                        break;
-                    case "/admin-departments":
-                        await fetch(`/admin/utlity/apiCat/delete?id=${id}`, {
-                            method: 'delete'
-                        })
-                        break;
-                    case "/admin-interest-areas":
-                        await fetch(`/admin/utlity/apiInt/delete?id=${id}`, {
-                            method: 'delete'
-                        })
-                        break;
+        try {
+          switch (param) {
+            case "/admin-skill-levels":
+              await fetch(`/admin/utlity/apiSki/delete?id=${id}`, {
+                method: 'delete'
+              });
+              break;
+            case "/admin-departments":
+              await fetch(`/admin/utlity/apiCat/delete?id=${id}`, {
+                method: 'delete'
+              });
+              break;
+            case "/admin-interest-areas":
+              await fetch(`/admin/utlity/apiInt/delete?id=${id}`, {
+                method: 'delete'
+              });
+              break;
 
-                    default:
-                        return console.log('Url is not found')
-                }
-                await Swal.fire(
-                    'Good Job!',
-                    'Item Deleted Successfully',
-                    'success'
-                )
+            default:
+              return console.log('Url is not found');
+          }
+          await Swal.fire(
+            'Good Job!',
+            'Item Deleted Successfully',
+            'success'
+          );
 
-                return window.location.reload()
-            } catch (e) {
-                console.log(e.message)
-            }
-        }
+          return window.location.reload()
+        } catch (e) {
+          console.log(e.message)
+        };
+      };
 
-        // template();
-
-        async function template() {
-            const param = "{{utility_link}}"
-            var template;
-
-            try {
-                switch (param) {
-
-                    case "/admin-skill-levels":
-                        template = `
-                            <form action="/admin/skill-level/edit?id={{{this._id}}}" method="PATCH">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="name" placeholder="{{this.name}}"
-                                            required="required">
-                                    </div>
-                                </div>
-
-                                <div class=" modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </form>
-                        `
-                        break;
-
-                    case "/admin-departments":
-                        template = `
-                            <form action="/admin/categories/edit?id={{{utility._id}}}" method="PATCH">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="name" placeholder="{{this.name}}"
-                                            required="required">
-                                    </div>
-                                </div>
-
-                                <div class=" modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </form>
-                        `
-                        break;
-
-                    case "/admin-interest-areas":
-                        template = `
-                            <form action="/admin/categories/edit?id={{this._id}}" method="PATCH">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="name" placeholder="{{this.name}}"
-                                            required="required">
-                                    </div>
-                                </div>
-
-                                <div class=" modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </form>
-                        `
-                        break;
-
-                    default:
-                        return console.log('Url is not found')
-                }
-                document.getElementById('temp').innerHTML = template
-
-                //return window.location.reload()
-            } catch (e) {
-                console.log(e.message)
-            }
-        }
+      async function notify() {
+        await Swal.fire(
+          'Good Job!',
+          'Item Added Successfully',
+          'success'
+        )
+      };
 
 
-
-        async function notify() {
-            await Swal.fire(
-                'Good Job!',
-                'Item Added Successfully',
-                'success'
-            )
-        }
-
-        async function update() {
-            await Swal.fire(
-                'Good Job!',
-                'Item Updated Successfully',
-                'success'
-            )
-        } 
     </script>
+
 </body>
 
 </html>

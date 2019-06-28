@@ -92,7 +92,9 @@ module.exports = {
 
     //updating categories
     async update_categories(req, res) {
-        // return console.log(req.body)
+
+        // console.log(req.body.name)
+        // return res.send('Hello')
         //checking if the sent keys is equilvalent to the stored schema
         const updates = Object.keys(req.body)
         const eligibleEdit = ['name']

@@ -41,12 +41,12 @@ module.exports = {
                 dob: req.body.dob,
                 // avatar: image.secure_url,
                 password: req.body.password
-            })
+            });
 
-            await trainee.save()
+            await trainee.save();
 
             //ex tracting the user_id
-            const userId = trainee._id
+            const userId = trainee._id;
 
             //creating new instance of educational table
             const trainee_education = new Education({
@@ -54,7 +54,7 @@ module.exports = {
                 academic_discipline: req.body.academic_discipline,
                 academic_status: req.body.academic_status,
                 trainee_id: userId,
-            })
+            });
 
             await trainee_education.save()
 
