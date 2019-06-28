@@ -1,14 +1,21 @@
 var express = require('express');
 var router = new express.Router();
 const Admin = require('../models/admin');
-const { isAdmin } = require('../middleware/adminAuth')
 const admin_controller = require('../controllers/admin')
+const { isAdmin } = require('../middleware/adminAuth')
+const isUser = require('../middleware/userAuth')
 
 //admin create user routes
 router.post('/admin/signup', admin_controller.createAdmin);
 
 //login admin
-router.post('/admin/login', admin_controller.adminLogin) 
+router.post('/admin/login', admin_controller.adminLogin)
+
+//get trainee profile
+router.get('/admin/view/profile', isUser, admin_controller.view_user_profile );
+
+//delete users
+router.delete('/admin/delete/user', isAdmin, admin_controller.delete_user);
 
 //logout
 router.post('/admin/logoutAll', isAdmin, admin_controller.adminLogout);

@@ -67,17 +67,10 @@
                                         <td>{{this.phone_number}}</td>
                                         <td>{{this.createdAt}}</td>
                                         <td>
-                                            <a href="">
-                                                <button class="btn btn-success">View Profile</button>
-                                            </a>
+                                          <button class="btn btn-success-soft" onclick=viewProfile("{{this._id}}")>View Profile</button></a>
                                         </td>
                                         <td>
-                                            <a href="#" class="text-success mr-2">
-                                                <i class="nav-icon fe fe-edit font-weight-bold"></i>
-                                            </a>
-                                            <a href="#" class="text-danger mr-2">
-                                                <i class="nav-icon fe fe-trash font-weight-bold"></i>
-                                            </a>
+                                          <button class="btn btn-danger-soft" onclick=deleteUser("{{this._id}}")>Delete</button>
                                         </td>
                                     </tr>
                                     {{/each}}
@@ -103,12 +96,42 @@
             <!-- ============ Search UI End ============= -->
 
 
-
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
             <script src="js/jquery-3.3.1.min.js"></script>
             <script src="js/perfect-scrollbar.min.js"></script>
             <script src="js/datatables.min.js"></script>
             <script src="js/script.min.js"></script>
             <script src="js/init.js"></script>
+
+          <script>
+
+            async function deleteUser(id) {
+                alert(`Do You want to delete this account ${id}`)
+
+              try {
+
+                await fetch(`/admin/delete/user?id=${id}`, {
+                  method: 'delete'
+                });
+
+                await Swal.fire(
+                  'Good Job!',
+                  'User Deleted Successfully',
+                  'success'
+                );
+
+                window.location.reload()
+              } catch (e) {
+                console.log(e)
+              }
+
+            }
+
+            async function viewProfile(id) {
+                const url = 
+            }
+
+          </script>
 </body>
 
 </html>

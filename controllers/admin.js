@@ -1,14 +1,19 @@
-const Category = require('../models/embedded/categories')
+const Category = require('../models/embedded/categories');
 const Skills = require('../models/embedded/skill_level');
 const Interest_Area = require('../models/embedded/interest_area');
-const Swal = require('sweetalert2')
-const Admin = require('../models/admin')
+const Internet = require('../models/internet');
+const Education = require('../models/trainee_education');
+const Trainee_Skill = require('../models/trainee_skill');
+const Guardian = require('../models/trainee_guardian');
+const Swal = require('sweetalert2');
+const Admin = require('../models/admin');
+const Trainee = require('../models/trainee_profile');
 
 module.exports = {
     async createAdmin(req, res) {
-        const admin = new Admin(req.body)
+        const admin = new Admin(req.body);
 
-        const adminEmailCheck = await Admin.findEmail(req.body.email)
+        const adminEmailCheck = await Admin.findEmail(req.body.email);
 
         if (adminEmailCheck) {
             return res.status(400).send({ message: `${adminEmailCheck.email} already exist` })
@@ -29,27 +34,89 @@ module.exports = {
     async adminLogin(req, res) {
 
         try {
-            const admin = await Admin.findByCredentials(req.body.email, req.body.password)
-            const token = await admin.generateAuthToken()
+            const admin = await Admin.findByCredentials(req.body.email, req.body.password);
+            const token = await admin.generateAuthToken();
 
-            res.cookie('admin_jwt', token, { maxAge: 400000000 })
-            req.flash('sucess', `You Have Sucessfully Logged In Admin ${admin.email}`)
+            res.cookie('admin_jwt', token, { maxAge: 400000000 });
+            req.flash('sucess', `You Have Sucessfully Logged In Admin ${admin.email}`);
 
-            return res.redirect('/admin-dashboard')
+            return res.redirect('/admin-dashboard');
         } catch (e) {
             if (e) {
-                req.flash('danger', 'You are not Authorised')
                 return res.redirect('/login')
             }
         }
     },
 
+    //view users page
+    async view_user_profile(req, res) {
+        _id = req.query.id;
+
+        try {
+            //getting user
+            const user = await Trainee.findOne({ _id });
+
+            const trainee_id = user.id;
+            const deptId = user.category_id;
+
+            //get trainee education
+            const education = await Education.findOne({ trainee_id });
+
+            //get trainee skills
+            const skill = await Trainee_Skill.findOne({ trainee_id });
+
+            //get guardian
+            const guardian = await Guardian.findOne({ trainee_id });
+
+            //Getting the category
+            const dept = await Category.findOne(deptId);
+
+            const skill_id = skill.level_id;
+            const interest_id = skill.interest_id;
+
+            //Getting skills
+            const skillSet = await Trainee_Skill.findOne(skill_id);
+
+            //Getting Interest-area
+            const interestSet = await Interest_Area.findOne(interest_id);
+
+            res.status(200).render('trainee_profile', {
+                title: 'Training Registration zone',
+                user,
+                guardian,
+                skill,
+                education,
+                dept,
+                skillSet,
+                interestSet
+            });
+        } catch (e) {
+            console.log(e.message)
+        }
+    },
+
+    async delete_user(req, res) {
+        _id = req.query.id;
+
+        try {
+            const traineeProfile = await Trainee.findOne({ _id });
+
+            //delete account
+            await traineeProfile.remove();
+
+            res.send(traineeProfile)
+        } catch (e) {
+            console.log(e)
+        }
+    },
+
+    //admin logging out
     async adminLogout(req, res) {
         try {
-            adminProfile.tokens = []
-            await adminProfile.save()
-            res.clearCookie('jwt')
-            req.flash('success', 'Thank You for using our Portal')
+            adminProfile.tokens = [];
+            await adminProfile.save();
+            res.clearCookie('jwt');
+            req.flash('success', 'Thank You for using our Portal');
             return res.redirect('/')
         } catch (e) {
             res.status(400).send(e.message)
@@ -58,23 +125,23 @@ module.exports = {
 
     //add-categories
     async add_categories(req, res) {
-        const category = new Category(req.body)
+        const category = new Category(req.body);
 
         try {
-            await category.save()
+            await category.save();
 
             res.redirect('/admin-departments')
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
             req.flash('danger', 'The category was not added')
         }
     },
 
     //get-categories
     async get_categories(req, res) {
-    
+
         try {
-            var count = 0;
+            let count = 0;
             const utility = await Category.find();
             res.render('utility', {
                 title: 'KodeHauz Training Portal',
@@ -96,24 +163,24 @@ module.exports = {
         // console.log(req.body.name)
         // return res.send('Hello')
         //checking if the sent keys is equilvalent to the stored schema
-        const updates = Object.keys(req.body)
-        const eligibleEdit = ['name']
-        const isValid = updates.every((update) => eligibleEdit.includes(update))
+        const updates = Object.keys(req.body);
+        const eligibleEdit = ['name'];
+        const isValid = updates.every((update) => eligibleEdit.includes(update));
         // return console.log(isValid)
         if (!isValid) {
             res.status(404).send('Error: Invalid Category Key')
         }
 
         //querying the db,to get the picked id
-        const _id = req.query.id
+        const _id = req.query.id;
 
         //storing the editted category
         try {
-            const updatedCategory = await Category.findOne({ _id })
+            const updatedCategory = await Category.findOne({ _id });
             // return console.log(updatedCategory)
-            if (!updatedCategory) return res.status(404).send('Category not found')
+            if (!updatedCategory) return res.status(404).send('Category not found');
 
-            updates.forEach((update) => updatedCategory[update] = req.body[update])
+            updates.forEach((update) => updatedCategory[update] = req.body[update]);
 
             await updatedCategory.save()
 
@@ -128,9 +195,9 @@ module.exports = {
         const _id = req.query.id
 
         try {
-            const deleteCat =  await Category.findByIdAndDelete({ _id })
-            res.status(200).send({ deleteCat})
-        //    next()
+            const deleteCat = await Category.findByIdAndDelete({ _id })
+            res.status(200).send({ deleteCat })
+            //    next()
         } catch (error) {
             res.status(400).send(error.message)
         }
@@ -148,7 +215,7 @@ module.exports = {
                 'Item Added Successfully',
                 'success'
             )
-           
+
             res.redirect('/admin-skill-levels')
         } catch (error) {
             console.log(error.message)

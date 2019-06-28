@@ -178,7 +178,7 @@ module.exports = {
     async get_interns(req, res) {
         try {
             
-            const _id = '5d135c14c8207807bc7e1a9f'
+            const _id = '5d14af7a7c817a1634fce6c7'
             const trainee = await Trainee.find({ category_id: _id })
            
             res.render('dashboard_trainee', {
@@ -195,7 +195,7 @@ module.exports = {
     async get_trainings(req, res) {
         try {
             
-            const _id = '5d135c27c8207807bc7e1aa1'
+            const _id = '5d14af8a7c817a1634fce6c9'
         
             const trainee = await Trainee.find({ category_id: _id })
             res.render('dashboard_trainee', {
@@ -212,7 +212,7 @@ module.exports = {
     async get_hub(req, res) {
         try {
             
-            const _id = '5d135c1ec8207807bc7e1aa0'
+            const _id = '5d14af837c817a1634fce6c8'
         
             const trainee = await Trainee.find({ category_id: _id })
             res.render('dashboard_trainee', {
