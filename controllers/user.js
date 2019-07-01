@@ -1,36 +1,38 @@
 const Category = require('../models/embedded/categories')
 const Skills = require('../models/embedded/skill_level');
 const Interest_Area = require('../models/embedded/interest_area');
-const Swal = require('sweetalert2');
 const Trainee = require('../models/trainee_profile')
 const sharp = require('sharp')
 const cloudinary = require('cloudinary')
 const Datauri = require('datauri')
 const path = require('path')
-require('../config/cloudinary')
 const dUri = new Datauri();
 const Education = require('../models/trainee_education')
 const Skill = require('../models/trainee_skill')
 const Internet = require('../models/internet')
 const Guardian = require('../models/trainee_guardian')
+require('../config/cloudinary')
 
 
 module.exports = {
 
     //creating user
     async trainee_SignUp(req, res) {
+        // return console.log(req.file.buffer)
 
         try {
+            
             // return console.log(req.body.email)
-            // const buffer = await sharp(req.body.avatar).resize({
-            //     width: 200, height: 200
-            // }).png().toBuffer()
+            const buffer = await sharp(req.file.buffer).resize({
+                width: 200, height: 200
+            }).png().toBuffer()
+            // return console.log(buffer)
 
-            // const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
-            // const imageFile = dataUri.content;
-
-            // const image = await cloudinary.v2.uploader.upload(imageFile)
-
+            const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
+            const imageFile = dataUri.content;
+            // return console.log(imageFile)
+            const image = await cloudinary.v2.uploader.upload(imageFile)
+            // return console.log(image)
             const trainee = new Trainee({
                 full_name: req.body.full_name,
                 email: req.body.email,
@@ -39,7 +41,7 @@ module.exports = {
                 phone_number: req.body.phone_number,
                 address: req.body.address,
                 dob: req.body.dob,
-                // avatar: image.secure_url,
+                avatar: image.secure_url,
                 password: req.body.password
             });
 
@@ -82,9 +84,9 @@ module.exports = {
             const token = await trainee.generateAuthToken()
 
             //login trainees at once
-            // res.cookie('jwt', token, { maxAge: 400000000 })
+            res.cookie('jwt', token, { maxAge: 400000000 })
 
-            //  return res.redirect('/trainee-profile')
+            return res.redirect('/trainee-profile')
             res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
         } catch (e) {
             res.status(400).send(e.message)
@@ -158,22 +160,6 @@ module.exports = {
             return res.send(error.message)
         }
     },
-
-    // Getting Trainee and users for Admin
-    // async get_total_trainees(req, res) {
-    //     try {
-    //         const total_users = await Trainee.findAll()
-    //         const traineesCount = total_users.length
-    //
-    //         res.render('dashboard_trainee', {
-    //             traineesCount,
-    //             total_users,
-    //             title: 'KodeHauz Admin Dashboard',
-    //         })
-    //     } catch (error) {
-    //         console.log(error.message)
-    //     }
-    // },
 
     async get_interns(req, res) {
         try {

@@ -19,8 +19,8 @@
                 method: 'post'
             }).then((res) => {
                 Swal.fire(
-                    'Goxod job!',
-                    'You created the account successfully',
+                    'Success!',
+                    'Your Account Was Created Successfully',
                     'success'
                 )
                 // return res.redirect('/trainee-profile')

@@ -144,7 +144,7 @@
         }).catch((e) => console.log(e));
 
         await Swal.fire(
-          'Good Job!',
+          'Success!',
           'Item Updated Successfully',
           'success'
         );
@@ -161,26 +161,20 @@
       try {
         switch (param) {
           case "/admin-skill-levels":
-            await fetch(`/admin/utlity/apiSki/delete?id=${id}`, {
-              method: 'delete'
-            });
+            await axios.delete(`/admin/utlity/apiSki/delete?id=${id}`);
             break;
           case "/admin-departments":
-            await fetch(`/admin/utlity/apiCat/delete?id=${id}`, {
-              method: 'delete'
-            });
+            await axios.delete(`/admin/utlity/apiCat/delete?id=${id}`);
             break;
           case "/admin-interest-areas":
-            await fetch(`/admin/utlity/apiInt/delete?id=${id}`, {
-              method: 'delete'
-            });
+            await axios.delete(`/admin/utlity/apiInt/delete?id=${id}`);
             break;
 
           default:
             return console.log('Url is not found');
         }
         await Swal.fire(
-          'Good Job!',
+          'Success!',
           'Item Deleted Successfully',
           'success'
         );
@@ -193,7 +187,7 @@
 
     async function notify() {
       await Swal.fire(
-        'Good Job!',
+        'Success!',
         'Item Added Successfully',
         'success'
       )

@@ -5,7 +5,6 @@ const Internet = require('../models/internet');
 const Education = require('../models/trainee_education');
 const Trainee_Skill = require('../models/trainee_skill');
 const Guardian = require('../models/trainee_guardian');
-const Swal = require('sweetalert2');
 const Admin = require('../models/admin');
 const Trainee = require('../models/trainee_profile');
 
@@ -69,16 +68,16 @@ module.exports = {
             const guardian = await Guardian.findOne({ trainee_id });
 
             //Getting the category
-            const dept = await Category.findOne(deptId);
+            const dept = await Category.findOne({deptId});
 
             const skill_id = skill.level_id;
             const interest_id = skill.interest_id;
 
             //Getting skills
-            const skillSet = await Trainee_Skill.findOne(skill_id);
+            const skillSet = await Skills.findOne({skill_id});
 
             //Getting Interest-area
-            const interestSet = await Interest_Area.findOne(interest_id);
+            const interestSet = await Interest_Area.findOne({interest_id});
 
             // return console.log(interestSet)
 

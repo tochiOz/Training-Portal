@@ -115,13 +115,11 @@
 
                     try {
 
-                        await fetch(`/admin/delete/user?id=${id}`, {
-                            method: 'delete'
-                        });
+                        await axios.delete(`/admin/delete/user?id=${id}`);
 
                         await Swal.fire(
-                            'Good Job!',
-                            'User Deleted Successfully',
+                            'Success!',
+                            'Trainee Deleted Successfully',
                             'success'
                         );
 
@@ -132,15 +130,15 @@
 
                 }
 
-                async function viewProfile(id) {
-                    const url = `/admin/view/profile?id=${id}`;
+                function viewProfile(id) {
+                    let url = `/admin/view/profile?id=${id}`;
 
                     try {
                         alert(url)
-                        await fetch(url)
-                        .then(() => {
-                            window.location.href = '/trainee-profile'
-                        }).catch((e) => console.log(e))
+                        axios.get(url)
+
+                        //window.location.href = '/trainee-profile'
+
                     } catch (e) {
                         console.log(e)
                     }
