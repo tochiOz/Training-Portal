@@ -41,12 +41,12 @@ module.exports = {
                 dob: req.body.dob,
                 // avatar: image.secure_url,
                 password: req.body.password
-            })
+            });
 
-            await trainee.save()
+            await trainee.save();
 
             //ex tracting the user_id
-            const userId = trainee._id
+            const userId = trainee._id;
 
             //creating new instance of educational table
             const trainee_education = new Education({
@@ -54,7 +54,7 @@ module.exports = {
                 academic_discipline: req.body.academic_discipline,
                 academic_status: req.body.academic_status,
                 trainee_id: userId,
-            })
+            });
 
             await trainee_education.save()
 
@@ -160,25 +160,25 @@ module.exports = {
     },
 
     // Getting Trainee and users for Admin
-    async get_total_trainees(req, res) {
-        try {
-            const total_users = await Trainee.findAll()
-            const traineesCount = total_users.length
-
-            res.render('dashboard_trainee', {
-                traineesCount,
-                total_users,
-                title: 'KodeHauz Admin Dashboard',
-            })
-        } catch (error) {
-            console.log(error.message)   
-        }
-    },
+    // async get_total_trainees(req, res) {
+    //     try {
+    //         const total_users = await Trainee.findAll()
+    //         const traineesCount = total_users.length
+    //
+    //         res.render('dashboard_trainee', {
+    //             traineesCount,
+    //             total_users,
+    //             title: 'KodeHauz Admin Dashboard',
+    //         })
+    //     } catch (error) {
+    //         console.log(error.message)
+    //     }
+    // },
 
     async get_interns(req, res) {
         try {
             
-            const _id = '5d135c14c8207807bc7e1a9f'
+            const _id = '5d14af7a7c817a1634fce6c7'
             const trainee = await Trainee.find({ category_id: _id })
            
             res.render('dashboard_trainee', {
@@ -195,7 +195,7 @@ module.exports = {
     async get_trainings(req, res) {
         try {
             
-            const _id = '5d135c27c8207807bc7e1aa1'
+            const _id = '5d14af8a7c817a1634fce6c9'
         
             const trainee = await Trainee.find({ category_id: _id })
             res.render('dashboard_trainee', {
@@ -212,7 +212,7 @@ module.exports = {
     async get_hub(req, res) {
         try {
             
-            const _id = '5d135c1ec8207807bc7e1aa0'
+            const _id = '5d14af837c817a1634fce6c8'
         
             const trainee = await Trainee.find({ category_id: _id })
             res.render('dashboard_trainee', {

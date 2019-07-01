@@ -43,9 +43,10 @@
 
                     <div class="card-body">
                         <h4 class="card-title mb-3">KodeHauz Traineees</h4>
-                       
+
                         <div class="table-responsive">
-                            <table id="zero_configuration_table" class="display table table-striped table-bordered align-items-center "
+                            <table id="zero_configuration_table"
+                                class="display table table-striped table-bordered align-items-center "
                                 style="width:100%">
                                 <thead class="text-center">
                                     <tr>
@@ -67,17 +68,14 @@
                                         <td>{{this.phone_number}}</td>
                                         <td>{{this.createdAt}}</td>
                                         <td>
-                                            <a href="">
-                                                <button class="btn btn-success">View Profile</button>
-                                            </a>
+                                            {{!-- <a href="/trainee-profile"> --}}
+                                            <button class="btn btn-success-soft"
+                                                onclick=viewProfile("{{this._id}}")>View Profile</button>
+                                            {{!-- </a> --}}
                                         </td>
                                         <td>
-                                            <a href="#" class="text-success mr-2">
-                                                <i class="nav-icon fe fe-edit font-weight-bold"></i>
-                                            </a>
-                                            <a href="#" class="text-danger mr-2">
-                                                <i class="nav-icon fe fe-trash font-weight-bold"></i>
-                                            </a>
+                                            <button class="btn btn-danger-soft"
+                                                onclick=deleteUser("{{this._id}}")>Delete</button>
                                         </td>
                                     </tr>
                                     {{/each}}
@@ -103,12 +101,52 @@
             <!-- ============ Search UI End ============= -->
 
 
-
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
             <script src="js/jquery-3.3.1.min.js"></script>
             <script src="js/perfect-scrollbar.min.js"></script>
             <script src="js/datatables.min.js"></script>
             <script src="js/script.min.js"></script>
             <script src="js/init.js"></script>
+
+            <script>
+
+                async function deleteUser(id) {
+                    alert(`Do You want to delete this account ${id}`)
+
+                    try {
+
+                        await fetch(`/admin/delete/user?id=${id}`, {
+                            method: 'delete'
+                        });
+
+                        await Swal.fire(
+                            'Good Job!',
+                            'User Deleted Successfully',
+                            'success'
+                        );
+
+                        window.location.reload()
+                    } catch (e) {
+                        console.log(e)
+                    }
+
+                }
+
+                async function viewProfile(id) {
+                    const url = `/admin/view/profile?id=${id}`;
+
+                    try {
+                        alert(url)
+                        await fetch(url)
+                        .then(() => {
+                            window.location.href = '/trainee-profile'
+                        }).catch((e) => console.log(e))
+                    } catch (e) {
+                        console.log(e)
+                    }
+                }
+
+            </script>
 </body>
 
 </html>
