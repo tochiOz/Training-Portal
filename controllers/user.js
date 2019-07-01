@@ -160,20 +160,20 @@ module.exports = {
     },
 
     // Getting Trainee and users for Admin
-    async get_total_trainees(req, res) {
-        try {
-            const total_users = await Trainee.findAll()
-            const traineesCount = total_users.length
-
-            res.render('dashboard_trainee', {
-                traineesCount,
-                total_users,
-                title: 'KodeHauz Admin Dashboard',
-            })
-        } catch (error) {
-            console.log(error.message)   
-        }
-    },
+    // async get_total_trainees(req, res) {
+    //     try {
+    //         const total_users = await Trainee.findAll()
+    //         const traineesCount = total_users.length
+    //
+    //         res.render('dashboard_trainee', {
+    //             traineesCount,
+    //             total_users,
+    //             title: 'KodeHauz Admin Dashboard',
+    //         })
+    //     } catch (error) {
+    //         console.log(error.message)
+    //     }
+    // },
 
     async get_interns(req, res) {
         try {

@@ -50,14 +50,14 @@ module.exports = {
 
     //view users page
     async view_user_profile(req, res) {
-        _id = req.query.id;
+            // return console.log(trainee_profile)
 
         try {
-            //getting user
-            const user = await Trainee.findOne({ _id });
-
-            const trainee_id = user.id;
-            const deptId = user.category_id;
+            
+            const trainee = trainee_profile
+            
+            const trainee_id = trainee._id;
+            const deptId = trainee.category_id;
 
             //get trainee education
             const education = await Education.findOne({ trainee_id });
@@ -80,18 +80,20 @@ module.exports = {
             //Getting Interest-area
             const interestSet = await Interest_Area.findOne(interest_id);
 
+            // return console.log(interestSet)
+
             res.status(200).render('trainee_profile', {
-                title: 'Training Registration zone',
-                user,
+                title: 'Training Profile',
                 guardian,
                 skill,
                 education,
                 dept,
                 skillSet,
-                interestSet
+                interestSet,
+                trainee
             });
         } catch (e) {
-            console.log(e.message)
+            console.log(e)
         }
     },
 
@@ -115,7 +117,7 @@ module.exports = {
         try {
             adminProfile.tokens = [];
             await adminProfile.save();
-            res.clearCookie('jwt');
+            res.clearCookie('admin_jwt');
             req.flash('success', 'Thank You for using our Portal');
             return res.redirect('/')
         } catch (e) {
