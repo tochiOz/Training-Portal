@@ -18,15 +18,15 @@ module.exports = {
 
     //creating user
     async trainee_SignUp(req, res) {
-        // return console.log(req.file.buffer)
+        // return console.log(req)
 
         try {
             
-            // return console.log(req.body.email)
-            const buffer = await sharp(req.file.buffer).resize({
+            // return console.log(req.body.avatar)
+            const buffer = await sharp(req.body.buffer).resize({
                 width: 200, height: 200
             }).png().toBuffer()
-            // return console.log(buffer)
+            return console.log(buffer)
 
             const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
             const imageFile = dataUri.content;
@@ -86,7 +86,7 @@ module.exports = {
             //login trainees at once
             res.cookie('jwt', token, { maxAge: 400000000 })
 
-            return res.redirect('/trainee-profile')
+            // return res.redirect('/trainee-profile')
             res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
         } catch (e) {
             res.status(400).send(e.message)
