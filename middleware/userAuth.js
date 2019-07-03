@@ -8,7 +8,7 @@ isUser = async (req, res, next) => {
         if ((req.cookies.jwt === undefined || null) && (req.cookies.admin_jwt === undefined || null)) {
             return res.redirect('/');
         }
-
+        
         //for user access
         if (req.cookies.jwt ) {
             const token = req.cookies.jwt;

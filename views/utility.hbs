@@ -2,209 +2,199 @@
 <html lang="en">
 
 <head>
-    <title>{{title}}</title>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="css/vendor/datatables.min.css">
-    <link rel="stylesheet" href="css/vendor/perfect-scrollbar.css">
-    <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
+  <title>{{title}}</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+  <link rel="stylesheet" href="css/vendor/datatables.min.css">
+  <link rel="stylesheet" href="css/vendor/perfect-scrollbar.css">
+  <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
 </head>
 
 <body>
-    {{> dashboard_nav}}
+  {{> dashboard_nav}}
 
-    <div class="main-content-wrap sidenav-open d-flex flex-column">
-        <div class="breadcrumb">
-            <h1>{{title}}</h1>
-            <ul>
-                <li><a href="/admin-dashboard">Dashboard</a></li>
-                <li>Utilities</li>
-                <li>{{utility_name}}</li>
-            </ul>
+  <div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="breadcrumb">
+      <h1>{{title}}</h1>
+      <ul>
+        <li><a href="/admin-dashboard">Dashboard</a></li>
+        <li>Utilities</li>
+        <li>{{utility_name}}</li>
+      </ul>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="col-xs-12 col-md-8">
+      <form action="{{utility_addLlink}}" method="post" class="form-group">
+        <label for="name">Add {{utility_name}}</label>
+        <div class="d-flex align-items-center align-content-center">
+          <input type="number" class="form-control" name="number" style="width: 50px;">
+          <input type="text" class="form-control ml-3" name="name" placeholder="{{utility_name}}">
+          <button class="btn btn-success mx-5" onclick="notify()" type="submit">Add {{utility_name}}</button>
         </div>
-        <div class="separator-breadcrumb border-top"></div>
-
-        <div class="col-xs-12 col-md-8">
-            <form action="{{utility_addLlink}}" method="post" class="form-group">
-                <label for="name">Add {{utility_name}}</label>
-                <div class="d-flex align-items-center align-content-center">
-                    <input type="number" class="form-control" name="number" style="width: 50px;">
-                    <input type="text" class="form-control ml-3" name="name" placeholder="{{utility_name}}">
-                    <button class="btn btn-success mx-5" onclick="notify()" type="submit">Add {{utility_name}}</button>
-                </div>
-            </form>
-            <sub>Note: Make sure to add a number for the item you are adding.</sub>
-        </div>
-
-        <div class="row mt-6">
-
-            <div class="col-md-8">
-                <div class="card o-hidden mb-4">
-                    <div class="card-header d-flex align-items-center">
-                        <h3 class="w-50 float-left card-title m-0">{{utility_name}}</h3>
-                    </div>
-
-                    <div class="card-body">
-
-                        <div class="table-responsive">
-
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="row">#</th>
-                                        <th scope="col">Department</th>
-                                        <th scope="col">Edit</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    {{#each utility}}
-                                    <tr>
-                                        <td>{{this.number}}</td>
-                                        <td>{{this.name}}</td>
-                                        <td>
-                                            <a href="#d-{{this._id}}" target="_blank" data-toggle="modal"
-                                                class="text-warning mr-2">
-                                                <i class="nav-icon fe fe-edit font-weight-bold"></i>
-                                            </a>
-                                        </td>
-
-                                        <td>
-                                            <div class="text-danger mr-2">
-                                                <i class="nav-icon fe fe-trash font-weight-bold"
-                                                    onclick=deleteUtility("{{this._id}}") style="cursor: pointer"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {{/each}}
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </form>
+      <sub>Note: Make sure to add a number for the item you are adding.</sub>
     </div>
 
-    <!-- Modal HTML -->
-    {{#each utility}}
-    <div id="d-{{this._id}}" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" role="document">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit {{utility_name}}</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
+    <div class="row mt-6">
 
-                <div class="modal-body">
+      <div class="col-md-8">
+        <div class="card o-hidden mb-4">
+          <div class="card-header d-flex align-items-center">
+            <h3 class="w-50 float-left card-title m-0">{{utility_name}}</h3>
+          </div>
 
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="name" id="item-{{this._id}}" value="{{this.name}}"
-                                required="required">
-                        </div>
-                    </div>
+          <div class="card-body">
 
-                    <div class=" modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" onclick=updateMe("{{this._id}}") class="btn btn-primary">Save
-                            Update</button>
-                    </div>
+            <div class="table-responsive">
 
-                </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="row">#</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  {{#each utility}}
+                  <tr>
+                    <td>{{this.number}}</td>
+                    <td>{{this.name}}</td>
+                    <td>
+                      <a href="#d-{{this._id}}" target="_blank" data-toggle="modal" class="text-warning mr-2">
+                        <i class="nav-icon fe fe-edit font-weight-bold"></i>
+                      </a>
+                    </td>
+
+                    <td>
+                      <div class="text-danger mr-2">
+                        <i class="nav-icon fe fe-trash font-weight-bold" onclick=deleteUtility("{{this._id}}")
+                          style="cursor: pointer"></i>
+                      </div>
+                    </td>
+                  </tr>
+                  {{/each}}
+
+                </tbody>
+              </table>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    {{/each}}
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/perfect-scrollbar.min.js"></script>
-    {{!-- <script src="js/echarts.min.js"></script> --}}
-    <script src="js/datatables.mijs"></script>
-    {{!-- <script src="js/echart.options.min.js"></script> --}}
-    <script src="js/dashboard.v2.script.min.js"></script>
-    <script src="js/script.min.js"></script>
-    <script>
+  <!-- Modal HTML -->
+  {{#each utility}}
+  <div id="d-{{this._id}}" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content" role="document">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit {{utility_name}}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
 
-      //import axios from 'axios'
+        <div class="modal-body">
 
-      function updateMe(id) {
-        const url = `{{utility_edit}}?id=${id}`;
-        // const form = new FormData()
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control" name="name" id="item-{{this._id}}" value="{{this.name}}"
+                required="required">
+            </div>
+          </div>
 
-        let form = document.querySelector(`#item-${id}`).value;
-        alert('this is new input ' + form)
+          <div class=" modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="submit" onclick=updateMe("{{this._id}}") class="btn btn-primary">Save
+              Update</button>
+          </div>
 
-        try {
-            fetch(url, {
-                method: 'PUT',
-                body: JSON.stringify({
-                  name: form
-                })
-            }).then((res) => {
-            console.log(JSON.stringify(res.json()))
-          }).catch((e) => console.log(e));
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
 
-         //  Swal.fire(
-         //   'Good Job!',
-         //   'Item Updated Successfully',
-         //   'success'
-         // );
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/perfect-scrollbar.min.js"></script>
+  {{!-- <script src="js/echarts.min.js"></script> --}}
+  <script src="js/datatables.mijs"></script>
+  {{!-- <script src="js/echart.options.min.js"></script> --}}
+  <script src="js/dashboard.v2.script.min.js"></script>
+  <script src="js/script.min.js"></script>
+  <script>
 
-          // window.location.reload()
-        } catch (e) {
-          console.log(e.message)
-        }
-      }
+    //import axios from 'axios'
 
-      async function deleteUtility(id) {
-        const param = "{{utility_link}}";
+    async function updateMe(id) {
+      const url = `{{utility_edit}}?id=${id}`;
 
-        try {
-          switch (param) {
-            case "/admin-skill-levels":
-              await fetch(`/admin/utlity/apiSki/delete?id=${id}`, {
-                method: 'delete'
-              });
-              break;
-            case "/admin-departments":
-              await fetch(`/admin/utlity/apiCat/delete?id=${id}`, {
-                method: 'delete'
-              });
-              break;
-            case "/admin-interest-areas":
-              await fetch(`/admin/utlity/apiInt/delete?id=${id}`, {
-                method: 'delete'
-              });
-              break;
+      let form = document.querySelector(`#item-${id}`).value;
+      //alert('this is new input ' + form)
 
-            default:
-              return console.log('Url is not found');
-          }
-          await Swal.fire(
-            'Good Job!',
-            'Item Deleted Successfully',
-            'success'
-          );
+      try {
+        await axios.put(url, {
+          name: form
+        }).then((res) => {
+          console.log(JSON.stringify(res.json()))
+        }).catch((e) => console.log(e));
 
-          return window.location.reload()
-        } catch (e) {
-          console.log(e.message)
-        };
-      };
-
-      async function notify() {
         await Swal.fire(
-          'Good Job!',
-          'Item Added Successfully',
+          'Success!',
+          'Item Updated Successfully',
           'success'
-        )
+        );
+
+        window.location.reload()
+      } catch (e) {
+        console.log(e.message)
+      }
+    }
+
+    async function deleteUtility(id) {
+      const param = "{{utility_link}}";
+
+      try {
+        switch (param) {
+          case "/admin-skill-levels":
+            await axios.delete(`/admin/utlity/apiSki/delete?id=${id}`);
+            break;
+          case "/admin-departments":
+            await axios.delete(`/admin/utlity/apiCat/delete?id=${id}`);
+            break;
+          case "/admin-interest-areas":
+            await axios.delete(`/admin/utlity/apiInt/delete?id=${id}`);
+            break;
+
+          default:
+            return console.log('Url is not found');
+        }
+        await Swal.fire(
+          'Success!',
+          'Item Deleted Successfully',
+          'success'
+        );
+
+        return window.location.reload()
+      } catch (e) {
+        console.log(e.message)
       };
+    };
+
+    async function notify() {
+      await Swal.fire(
+        'Success!',
+        'Item Added Successfully',
+        'success'
+      )
+    };
 
 
-    </script>
+  </script>
 
 </body>
 

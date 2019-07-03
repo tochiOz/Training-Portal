@@ -28,15 +28,15 @@
                     </div>
                 </div>
                 <div class="signup-form-conent">
-                    <form method="POST" id="signup-form" class="signup-form" action="/trainee/student/create">
+                    <form method="POST" id="signup-form" class="signup-form" enctype=”multipart/form-data” action="/trainee/profile/create">
                         <h3></h3>
-                        <fieldset>
+                        <fieldset name="userInfo">
                             <span class="step-current">Step 1 / 5</span>
                             <h2 class="pt-6">Trainee info</h2>
                             <p>Please enter your infomation and proceed to next step so we can build your
                                 account</p>
                             <div class="form-group">
-                                <input type="text" name="your_name" id="full_name" required />
+                                <input type="text" name="full_name" id="full_name" required />
                                 <label for="full_name">Your Full Name</label>
                             </div>
                             <div class="form-group">
@@ -121,7 +121,7 @@
                             <p>Please state your Programming skill level and choice</p>
                             
                             <div class="form-group">
-                                <select name="school" id="school" required class="form-control form-select">
+                                <select name="programming_skill" id="programming_skill" required class="form-control form-select">
                                     <option value="">Do You Have Any Programming Experience?</option>
                                     <option value="true">Yes</option>
                                     <option value="false">No</option>
@@ -129,7 +129,7 @@
                             </div>
 
                             <div class="form-group">
-                                <select name="academic_discipline" id="academic_discipline" required class="form-control form-select">
+                                <select name="teaching_experience" id="teaching_experience" required class="form-control form-select">
                                     <option value="">Do You Have Any Teaching Experience?</option>
                                     <option value="true">Yes</option>
                                     <option value="false">No</option>
@@ -173,7 +173,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="text" name="account_password" id="account_password" required />
+                                <input type="password" name="account_password" id="account_password" required />
                                 <label for="account_password">Account Password</label>
                             </div>
 
@@ -196,7 +196,7 @@
                                     <div class="upload-button">
                                         <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                                     </div>
-                                    <input class="file-upload" type="file" accept="image/*" name="avatar" />
+                                    <input class="file-upload" type="file" accept="image/*" name="avatar" id="avatar"/>
                                 </div>
                             </div>
                         </fieldset>
@@ -208,6 +208,7 @@
     </div>
 
     <!-- JS -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
