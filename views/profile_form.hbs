@@ -28,68 +28,70 @@
                 </div>
             </div>
             <div class="signup-form-conent">
-                <form id="regForm" class="signup-form">
+                <form id="regForm" class="signup-form" method="POST" action="/trainee/profile/create" enctype="multipart/form-data">
                     <h1>Registration Form</h1>
                     <div class="tab">
                         <span class="step-current">Step 1 / 5</span>
-                        <h2 class="pt-6">Trainee info</h2>
+                        <h2 class="pt-3">Trainee info</h2>
                         <p>Please enter your infomation and proceed to next step so we can build your
                             account</p>
 
-                            
-                        <div class="form-group">
-                            <input type="text" name="full_name" id="full_name" oninput="this.className = ''" required
-                                placeholder="Your Full Name" />
+                        <div class="form-group mt-6">
+                            <label for="full_name">Full Name</label>
+                            <input type="text" name="full_name" oninput="this.className = ''" id="full_name" required
+                                 class="form-control" placeholder="Name & Surname">
                         </div>
-                        <div class="form-group">
-                            <input type="email" name="email" oninput="this.className = ''" id="email" required
-                                placeholder="Email" />
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password" name="password" oninput="this.className = ''" id="password" required
-                                placeholder="Password" />
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="phone_number" oninput="this.className = ''" id="phone_number"
-                                required placeholder="Phone Number" />
-                        </div>
-                        <div class="form-group">
-                            <input type="date" name="dob" id="dob" oninput="this.className = ''" required
-                                placeholder="Your Full Name" />
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="address" id="address" oninput="this.className = ''" required
-                                placeholder="Your Address" />
-                        </div>
-
-
-                        <div class=";justify-content-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                    value="option1" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Default radio
-                                </label>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" oninput="this.className = ''" id="email" required
+                                placeholder="Email" class="form-control" >
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                    value="option2">
-                                <label class="form-check-label" for="exampleRadios2">
-                                    Second default radio
-                                </label>
+                            <div class="form-group col-md-6">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control"  name="password" oninput="this.className = ''" id="password" required
+                                placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" name="address" id="address" oninput="this.className = ''" required
+                                 placeholder="1234 Main St">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="phone_number">Phone Number</label>
+                                <input type="text" class="form-control" name="phone_number" oninput="this.className = ''" id="phone_number"
+                                required placeholder="080 xxxx xxx">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="gender">Gender</label>
+                                <select id="gender" class="form-control" name="gender" oninput="this.className = ''">
+                                    <option selected>Choose...</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="dob">Date Of Birth</label>
+                                <input type="date" name="dob" class="form-control" id="dob" oninput="this.className = ''" required />
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <select name="category_id" id="category" oninput="this.className = ''"
-                                class="form-control form-select">
-                                <option value="">Please Choose The Department You Belong to</option>
-                                {{#each departments}}
-                                <option value="{{this._id}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="category">Please Choose Your Preferred Department</label>
+                                <select name="category_id" id="category" class="form-control" oninput="this.className = ''"
+                                    class="form-control form-select">
+                                    <option selected>Choose....</option>
+                                    {{#each departments}}
+                                    <option value="{{this._id}}">{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
                         </div>
+                        
                     </div>
 
 
@@ -103,16 +105,19 @@
                         <h2 class="pt-6">Educational Information</h2>
                         <p>Please enter your Educational infomation and move to the next stage</p>
                         <div class="form-group">
-                            <input type="text" name="school" oninput="this.className = ''" id="school" required
+                            <label for="school">Name OF Institution</label>
+                            <input type="text" name="school" oninput="this.className = ''" id="school" required class="form-control"
                                 placeholder="Your School Name" />
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="academic_discipline" oninput="this.className = ''"
+                            <label for="academic_discipline">Course Of Study</label>
+                            <input type="text" name="academic_discipline" oninput="this.className = ''" class="form-control"
                                 id="academic_discipline" required placeholder="Course Of Study" />
                         </div>
                         <div class="form-group">
-                            <input type="text" name="academic_status" oninput="this.className = ''" id="academic_status"
+                            <label for="academic_status">Academic Level</label>
+                            <input type="text" name="academic_status" oninput="this.className = ''" id="academic_status" class="form-control"
                                 required placeholder="Academic Level, E.g 100L, B.Eng" />
                         </div>
                     </div>
@@ -124,40 +129,44 @@
                         {{!-- Trainee Skills --}} -->
                     <div class="tab">
                         <span class="step-current">Step 3 / 5</span>
-                        <h2 class="pt-6">Programming Skills</h2>
+                        <h2 class="pt-4">Programming Skills</h2>
                         <p>Please state your Programming skill level and choice</p>
 
-                        <div class="form-group">
-                            <select name="programming_skill" id="programming_skill" oninput="this.className = ''"
+                        <div class="form-group my-6">
+                            <label for="programming_skill">Do You Have Any Programming Experience?</label>
+                            <select name="programming_skill" id="programming_skill" oninput="this.className = ''" class="form-control"
                                 required class="form-control form-select">
-                                <option value="">Do You Have Any Programming Experience?</option>
+                                <option selected>Choose....</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group my-6">
+                            <label for="teaching_experience">Do You Have Any Teaching Experience?</label>
+                            <select name="teaching_experience" oninput="this.className = ''" id="teaching_experience" class="form-control"
+                                required class="form-control form-select">
+                                <option selected>Choose....</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <select name="teaching_experience" oninput="this.className = ''" id="teaching_experience"
-                                required class="form-control form-select">
-                                <option value="">Do You Have Any Teaching Experience?</option>
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <select name="level_id" id="level_id" oninput="this.className = ''"
+                            <label for="level_id">Choose Your Skill Level</label>
+                            <select name="level_id" id="level_id" oninput="this.className = ''" class="form-control"
                                 class="form-control form-select">
-                                <option value="">Choose Your Skill Level</option>
+                                <option selected>Choose....</option>
                                 {{#each skills}}
                                 <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="interest_id" id="interest_id" oninput="this.className = ''"
+                            <label for="interest_id">Choose Your Interest Areas</label>
+                            <select name="interest_id" id="interest_id" oninput="this.className = ''" class="form-control"
                                 class="form-control form-select">
-                                <option value="">Choose Your Interest Areas</option>
+                                <option selected>Choose....</option>
                                 {{#each interests}}
                                 <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}
@@ -178,12 +187,14 @@
                             Services
                         </p>
                         <div class="form-group">
-                            <input type="text" name="account_name" oninput="this.className = ''" id="account_name"
+                            <label for="account_name">Account Username</label>
+                            <input type="text" name="account_name" oninput="this.className = ''" id="account_name" class="form-control"
                                 required placeholder="Account Username" />
                         </div>
 
                         <div class="form-group">
-                            <input type="password" name="account_password" oninput="this.className = ''"
+                            <label for="account_password">Account Password</label>
+                            <input type="password" name="account_password" oninput="this.className = ''" class="form-control"
                                 id="account_password" required placeholder="Account Password" />
                         </div>
                     </div>
@@ -209,10 +220,10 @@
                     </div>
 
                     <div style="overflow: auto;">
-                        <div class="d-flex justify-content-lex-end">
-                            <button class="btn btn-primary" type="button" id="prevBtn"
+                        <div class="d-flex float-right">
+                            <button class="btn btn-danger-soft mx-2" type="button" id="prevBtn"
                                 onclick="nextPrev(-1)">Previous</button>
-                            <button class="btn btn-secondary-soft" type="button" id="nextBtn"
+                            <button class="btn btn-primary mx-2" type="button" id="nextBtn"
                                 onclick="nextPrev(1)">Next</button>
                         </div>
                     </div>
@@ -233,6 +244,7 @@
 
 <!-- JS -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script>
     $(document).ready(function () {
@@ -283,7 +295,7 @@
     }
 
     function nextPrev(n) {
-        alert('this is ' + n)
+      // alert('this is ' + n)
         //this tab will figure out which tab to display
         let x = document.getElementsByClassName("tab")
 

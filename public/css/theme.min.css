@@ -1964,10 +1964,8 @@ pre code {
     font-weight: 400;
     line-height: 1.6;
     color: #161c2d;
-    background-color: #fff;
+    background-color: transparent;
     background-clip: padding-box;
-    border: 1px solid #f1f4f8;
-    border-radius: .375rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
@@ -1984,7 +1982,7 @@ pre code {
 
 .form-control:focus {
     color: #161c2d;
-    background-color: #fff;
+    /* background-color: #fff; */
     border-color: #a7b9f6;
     outline: 0;
     box-shadow: none
@@ -2009,7 +2007,7 @@ pre code {
 
 select.form-control:focus::-ms-value {
     color: #161c2d;
-    background-color: #fff
+    background-color: #fff;
 }
 
 .form-control-file,
