@@ -11,6 +11,7 @@ const Education = require('../models/trainee_education')
 const Skill = require('../models/trainee_skill')
 const Internet = require('../models/internet')
 const Guardian = require('../models/trainee_guardian')
+const upload = require('../config/upload')
 require('../config/cloudinary')
 
 
@@ -18,15 +19,15 @@ module.exports = {
 
     //creating user
     async trainee_SignUp(req, res) {
-        // return console.log(req)
+        // return console.log(req.body)
 
         try {
-            
-            // return console.log(req.body.avatar)
+            upload.single('avatar')
+            // return console.log(req.avatar)
             const buffer = await sharp(req.body.buffer).resize({
                 width: 200, height: 200
             }).png().toBuffer()
-            return console.log(buffer)
+            // return console.log(buffer)
 
             const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
             const imageFile = dataUri.content;
@@ -41,7 +42,7 @@ module.exports = {
                 phone_number: req.body.phone_number,
                 address: req.body.address,
                 dob: req.body.dob,
-                avatar: image.secure_url,
+                // avatar: image.secure_url,
                 password: req.body.password
             });
 

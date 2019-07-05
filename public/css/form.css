@@ -301,7 +301,7 @@ input:-webkit-autofill {
 
 .form-select {
   background-color: transparent;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(199, 199, 199);
   cursor: pointer;
 }
 
@@ -342,6 +342,7 @@ body {
 }
 
 .container {
+  padding: 0%;
   width: 90%;
   position: relative;
   margin: 0 auto;
@@ -367,15 +368,10 @@ p.title {
   padding-bottom: 25px;
 }
 
-fieldset {
-  border: none;
-  padding: 0px;
-  margin: 0px;
-}
 
 .signup-desc {
   background: rgb(255, 255, 255);
-  width: 495px;
+  width: 30%;
 }
 
 .signup-desc-content {
@@ -467,52 +463,6 @@ input:valid+label {
   color: #4d4dff;
 }
 
-.actions ul {
-  width: 100%;
-  justify-content: flex-end;
-  -moz-justify-content: flex-end;
-  -webkit-justify-content: flex-end;
-  -o-justify-content: flex-end;
-  -ms-justify-content: flex-end;
-}
-
-.actions ul .disabled {
-  display: none;
-}
-
-.actions ul li {
-  margin-left: 20px;
-}
-
-.actions ul li:first-child a {
-  background: rgb(255, 65, 74);
-  color: rgb(255, 255, 255);
-}
-
-.actions ul li a {
-  width: 140px;
-  height: 50px;
-  color: #fff;
-  font-family: 'Montserrat';
-  font-size: 13px;
-  font-weight: bold;
-  background: #4d4dff;
-  align-items: center;
-  -moz-align-items: center;
-  -webkit-align-items: center;
-  -o-align-items: center;
-  -ms-align-items: center;
-  justify-content: center;
-  -moz-justify-content: center;
-  -webkit-justify-content: center;
-  -o-justify-content: center;
-  -ms-justify-content: center;
-  text-decoration: none;
-}
-
-.steps {
-  display: none;
-}
 
 @media (min-width: 1200px) {
   .container {
@@ -562,6 +512,76 @@ input:valid+label {
   .actions ul li a {
     width: 100px;
   }
+}
+
+#regForm {
+  /* background-color: #ffffff; */
+  padding: 50px;
+  font-family: 'Poppins';
+  /* padding: 40px; */
+  width: 100%;
+  /* min-width: 300px; */
+}
+
+h1 {
+  text-align: center;
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  /* font-family: Raleway; */
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #a1fdb0;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #4CAF50;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
 }
 
 .avatar-wrapper {
