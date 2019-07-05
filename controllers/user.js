@@ -22,10 +22,10 @@ module.exports = {
         // return console.log(req.body)
 
         try {
-            upload.single('avatar')
-            // return console.log(req.avatar)
-            const buffer = await sharp(req.body.buffer).resize({
-                width: 200, height: 200
+            
+            // return console.log(req.file)
+            const buffer = await sharp(req.file.buffer).resize({
+                width: 250, height: 300
             }).png().toBuffer()
             // return console.log(buffer)
 
@@ -42,7 +42,7 @@ module.exports = {
                 phone_number: req.body.phone_number,
                 address: req.body.address,
                 dob: req.body.dob,
-                // avatar: image.secure_url,
+                avatar: image.secure_url,
                 password: req.body.password
             });
 

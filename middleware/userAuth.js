@@ -14,7 +14,7 @@ isUser = async (req, res, next) => {
             const token = req.cookies.jwt;
             const decoded = jwt.verify(token, process.env.SECRET);
             const trainee = await User.findOne({ _id: decoded._id });
-
+            // return console.log(trainee)
             if (!trainee) {
                 throw new Error('Profile Doesn\'t Exist');
             }

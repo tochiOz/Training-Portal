@@ -2465,7 +2465,7 @@ textarea.form-control {
     padding: .8125rem 1.25rem;
     font-size: 1.0625rem;
     line-height: 1.6;
-    border-radius: .375rem;
+    /* border-radius: .375rem; */
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 

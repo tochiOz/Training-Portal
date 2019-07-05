@@ -368,8 +368,8 @@ input {
   width: 100%;
   border: none;
   border-bottom: 1px solid #707070;
-   width: 100%;
-   font-size: 17px;
+  width: 100%;
+  font-size: 17px;
   box-sizing: border-box;
   font-family: 'Poppins';
   transition: 0.3s ease;
@@ -384,6 +384,11 @@ input {
 
 select {
   border-bottom: 1px solid #707070;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+  color: #f00;
   font-size: 17px;
   width: 100%;
   font-family: 'Poppins';
@@ -529,12 +534,13 @@ button:hover {
   opacity: 1;
 }
 
+
 /* Mark the steps that are finished and valid: */
 .step.finish {
   background-color: rgb(74, 42, 255);
 }
 
-.avatar-wrapper {
+/* .avatar-wrapper {
   position: relative;
   height: 200px;
   width: 200px;
@@ -552,17 +558,20 @@ button:hover {
 
 .avatar-wrapper:hover .profile-pic {
   opacity: .5;
-}
+} */
 
-.profile-pic {
-  height: 100%;
-  width: 100%;
+ .profile-pic {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 1px 1px 15px -5px black;
   transition: all .3s ease;
 }
-
+/*
 .profile-pic:after {
   font-family: FontAwesome;
-  content: "\f007";
+  content: "";
   top: -10;
   left: 0;
   width: 100%;
@@ -572,9 +581,9 @@ button:hover {
   background: #ecf0f1;
   color: #0f0aff93;
   text-align: center;
-}
+} */
 
-
+/* 
 .upload-button {
   position: absolute;
   top: 0;
@@ -598,4 +607,4 @@ button:hover {
   opacity: 0;
   transition: all .3s ease;
   color: #34495e;
-}
+} */

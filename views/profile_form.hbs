@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="signup-form-conent">
-                <form id="regForm" class="signup-form" method="POST" action="/trainee/profile/create" enctype="multipart/form-data">
+                <form id="regForm" class="signup-form" enctype="multipart/form-data">
                     <h1>Registration Form</h1>
                     <div class="tab">
                         <span class="step-current">Step 1 / 5</span>
@@ -210,20 +210,21 @@
                         </p>
                         <div class="form-group d-flex justify-content-center pt-7 pb-4">
                             <div class="avatar-wrapper">
-                                <img class="profile-pic" src="" />
-                                <div class="upload-button">
+                                <img class="profile-pic" id="blah" src="http://placehold.it/200"/>
+                                {{!-- <div class="upload-button">
                                     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-                                </div>
-                                <input class="file-upload" type="file" accept="image/*" name="avatar" id="avatar" />
+                                </div> --}}
+                                <input type="file" accept="image/*" onchange="readURL(this)" name="avatar" id="avatar" class="form-control my-6" />
                             </div>
+                            
                         </div>
                     </div>
 
                     <div style="overflow: auto;">
                         <div class="d-flex float-right">
-                            <button class="btn btn-danger-soft mx-2" type="button" id="prevBtn"
+                            <button class="btn btn-secondary-soft mx-2" type="button" id="prevBtn" 
                                 onclick="nextPrev(-1)">Previous</button>
-                            <button class="btn btn-primary mx-2" type="button" id="nextBtn"
+                            <button class="btn btn-primary mx-2" type="button" id="nextBtn" 
                                 onclick="nextPrev(1)">Next</button>
                         </div>
                     </div>
@@ -247,29 +248,20 @@
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script>
-    $(document).ready(function () {
-        var readURL = function (input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+    
+   function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    $('.profile-pic').attr('src', e.target.result);
-                }
+            reader.onload = function (e) {
+                document.getElementById('blah')
+                    .src = e.target.result;
+            };
 
-                reader.readAsDataURL(input.files[0]);
-            }
+            reader.readAsDataURL(input.files[0]);
         }
+    }
 
-        $(".file-upload").on('change', function () {
-            readURL(this);
-        });
-
-        $(".upload-button").on('click', function () {
-            $(".file-upload").click();
-        });
-    });
-</script>
-<script>
     var currentTab = 0;
     showTab(currentTab);
 
@@ -286,21 +278,21 @@
         }
 
         //switching between the next and the submit button
-        if (n == (x.length - 1)) {
+        if (n === (x.length - 1)) {
             document.getElementById("nextBtn").innerHTML = "Submit";
         } else {
             document.getElementById("nextBtn").innerHTML = "Next";
         }
-        fixStepIndicator(n)
+       // fixStepIndicator(n)
     }
 
-    function nextPrev(n) {
+    async function nextPrev(n) {
       // alert('this is ' + n)
         //this tab will figure out which tab to display
         let x = document.getElementsByClassName("tab")
 
         //make sure all inputs are added
-        if (n == 1 && !validateForm()) return false;
+     //   if (n == 1 && !validateForm()) return false;
 
         //hide the current tab
         x[currentTab].style.display = "none";
@@ -310,8 +302,83 @@
 
         //if u reach the end of the form
         if (currentTab >= x.length) {
-            document.getElementById("regForm").submit()
-            return false;
+            const form_data = new FormData()
+            const name = document.querySelector('#full_name').value
+            const emails = document.querySelector('#email').value
+            const passwords = document.querySelector('#password').value
+            const addresss = document.querySelector('#address').value
+            const phone_numbers = document.querySelector('#phone_number').value
+            const genders = document.querySelector('#gender').value
+            const dobs = document.querySelector('#dob').value
+            const categorys = document.querySelector('#category').value
+            const schools = document.querySelector('#school').value
+            const academic_disciplines = document.querySelector('#academic_discipline').value
+            const academic_statuss = document.querySelector('#academic_status').value
+            const programming_skills = document.querySelector('#programming_skill').value
+            const teaching_experiences = document.querySelector('#teaching_experience').value
+            const level_ids = document.querySelector('#level_id').value
+            const interest_ids = document.querySelector('#interest_id').value
+            const account_names = document.querySelector('#account_name').value
+            const account_passwords = document.querySelector('#account_password').value
+            const avatars = document.getElementById('avatar').files[0]
+          //  alert(name)
+
+           // const data = {
+           //     full_name: name,
+           //     email: emails,
+           //     password: passwords,
+           //     address: addresss,
+           //     phone_number: phone_numbers,
+           //     dob: dobs,
+           //     category_id: categorys,
+           //     gender: genders,
+           //     school: schools,
+           //     academic_discipline: academic_disciplines,
+           //     academic_status: academic_statuss,
+           //     programming_skill: programming_skills,
+           //     teaching_experience: teaching_experiences,
+           //     level_id: level_ids,
+           //     interest_id: interest_ids,
+           //     account_name: account_names,
+           //     account_password: account_passwords,
+           //     avatar: avatars
+           // }
+            //return console.log(JSON.stringify(data))
+            form_data.append('full_name', name)
+            form_data.append('email', emails)
+            form_data.append('password', passwords)
+            form_data.append('address', addresss)
+            form_data.append('phone_number', phone_numbers)
+            form_data.append('dob', dobs)
+            form_data.append('category_id', categorys)
+            form_data.append('gender', genders)
+            form_data.append('school', schools)
+            form_data.append('academic_discipline', academic_disciplines)
+            form_data.append('academic_status', academic_statuss)
+            form_data.append('programming_skill', programming_skills)
+            form_data.append('teaching_experiences', teaching_experiences)
+            form_data.append('level_id', level_ids)
+            form_data.append('interest_id', interest_ids)
+            form_data.append('account_name', account_names)
+            form_data.append('account_password', account_password)
+            form_data.append('avatar', avatars)
+
+            //return console.log(form_data)
+            await axios.post('trainee/profile/create', form_data).then((res) => {
+                swal.fire(
+                    'Welcome!!',
+                    `${name} had been created Successfully!!`,
+                    'success'
+                )
+
+                return window.location.href = '/trainee-profile'
+            }).catch((e) => {
+                swal.fire(
+                    'Ooops',
+                    'Account Creation Failed, Please Try Again Later',
+                    'danger'
+                )
+                console.log(e.message)})
         }
         //otherwise, display the right tab
         showTab(currentTab)
@@ -330,20 +397,20 @@
             }
         }
 
-        if (valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish"
-        }
+       // if (valid) {
+         //   document.getElementsByClassName("step")[this.currentTab].className += " finish"
+        //}
         return valid
     }
 
-    function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
-        } //... and adds the "active" class on the current step: 
-        x[n].className += " active";
-    }
+ //   function fixStepIndicator(n) {
+       // This function removes the "active" class of all steps...
+    //    var i, x = document.getElementsByClassName("step");
+      //  for (i = 0; i < x.length; i++) {
+        //    x[i].className = x[i].className.replace(" active", "");
+       // } ... and adds the "active" class on the current step: 
+        //x[n].className += " active";
+   // }
 </script>
 </body>
 
