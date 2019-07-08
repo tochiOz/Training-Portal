@@ -24,8 +24,9 @@ isUser = async (req, res, next) => {
 
         } else if (req.cookies.admin_jwt && ( req.cookies.jwt === undefined || null )) {
             const _id = req.query.id
+            // return console.log(_id)
             const trainee = await User.findOne({ _id })
-
+            
             trainee_profile = trainee;
         }
 

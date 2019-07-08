@@ -339,7 +339,7 @@ module.exports = {
             const interests = await Interest_Area.find()
 
             //get skills
-            const skills = await Skills.find()
+            const skills = await emSkills.find()
 
 
             res.status(200).render('profile_form', {

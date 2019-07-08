@@ -346,7 +346,7 @@ p.title {
 
 .signup-desc {
   background: rgb(255, 255, 255);
-  width: 30%;
+  width: 35%;
 }
 
 .signup-desc-content {
@@ -356,11 +356,11 @@ p.title {
 }
 
 .signup-form-conent {
-  width: 905px;
+  width: 65%;
 }
 
 .signup-form {
-  padding: 55px 110px;
+  padding: 55px 150px;
 }
 
 input {
@@ -512,11 +512,9 @@ button:hover {
   opacity: 0.8;
 }
 
-/* .form-control {
-  background-color: transparent !important;
-  border: none;
-  border-radius: none;
-} */
+.form-control {
+  padding: .8rem 0rem !important;
+}
 
 /* Make circles that indicate the steps of the form: */
 .step {

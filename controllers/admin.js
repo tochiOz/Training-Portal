@@ -68,7 +68,7 @@ module.exports = {
             const guardian = await Guardian.findOne({ trainee_id });
 
             //Getting the category
-            const dept = await Category.findOne({deptId});
+            const dept = await Category.findOne({ deptId });
 
             const skill_id = skill.level_id;
             const interest_id = skill.interest_id;
@@ -81,7 +81,7 @@ module.exports = {
 
             // return console.log(interestSet)
 
-            res.status(200).render('trainee_profile', {
+            res.status(200).render('dashboard_profile_form', {
                 title: 'Training Profile',
                 guardian,
                 skill,

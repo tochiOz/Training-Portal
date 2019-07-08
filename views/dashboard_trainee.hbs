@@ -69,8 +69,8 @@
                                         <td>{{this.createdAt}}</td>
                                         <td>
                                             {{!-- <a href="/trainee-profile"> --}}
-                                            <button class="btn btn-success-soft"
-                                                onclick=viewProfile("{{this._id}}")>View Profile</button>
+                                            <button class="btn btn-success-soft font-weight-bold"
+                                                onclick=viewProfile("{{this._id}}")>View Profile & Edit</button>
                                             {{!-- </a> --}}
                                         </td>
                                         <td>
@@ -130,14 +130,14 @@
 
                 }
 
-                function viewProfile(id) {
+                async function viewProfile(id) {
                     let url = `/admin/view/profile?id=${id}`;
 
                     try {
                         alert(url)
-                        axios.get(url)
+                        await axios.get(url)
 
-                        //window.location.href = '/trainee-profile'
+                        return window.location.href = '/admin/view/profile-edit'
 
                     } catch (e) {
                         console.log(e)

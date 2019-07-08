@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/form.css">
     <!-- Google Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
@@ -37,54 +38,54 @@
                             account</p>
 
                         <div class="form-group mt-6">
-                            <label for="full_name">Full Name</label>
+                            {{!-- <label for="full_name">Full Name</label> --}}
                             <input type="text" name="full_name" oninput="this.className = ''" id="full_name" required
                                  class="form-control" placeholder="Name & Surname">
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="email">Email</label>
+                                {{!-- <label for="email">Email</label> --}}
                                 <input type="email" name="email" oninput="this.className = ''" id="email" required
                                 placeholder="Email" class="form-control" >
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="password">Password</label>
+                                {{!-- <label for="password">Password</label> --}}
                                 <input type="password" class="form-control"  name="password" oninput="this.className = ''" id="password" required
                                 placeholder="Password">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="address">Address</label>
+                            {{!-- <label for="address">Address</label> --}}
                             <input type="text" class="form-control" name="address" id="address" oninput="this.className = ''" required
                                  placeholder="1234 Main St">
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="phone_number">Phone Number</label>
+                                {{!-- <label for="phone_number">Phone Number</label> --}}
                                 <input type="text" class="form-control" name="phone_number" oninput="this.className = ''" id="phone_number"
                                 required placeholder="080 xxxx xxx">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="gender">Gender</label>
+                                {{!-- <label for="gender">Gender</label> --}}
                                 <select id="gender" class="form-control" name="gender" oninput="this.className = ''">
-                                    <option selected>Choose...</option>
+                                    <option selected>Choose Gender...</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="dob">Date Of Birth</label>
+                                {{!-- <label for="dob">Date Of Birth</label> --}}
                                 <input type="date" name="dob" class="form-control" id="dob" oninput="this.className = ''" required />
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="category">Please Choose Your Preferred Department</label>
+                                {{!-- <label for="category"></label> --}}
                                 <select name="category_id" id="category" class="form-control" oninput="this.className = ''"
                                     class="form-control form-select">
-                                    <option selected>Choose....</option>
+                                    <option selected>Please Choose Your Preferred Department</option>
                                     {{#each departments}}
                                     <option value="{{this._id}}">{{this.name}}</option>
                                     {{/each}}
@@ -104,19 +105,19 @@
                         <span class="step-current">Step 2 / 5</span>
                         <h2 class="pt-6">Educational Information</h2>
                         <p>Please enter your Educational infomation and move to the next stage</p>
-                        <div class="form-group">
-                            <label for="school">Name OF Institution</label>
+                        <div class="form-group mt-6">
+                            {{!-- <label for="school"></label> --}}
                             <input type="text" name="school" oninput="this.className = ''" id="school" required class="form-control"
-                                placeholder="Your School Name" />
+                                placeholder="Name OF Institution" />
                         </div>
 
                         <div class="form-group">
-                            <label for="academic_discipline">Course Of Study</label>
+                            {{!-- <label for="academic_discipline">Course Of Study</label> --}}
                             <input type="text" name="academic_discipline" oninput="this.className = ''" class="form-control"
                                 id="academic_discipline" required placeholder="Course Of Study" />
                         </div>
                         <div class="form-group">
-                            <label for="academic_status">Academic Level</label>
+                            {{!-- <label for="academic_status">Academic Level</label> --}}
                             <input type="text" name="academic_status" oninput="this.className = ''" id="academic_status" class="form-control"
                                 required placeholder="Academic Level, E.g 100L, B.Eng" />
                         </div>
@@ -133,40 +134,40 @@
                         <p>Please state your Programming skill level and choice</p>
 
                         <div class="form-group my-6">
-                            <label for="programming_skill">Do You Have Any Programming Experience?</label>
+                            {{!-- <label for="programming_skill">Do You Have Any Programming Experience?</label> --}}
                             <select name="programming_skill" id="programming_skill" oninput="this.className = ''" class="form-control"
                                 required class="form-control form-select">
-                                <option selected>Choose....</option>
+                                <option selected>Do You Have Any Programming Experience?</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
                             </select>
                         </div>
 
                         <div class="form-group my-6">
-                            <label for="teaching_experience">Do You Have Any Teaching Experience?</label>
+                            {{!-- <label for="teaching_experience"></label> --}}
                             <select name="teaching_experience" oninput="this.className = ''" id="teaching_experience" class="form-control"
                                 required class="form-control form-select">
-                                <option selected>Choose....</option>
+                                <option selected>Do You Have Any Teaching Experience?</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="level_id">Choose Your Skill Level</label>
+                            {{!-- <label for="level_id"></label> --}}
                             <select name="level_id" id="level_id" oninput="this.className = ''" class="form-control"
                                 class="form-control form-select">
-                                <option selected>Choose....</option>
+                                <option selected>Choose Your Skill Level</option>
                                 {{#each skills}}
                                 <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="interest_id">Choose Your Interest Areas</label>
+                            {{!-- <label for="interest_id">Choose Your Interest Areas</label> --}}
                             <select name="interest_id" id="interest_id" oninput="this.className = ''" class="form-control"
                                 class="form-control form-select">
-                                <option selected>Choose....</option>
+                                <option selected>Choose Your Interest Areas</option>
                                 {{#each interests}}
                                 <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}
@@ -186,14 +187,14 @@
                         <p>Please Create An <strong>Training Account</strong> to acces KodeHauz Internet
                             Services
                         </p>
-                        <div class="form-group">
-                            <label for="account_name">Account Username</label>
+                        <div class="form-group mt-md-5">
+                            {{!-- <label for="account_name">Account Username</label> --}}
                             <input type="text" name="account_name" oninput="this.className = ''" id="account_name" class="form-control"
                                 required placeholder="Account Username" />
                         </div>
 
                         <div class="form-group">
-                            <label for="account_password">Account Password</label>
+                            {{!-- <label for="account_password">Account Password</label> --}}
                             <input type="password" name="account_password" oninput="this.className = ''" class="form-control"
                                 id="account_password" required placeholder="Account Password" />
                         </div>
@@ -218,6 +219,10 @@
                             </div>
                             
                         </div>
+
+                        <div class="col-12 form-group d-flex justify-content-center">
+                            <div class="g-recaptcha" data-sitekey="6LdPU6wUAAAAAHBeMt-OF9gUVTtJswPq2yDVLMNH"></div>
+                        </div>
                     </div>
 
                     <div style="overflow: auto;">
@@ -229,13 +234,6 @@
                         </div>
                     </div>
 
-                    <!-- Circles which indicates the steps of the form: -->
-                    <div style="text-align:center;margin-top:40px;">
-                        <span class="step"></span>
-                        <span class="step"></span>
-                        <span class="step"></span>
-                        <span class="step"></span>
-                    </div>
                 </form>
             </div>
         </div>
@@ -292,7 +290,7 @@
         let x = document.getElementsByClassName("tab")
 
         //make sure all inputs are added
-        if (n == 1 && !validateForm()) return false;
+      // if (n == 1 && !validateForm()) return false;
 
         //hide the current tab
         x[currentTab].style.display = "none";
