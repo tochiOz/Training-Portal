@@ -1,5 +1,5 @@
 const Category = require('../models/embedded/categories')
-const Skills = require('../models/embedded/skill_level');
+const emSkills = require('../models/embedded/skill_level');
 const Interest_Area = require('../models/embedded/interest_area');
 const Trainee = require('../models/trainee_profile')
 const sharp = require('sharp')
@@ -8,10 +8,10 @@ const Datauri = require('datauri')
 const path = require('path')
 const dUri = new Datauri();
 const Education = require('../models/trainee_education')
-const Skill = require('../models/trainee_skill')
+const train_Skill = require('../models/trainee_skill')
 const Internet = require('../models/internet')
 const Guardian = require('../models/trainee_guardian')
-const upload = require('../config/upload')
+// const upload = require('../config/upload')
 require('../config/cloudinary')
 
 
@@ -22,10 +22,10 @@ module.exports = {
         // return console.log(req.body)
 
         try {
-            upload.single('avatar')
-            // return console.log(req.avatar)
-            const buffer = await sharp(req.body.buffer).resize({
-                width: 200, height: 200
+            
+            // return console.log(req.file)
+            const buffer = await sharp(req.file.buffer).resize({
+                width: 250, height: 300
             }).png().toBuffer()
             // return console.log(buffer)
 
@@ -42,7 +42,7 @@ module.exports = {
                 phone_number: req.body.phone_number,
                 address: req.body.address,
                 dob: req.body.dob,
-                // avatar: image.secure_url,
+                avatar: image.secure_url,
                 password: req.body.password
             });
 
@@ -126,8 +126,8 @@ module.exports = {
                 const education = await Education.findOne({ trainee_id })
 
                 //get trainee skills
-                const skill = await Skill.findOne({ trainee_id })
-
+                const skill = await train_Skill.findOne({ trainee_id })
+                
                 //get guardian
                 const guardian = await Guardian.findOne({ trainee_id })
 
@@ -137,13 +137,14 @@ module.exports = {
                 //Getting Id's
                 const skill_id = skill.level_id
                 const interest_id = skill.interest_id
-
+                // return console.log(interest_id)
                 //Getting skills
-                const skillSet = await Skill.findOne(skill_id)
+                const skillSet = await emSkills.findOne(skill_id)
+                
 
                 //Getting Interest-area
                 const interestSet = await Interest_Area.findOne(interest_id)
-              
+                // return console.log(skillSet)
                 res.status(200).render('trainee_profile', {
                     title: 'Training Registration zone',
                     trainee,
@@ -338,7 +339,7 @@ module.exports = {
             const interests = await Interest_Area.find()
 
             //get skills
-            const skills = await Skills.find()
+            const skills = await emSkills.find()
 
 
             res.status(200).render('profile_form', {

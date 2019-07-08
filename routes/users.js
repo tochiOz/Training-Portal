@@ -1,7 +1,9 @@
 var express = require('express');
 var router = new express.Router();
+const upload = require('../config/upload')
 const user_controller = require('../controllers/user')
 const isUser = require('../middleware/userAuth')
+const captcha = require('../config/reCaptcha')
 
 //testing server
 router.get('/test', async (req, res) => {
@@ -9,7 +11,7 @@ router.get('/test', async (req, res) => {
 })
 
 // //creating the user
-router.post('/trainee/profile/create',  user_controller.trainee_SignUp)
+router.post('/trainee/profile/create', upload.single('avatar'), user_controller.trainee_SignUp)
 
 //POST Trainee Login
 router.post('/trainee/profile/login', user_controller.trainee_login)

@@ -14,7 +14,7 @@ isUser = async (req, res, next) => {
             const token = req.cookies.jwt;
             const decoded = jwt.verify(token, process.env.SECRET);
             const trainee = await User.findOne({ _id: decoded._id });
-
+            // return console.log(trainee)
             if (!trainee) {
                 throw new Error('Profile Doesn\'t Exist');
             }
@@ -24,8 +24,9 @@ isUser = async (req, res, next) => {
 
         } else if (req.cookies.admin_jwt && ( req.cookies.jwt === undefined || null )) {
             const _id = req.query.id
+            // return console.log(_id)
             const trainee = await User.findOne({ _id })
-
+            
             trainee_profile = trainee;
         }
 

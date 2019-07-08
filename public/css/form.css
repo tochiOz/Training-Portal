@@ -270,31 +270,6 @@ textarea:focus {
   -ms-box-shadow: none !important;
 }
 
-input[type=checkbox] {
-  appearance: checkbox !important;
-  -moz-appearance: checkbox !important;
-  -webkit-appearance: checkbox !important;
-  -o-appearance: checkbox !important;
-  -ms-appearance: checkbox !important;
-}
-
-input[type=radio] {
-  appearance: radio !important;
-  -moz-appearance: radio !important;
-  -webkit-appearance: radio !important;
-  -o-appearance: radio !important;
-  -ms-appearance: radio !important;
-}
-
-input:-webkit-autofill {
-  box-shadow: 0 0 0 30px transparent inset;
-  -moz-box-shadow: 0 0 0 30px transparent inset;
-  -webkit-box-shadow: 0 0 0 30px transparent inset;
-  -o-box-shadow: 0 0 0 30px transparent inset;
-  -ms-box-shadow: 0 0 0 30px transparent inset;
-  background-color: transparent !important;
-}
-
 .clear {
   clear: both;
 }
@@ -371,7 +346,7 @@ p.title {
 
 .signup-desc {
   background: rgb(255, 255, 255);
-  width: 30%;
+  width: 35%;
 }
 
 .signup-desc-content {
@@ -381,56 +356,50 @@ p.title {
 }
 
 .signup-form-conent {
-  width: 905px;
+  width: 65%;
 }
 
 .signup-form {
-  padding: 55px 110px;
+  padding: 55px 150px;
 }
 
 input {
   display: block;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #bfbfbf;
+  border-bottom: 1px solid #707070;
+  width: 100%;
+  font-size: 17px;
   box-sizing: border-box;
   font-family: 'Poppins';
-  font-size: 20px;
   transition: 0.3s ease;
   -moz-transition: 0.3s ease;
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;
   -ms-transition: 0.3s ease;
-  padding-top: 30px;
-  padding-bottom: 5px;
+  padding: 12px 0 5px 10px;
   -webkit-appearance: none;
   background: transparent;
 }
 
-input+label {
-  position: absolute;
-  transition: 0.25s ease;
-  -moz-transition: 0.25s ease;
-  -webkit-transition: 0.25s ease;
-  -o-transition: 0.25s ease;
-  -ms-transition: 0.25s ease;
-  left: 0;
-  top: 24px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #888;
-}
-
-input:focus+label {
-  top: -7px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-input:valid+label {
-  top: -7px;
-  font-size: 14px;
-  font-weight: 500;
+select {
+  border-bottom: 1px solid #707070;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+  color: #f00;
+  font-size: 17px;
+  width: 100%;
+  font-family: 'Poppins';
+  transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  -ms-transition: 0.3s ease;
+  padding: 12px 0 5px 10px;
+  -webkit-appearance: none;
+  background: transparent;
 }
 
 .form-group {
@@ -455,12 +424,12 @@ input:valid+label {
 
 .step-current {
   position: absolute;
-  right: 20;
+  right: 30;
   /* top: 0; */
   font-family: 'Montserrat';
   text-transform: uppercase;
   font-weight: 800;
-  color: #4d4dff;
+  color: #6565fd;
 }
 
 
@@ -508,36 +477,22 @@ input:valid+label {
   }
 }
 
-@media screen and (max-width: 480px) {
-  .actions ul li a {
-    width: 100px;
-  }
-}
 
 #regForm {
-  /* background-color: #ffffff; */
   padding: 50px;
   font-family: 'Poppins';
-  /* padding: 40px; */
   width: 100%;
-  /* min-width: 300px; */
 }
 
 h1 {
   text-align: center;
 }
 
-input {
-  padding: 10px;
-  width: 100%;
-  font-size: 17px;
-  /* font-family: Raleway; */
-  border: 1px solid #aaaaaa;
-}
 
 /* Mark input boxes that gets an error on validation: */
 input.invalid {
-  background-color: #a1fdb0;
+  background-color: #ffd4d4;
+  color: #ffffff;
 }
 
 /* Hide all steps by default: */
@@ -546,12 +501,10 @@ input.invalid {
 }
 
 button {
-  background-color: #4CAF50;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
   font-size: 17px;
-  font-family: Raleway;
   cursor: pointer;
 }
 
@@ -559,8 +512,8 @@ button:hover {
   opacity: 0.8;
 }
 
-#prevBtn {
-  background-color: #bbbbbb;
+.form-control {
+  padding: .8rem 0rem !important;
 }
 
 /* Make circles that indicate the steps of the form: */
@@ -568,7 +521,7 @@ button:hover {
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #bbbbbb;
+  background-color: #dfe1ff;
   border: none;
   border-radius: 50%;
   display: inline-block;
@@ -579,12 +532,13 @@ button:hover {
   opacity: 1;
 }
 
+
 /* Mark the steps that are finished and valid: */
 .step.finish {
-  background-color: #4CAF50;
+  background-color: rgb(74, 42, 255);
 }
 
-.avatar-wrapper {
+/* .avatar-wrapper {
   position: relative;
   height: 200px;
   width: 200px;
@@ -602,17 +556,20 @@ button:hover {
 
 .avatar-wrapper:hover .profile-pic {
   opacity: .5;
-}
+} */
 
-.profile-pic {
-  height: 100%;
-  width: 100%;
+ .profile-pic {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 1px 1px 15px -5px black;
   transition: all .3s ease;
 }
-
+/*
 .profile-pic:after {
   font-family: FontAwesome;
-  content: "\f007";
+  content: "";
   top: -10;
   left: 0;
   width: 100%;
@@ -622,9 +579,9 @@ button:hover {
   background: #ecf0f1;
   color: #0f0aff93;
   text-align: center;
-}
+} */
 
-
+/* 
 .upload-button {
   position: absolute;
   top: 0;
@@ -648,4 +605,4 @@ button:hover {
   opacity: 0;
   transition: all .3s ease;
   color: #34495e;
-}
+} */

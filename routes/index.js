@@ -39,6 +39,9 @@ router.get('/login', function (req, res, next) {
   res.render('login', {title: 'Admin Login' })
 })
 
+//GET PROFILE FORM
+router.get('/admin/view/profile', isUser, admin_controller.view_user_profile)
+
 //GET admin Trainees
 router.get('/dashboard-trainees', isAdmin, user_controller.get_trainings)
 

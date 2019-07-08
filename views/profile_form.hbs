@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/form.css">
     <!-- Google Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
@@ -28,68 +29,70 @@
                 </div>
             </div>
             <div class="signup-form-conent">
-                <form id="regForm" class="signup-form">
+                <form id="regForm" class="signup-form" enctype="multipart/form-data">
                     <h1>Registration Form</h1>
                     <div class="tab">
                         <span class="step-current">Step 1 / 5</span>
-                        <h2 class="pt-6">Trainee info</h2>
+                        <h2 class="pt-3">Trainee info</h2>
                         <p>Please enter your infomation and proceed to next step so we can build your
                             account</p>
 
-                            
-                        <div class="form-group">
-                            <input type="text" name="full_name" id="full_name" oninput="this.className = ''" required
-                                placeholder="Your Full Name" />
+                        <div class="form-group mt-6">
+                            {{!-- <label for="full_name">Full Name</label> --}}
+                            <input type="text" name="full_name" oninput="this.className = ''" id="full_name" required
+                                 class="form-control" placeholder="Name & Surname">
                         </div>
-                        <div class="form-group">
-                            <input type="email" name="email" oninput="this.className = ''" id="email" required
-                                placeholder="Email" />
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password" name="password" oninput="this.className = ''" id="password" required
-                                placeholder="Password" />
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="phone_number" oninput="this.className = ''" id="phone_number"
-                                required placeholder="Phone Number" />
-                        </div>
-                        <div class="form-group">
-                            <input type="date" name="dob" id="dob" oninput="this.className = ''" required
-                                placeholder="Your Full Name" />
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="address" id="address" oninput="this.className = ''" required
-                                placeholder="Your Address" />
-                        </div>
-
-
-                        <div class=";justify-content-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                    value="option1" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Default radio
-                                </label>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                {{!-- <label for="email">Email</label> --}}
+                                <input type="email" name="email" oninput="this.className = ''" id="email" required
+                                placeholder="Email" class="form-control" >
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                    value="option2">
-                                <label class="form-check-label" for="exampleRadios2">
-                                    Second default radio
-                                </label>
+                            <div class="form-group col-md-6">
+                                {{!-- <label for="password">Password</label> --}}
+                                <input type="password" class="form-control"  name="password" oninput="this.className = ''" id="password" required
+                                placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{!-- <label for="address">Address</label> --}}
+                            <input type="text" class="form-control" name="address" id="address" oninput="this.className = ''" required
+                                 placeholder="1234 Main St">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                {{!-- <label for="phone_number">Phone Number</label> --}}
+                                <input type="text" class="form-control" name="phone_number" oninput="this.className = ''" id="phone_number"
+                                required placeholder="080 xxxx xxx">
+                            </div>
+                            <div class="form-group col-md-3">
+                                {{!-- <label for="gender">Gender</label> --}}
+                                <select id="gender" class="form-control" name="gender" oninput="this.className = ''">
+                                    <option selected>Choose Gender...</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                {{!-- <label for="dob">Date Of Birth</label> --}}
+                                <input type="date" name="dob" class="form-control" id="dob" oninput="this.className = ''" required />
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <select name="category_id" id="category" oninput="this.className = ''"
-                                class="form-control form-select">
-                                <option value="">Please Choose The Department You Belong to</option>
-                                {{#each departments}}
-                                <option value="{{this._id}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                {{!-- <label for="category"></label> --}}
+                                <select name="category_id" id="category" class="form-control" oninput="this.className = ''"
+                                    class="form-control form-select">
+                                    <option selected>Please Choose Your Preferred Department</option>
+                                    {{#each departments}}
+                                    <option value="{{this._id}}">{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
                         </div>
+                        
                     </div>
 
 
@@ -102,17 +105,20 @@
                         <span class="step-current">Step 2 / 5</span>
                         <h2 class="pt-6">Educational Information</h2>
                         <p>Please enter your Educational infomation and move to the next stage</p>
-                        <div class="form-group">
-                            <input type="text" name="school" oninput="this.className = ''" id="school" required
-                                placeholder="Your School Name" />
+                        <div class="form-group mt-6">
+                            {{!-- <label for="school"></label> --}}
+                            <input type="text" name="school" oninput="this.className = ''" id="school" required class="form-control"
+                                placeholder="Name OF Institution" />
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="academic_discipline" oninput="this.className = ''"
+                            {{!-- <label for="academic_discipline">Course Of Study</label> --}}
+                            <input type="text" name="academic_discipline" oninput="this.className = ''" class="form-control"
                                 id="academic_discipline" required placeholder="Course Of Study" />
                         </div>
                         <div class="form-group">
-                            <input type="text" name="academic_status" oninput="this.className = ''" id="academic_status"
+                            {{!-- <label for="academic_status">Academic Level</label> --}}
+                            <input type="text" name="academic_status" oninput="this.className = ''" id="academic_status" class="form-control"
                                 required placeholder="Academic Level, E.g 100L, B.Eng" />
                         </div>
                     </div>
@@ -124,40 +130,44 @@
                         {{!-- Trainee Skills --}} -->
                     <div class="tab">
                         <span class="step-current">Step 3 / 5</span>
-                        <h2 class="pt-6">Programming Skills</h2>
+                        <h2 class="pt-4">Programming Skills</h2>
                         <p>Please state your Programming skill level and choice</p>
 
-                        <div class="form-group">
-                            <select name="programming_skill" id="programming_skill" oninput="this.className = ''"
+                        <div class="form-group my-6">
+                            {{!-- <label for="programming_skill">Do You Have Any Programming Experience?</label> --}}
+                            <select name="programming_skill" id="programming_skill" oninput="this.className = ''" class="form-control"
                                 required class="form-control form-select">
-                                <option value="">Do You Have Any Programming Experience?</option>
+                                <option selected>Do You Have Any Programming Experience?</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group my-6">
+                            {{!-- <label for="teaching_experience"></label> --}}
+                            <select name="teaching_experience" oninput="this.className = ''" id="teaching_experience" class="form-control"
+                                required class="form-control form-select">
+                                <option selected>Do You Have Any Teaching Experience?</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <select name="teaching_experience" oninput="this.className = ''" id="teaching_experience"
-                                required class="form-control form-select">
-                                <option value="">Do You Have Any Teaching Experience?</option>
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <select name="level_id" id="level_id" oninput="this.className = ''"
+                            {{!-- <label for="level_id"></label> --}}
+                            <select name="level_id" id="level_id" oninput="this.className = ''" class="form-control"
                                 class="form-control form-select">
-                                <option value="">Choose Your Skill Level</option>
+                                <option selected>Choose Your Skill Level</option>
                                 {{#each skills}}
                                 <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="interest_id" id="interest_id" oninput="this.className = ''"
+                            {{!-- <label for="interest_id">Choose Your Interest Areas</label> --}}
+                            <select name="interest_id" id="interest_id" oninput="this.className = ''" class="form-control"
                                 class="form-control form-select">
-                                <option value="">Choose Your Interest Areas</option>
+                                <option selected>Choose Your Interest Areas</option>
                                 {{#each interests}}
                                 <option value="{{this._id}}">{{this.name}}</option>
                                 {{/each}}
@@ -177,13 +187,15 @@
                         <p>Please Create An <strong>Training Account</strong> to acces KodeHauz Internet
                             Services
                         </p>
-                        <div class="form-group">
-                            <input type="text" name="account_name" oninput="this.className = ''" id="account_name"
+                        <div class="form-group mt-md-5">
+                            {{!-- <label for="account_name">Account Username</label> --}}
+                            <input type="text" name="account_name" oninput="this.className = ''" id="account_name" class="form-control"
                                 required placeholder="Account Username" />
                         </div>
 
                         <div class="form-group">
-                            <input type="password" name="account_password" oninput="this.className = ''"
+                            {{!-- <label for="account_password">Account Password</label> --}}
+                            <input type="password" name="account_password" oninput="this.className = ''" class="form-control"
                                 id="account_password" required placeholder="Account Password" />
                         </div>
                     </div>
@@ -199,31 +211,29 @@
                         </p>
                         <div class="form-group d-flex justify-content-center pt-7 pb-4">
                             <div class="avatar-wrapper">
-                                <img class="profile-pic" src="" />
-                                <div class="upload-button">
+                                <img class="profile-pic" id="blah" src="http://placehold.it/200"/>
+                                {{!-- <div class="upload-button">
                                     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-                                </div>
-                                <input class="file-upload" type="file" accept="image/*" name="avatar" id="avatar" />
+                                </div> --}}
+                                <input type="file" accept="image/*" onchange="readURL(this)" name="avatar" id="avatar" class="form-control my-6" />
                             </div>
+                            
+                        </div>
+
+                        <div class="col-12 form-group d-flex justify-content-center">
+                            <div class="g-recaptcha" data-sitekey="6LdPU6wUAAAAAHBeMt-OF9gUVTtJswPq2yDVLMNH"></div>
                         </div>
                     </div>
 
                     <div style="overflow: auto;">
-                        <div class="d-flex justify-content-lex-end">
-                            <button class="btn btn-primary" type="button" id="prevBtn"
+                        <div class="d-flex float-right">
+                            <button class="btn btn-secondary-soft mx-2" type="button" id="prevBtn" 
                                 onclick="nextPrev(-1)">Previous</button>
-                            <button class="btn btn-secondary-soft" type="button" id="nextBtn"
+                            <button class="btn btn-primary mx-2" type="button" id="nextBtn" 
                                 onclick="nextPrev(1)">Next</button>
                         </div>
                     </div>
 
-                    <!-- Circles which indicates the steps of the form: -->
-                    <div style="text-align:center;margin-top:40px;">
-                        <span class="step"></span>
-                        <span class="step"></span>
-                        <span class="step"></span>
-                        <span class="step"></span>
-                    </div>
                 </form>
             </div>
         </div>
@@ -233,31 +243,23 @@
 
 <!-- JS -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script>
-    $(document).ready(function () {
-        var readURL = function (input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+    
+   function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    $('.profile-pic').attr('src', e.target.result);
-                }
+            reader.onload = function (e) {
+                document.getElementById('blah')
+                    .src = e.target.result;
+            };
 
-                reader.readAsDataURL(input.files[0]);
-            }
+            reader.readAsDataURL(input.files[0]);
         }
+    }
 
-        $(".file-upload").on('change', function () {
-            readURL(this);
-        });
-
-        $(".upload-button").on('click', function () {
-            $(".file-upload").click();
-        });
-    });
-</script>
-<script>
     var currentTab = 0;
     showTab(currentTab);
 
@@ -274,21 +276,21 @@
         }
 
         //switching between the next and the submit button
-        if (n == (x.length - 1)) {
+        if (n === (x.length - 1)) {
             document.getElementById("nextBtn").innerHTML = "Submit";
         } else {
             document.getElementById("nextBtn").innerHTML = "Next";
         }
-        fixStepIndicator(n)
+       // fixStepIndicator(n)
     }
 
-    function nextPrev(n) {
-        alert('this is ' + n)
+    async function nextPrev(n) {
+      // alert('this is ' + n)
         //this tab will figure out which tab to display
         let x = document.getElementsByClassName("tab")
 
         //make sure all inputs are added
-        if (n == 1 && !validateForm()) return false;
+      // if (n == 1 && !validateForm()) return false;
 
         //hide the current tab
         x[currentTab].style.display = "none";
@@ -298,8 +300,83 @@
 
         //if u reach the end of the form
         if (currentTab >= x.length) {
-            document.getElementById("regForm").submit()
-            return false;
+            const form_data = new FormData()
+            const name = document.querySelector('#full_name').value
+            const emails = document.querySelector('#email').value
+            const passwords = document.querySelector('#password').value
+            const addresss = document.querySelector('#address').value
+            const phone_numbers = document.querySelector('#phone_number').value
+            const genders = document.querySelector('#gender').value
+            const dobs = document.querySelector('#dob').value
+            const categorys = document.querySelector('#category').value
+            const schools = document.querySelector('#school').value
+            const academic_disciplines = document.querySelector('#academic_discipline').value
+            const academic_statuss = document.querySelector('#academic_status').value
+            const programming_skills = document.querySelector('#programming_skill').value
+            const teaching_experiences = document.querySelector('#teaching_experience').value
+            const level_ids = document.querySelector('#level_id').value
+            const interest_ids = document.querySelector('#interest_id').value
+            const account_names = document.querySelector('#account_name').value
+            const account_passwords = document.querySelector('#account_password').value
+            const avatars = document.getElementById('avatar').files[0]
+          //  alert(name)
+
+           // const data = {
+           //     full_name: name,
+           //     email: emails,
+           //     password: passwords,
+           //     address: addresss,
+           //     phone_number: phone_numbers,
+           //     dob: dobs,
+           //     category_id: categorys,
+           //     gender: genders,
+           //     school: schools,
+           //     academic_discipline: academic_disciplines,
+           //     academic_status: academic_statuss,
+           //     programming_skill: programming_skills,
+           //     teaching_experience: teaching_experiences,
+           //     level_id: level_ids,
+           //     interest_id: interest_ids,
+           //     account_name: account_names,
+           //     account_password: account_passwords,
+           //     avatar: avatars
+           // }
+            //return console.log(JSON.stringify(data))
+            form_data.append('full_name', name)
+            form_data.append('email', emails)
+            form_data.append('password', passwords)
+            form_data.append('address', addresss)
+            form_data.append('phone_number', phone_numbers)
+            form_data.append('dob', dobs)
+            form_data.append('category_id', categorys)
+            form_data.append('gender', genders)
+            form_data.append('school', schools)
+            form_data.append('academic_discipline', academic_disciplines)
+            form_data.append('academic_status', academic_statuss)
+            form_data.append('programming_skill', programming_skills)
+            form_data.append('teaching_experiences', teaching_experiences)
+            form_data.append('level_id', level_ids)
+            form_data.append('interest_id', interest_ids)
+            form_data.append('account_name', account_names)
+            form_data.append('account_password', account_password)
+            form_data.append('avatar', avatars)
+
+            //return console.log(form_data)
+            await axios.post('trainee/profile/create', form_data).then((res) => {
+                swal.fire(
+                    'Welcome!!',
+                    `${name} had been created Successfully!!`,
+                    'success'
+                )
+
+                return window.location.href = '/trainee-profile'
+            }).catch((e) => {
+                swal.fire(
+                    'Ooops',
+                    'Account Creation Failed, Please Try Again Later',
+                    'danger'
+                )
+                console.log(e.message)})
         }
         //otherwise, display the right tab
         showTab(currentTab)
@@ -318,20 +395,20 @@
             }
         }
 
-        if (valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish"
-        }
+       // if (valid) {
+         //   document.getElementsByClassName("step")[this.currentTab].className += " finish"
+        //}
         return valid
     }
 
-    function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
-        } //... and adds the "active" class on the current step: 
-        x[n].className += " active";
-    }
+ //   function fixStepIndicator(n) {
+       // This function removes the "active" class of all steps...
+    //    var i, x = document.getElementsByClassName("step");
+      //  for (i = 0; i < x.length; i++) {
+        //    x[i].className = x[i].className.replace(" active", "");
+       // } ... and adds the "active" class on the current step: 
+        //x[n].className += " active";
+   // }
 </script>
 </body>
 
