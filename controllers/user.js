@@ -11,6 +11,7 @@ const Education = require('../models/trainee_education')
 const train_Skill = require('../models/trainee_skill')
 const Internet = require('../models/internet')
 const Guardian = require('../models/trainee_guardian')
+const axios = require('axios')
 // const upload = require('../config/upload')
 require('../config/cloudinary')
 
@@ -22,7 +23,35 @@ module.exports = {
         // return console.log(req.body)
 
         try {
-            
+            if (
+                req.body.captcha === undefined ||
+                req.body.captcha === ' ' ||
+                req.body.captcha === null
+            ) {
+                return res.json({ "success": false, "msg": "Please Select Captcha" })
+            }
+
+            //secret key
+            const secretKey = process.env.RECAPTCHA_SECRET;
+
+            //verify URL
+            const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+
+            //make request to verifyUrl
+            await axios.get(verifyUrl, (err, res, body) => {
+                body = JSON.parse(body)
+
+                if (body.success !== undefined && !body.success) {
+                    return res.json({
+                        "success": false,
+                        "msg": "Failed Captcha Verification"
+                    })
+                }
+                res.send({
+                    "success": true, "msg": "Captcha was verified Successfully"
+                })
+            })
+
             // return console.log(req.file)
             const buffer = await sharp(req.file.buffer).resize({
                 width: 250, height: 300
@@ -88,7 +117,10 @@ module.exports = {
             res.cookie('jwt', token, { maxAge: 400000000 })
 
             // return res.redirect('/trainee-profile')
-            res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
+            res.status(201).send({
+                trainee, trainee_education, training_skill, training_internet_account, token,
+                "success": true, "msg": "Captcha was verified Successfully"
+            })
         } catch (e) {
             res.status(400).send(e.message)
             console.log(e)

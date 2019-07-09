@@ -219,12 +219,12 @@
                             </div>
                             
                         </div>
-
+{{!-- 
                         <div class="col-12 form-group d-flex justify-content-center">
-                            <div class="g-recaptcha" data-sitekey="6LdPU6wUAAAAAHBeMt-OF9gUVTtJswPq2yDVLMNH"></div>
-                        </div>
+                            <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LdPU6wUAAAAAHBeMt-OF9gUVTtJswPq2yDVLMNH"></div>
+                        </div> --}}
                     </div>
-
+ 
                     <div style="overflow: auto;">
                         <div class="d-flex float-right">
                             <button class="btn btn-secondary-soft mx-2" type="button" id="prevBtn" 
@@ -242,6 +242,13 @@
 </div>
 
 <!-- JS -->
+<script src="https://www.google.com/recaptcha/api.js?render=6LdPU6wUAAAAAHBeMt-OF9gUVTtJswPq2yDVLMNH"></script>
+<script>
+    grecaptcha.ready(function () {
+        grecaptcha.execute('6LdPU6wUAAAAAHBeMt-OF9gUVTtJswPq2yDVLMNH', { action: 'e-commerce' }).then(function (token) {
+
+        });
+    });x    
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
@@ -300,6 +307,7 @@
 
         //if u reach the end of the form
         if (currentTab >= x.length) {
+
             const form_data = new FormData()
             const name = document.querySelector('#full_name').value
             const emails = document.querySelector('#email').value
@@ -318,29 +326,9 @@
             const interest_ids = document.querySelector('#interest_id').value
             const account_names = document.querySelector('#account_name').value
             const account_passwords = document.querySelector('#account_password').value
+            const captcha = document.querySelector('#g-recaptcha').value
             const avatars = document.getElementById('avatar').files[0]
-          //  alert(name)
-
-           // const data = {
-           //     full_name: name,
-           //     email: emails,
-           //     password: passwords,
-           //     address: addresss,
-           //     phone_number: phone_numbers,
-           //     dob: dobs,
-           //     category_id: categorys,
-           //     gender: genders,
-           //     school: schools,
-           //     academic_discipline: academic_disciplines,
-           //     academic_status: academic_statuss,
-           //     programming_skill: programming_skills,
-           //     teaching_experience: teaching_experiences,
-           //     level_id: level_ids,
-           //     interest_id: interest_ids,
-           //     account_name: account_names,
-           //     account_password: account_passwords,
-           //     avatar: avatars
-           // }
+          
             //return console.log(JSON.stringify(data))
             form_data.append('full_name', name)
             form_data.append('email', emails)
@@ -359,10 +347,14 @@
             form_data.append('interest_id', interest_ids)
             form_data.append('account_name', account_names)
             form_data.append('account_password', account_password)
-            form_data.append('avatar', avatars)
+            form_data.append('avatar', avatars);
+            form_data.append('captcha', captcha);
 
             //return console.log(form_data)
-            await axios.post('trainee/profile/create', form_data).then((res) => {
+            await axios.post('trainee/profile/create', form_data)
+            .then((data) => {
+                alert(data)
+                return console.log(data)
                 swal.fire(
                     'Welcome!!',
                     `${name} had been created Successfully!!`,
@@ -374,7 +366,7 @@
                 swal.fire(
                     'Ooops',
                     'Account Creation Failed, Please Try Again Later',
-                    'danger'
+                    'error'
                 )
                 console.log(e.message)})
         }
