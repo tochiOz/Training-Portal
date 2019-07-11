@@ -33,93 +33,92 @@ module.exports = {
 
             //secret key
             const secretKey = process.env.RECAPTCHA_SECRET;
-
+           
             //verify URL
             const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
-
+            //  return console.log(verifyUrl)
             //make request to verifyUrl
-            await axios.get(verifyUrl, (err, res, body) => {
-                body = JSON.parse(body)
-
+            await axios.get(verifyUrl).then( async (response) => {
+            //    return console.log(res.data)
+                // body = JSON.parse(body)
+                const body = response.data;
+             
                 if (body.success !== undefined && !body.success) {
-                    return res.json({
+                    res.json({
                         "success": false,
-                        "msg": "Failed Captcha Verification"
+                        "message": "Failed Captcha Verification, Are You a Bot??"
                     })
+                    return console.log(error)
                 }
-                res.send({
+                // return console.log(req.body)
+                const buffer = await sharp(req.file.buffer).resize({
+                    width: 250, height: 300
+                }).png().toBuffer()
+                // return console.log(buffer)
+
+                const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
+                const imageFile = dataUri.content;
+                // return console.log(imageFile)
+                const image = await cloudinary.v2.uploader.upload(imageFile)
+                // return console.log(image)
+                const trainee = new Trainee({
+                    full_name: req.body.full_name,
+                    email: req.body.email,
+                    category_id: req.body.category_id,
+                    gender: req.body.gender,
+                    phone_number: req.body.phone_number,
+                    address: req.body.address,
+                    dob: req.body.dob,
+                    avatar: image.secure_url,
+                    password: req.body.password
+                });
+
+                await trainee.save();
+
+                //ex tracting the user_id
+                const userId = trainee._id;
+
+                //creating new instance of educational table
+                const trainee_education = new Education({
+                    school: req.body.school,
+                    academic_discipline: req.body.academic_discipline,
+                    academic_status: req.body.academic_status,
+                    trainee_id: userId,
+                });
+
+                await trainee_education.save()
+
+                //creating new instance of internet details 
+                const training_skill = new train_Skill({
+                    programming_skill: req.body.programming_skill,
+                    teaching_experience: req.body.teaching_experience,
+                    level_id: req.body.level_id,
+                    interest_id: req.body.interest_id,
+                    trainee_id: userId,
+                })
+
+                await training_skill.save()
+
+
+                //creating new instance of programming skill
+                const training_internet_account = new Internet({
+                    account_name: req.body.account_name,
+                    account_password: req.body.account_password,
+                    trainee_id: userId,
+                })
+
+                await training_internet_account.save()
+
+                const token = await trainee.generateAuthToken()
+
+                //login trainees at once
+                res.cookie('jwt', token, { maxAge: 400000000 })
+
+                // return res.redirect('/trainee-profile')
+                res.status(201).send({
+                    trainee, trainee_education, training_skill, training_internet_account, token,
                     "success": true, "msg": "Captcha was verified Successfully"
                 })
-            })
-
-            // return console.log(req.file)
-            const buffer = await sharp(req.file.buffer).resize({
-                width: 250, height: 300
-            }).png().toBuffer()
-            // return console.log(buffer)
-
-            const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
-            const imageFile = dataUri.content;
-            // return console.log(imageFile)
-            const image = await cloudinary.v2.uploader.upload(imageFile)
-            // return console.log(image)
-            const trainee = new Trainee({
-                full_name: req.body.full_name,
-                email: req.body.email,
-                category_id: req.body.category_id,
-                gender: req.body.gender,
-                phone_number: req.body.phone_number,
-                address: req.body.address,
-                dob: req.body.dob,
-                avatar: image.secure_url,
-                password: req.body.password
-            });
-
-            await trainee.save();
-
-            //ex tracting the user_id
-            const userId = trainee._id;
-
-            //creating new instance of educational table
-            const trainee_education = new Education({
-                school: req.body.school,
-                academic_discipline: req.body.academic_discipline,
-                academic_status: req.body.academic_status,
-                trainee_id: userId,
-            });
-
-            await trainee_education.save()
-
-            //creating new instance of internet details 
-            const training_skill = new Skill({
-                programming_skill: req.body.programming_skill,
-                teaching_experience: req.body.teaching_experience,
-                level_id: req.body.level_id,
-                interest_id: req.body.interest_id,
-                trainee_id: userId,
-            })
-
-            await training_skill.save()
-
-
-            //creating new instance of programming skill
-            const training_internet_account = new Internet({
-                account_name: req.body.account_name,
-                account_password: req.body.account_password,
-                trainee_id: userId,
-            })
-
-            await training_internet_account.save()
-
-            const token = await trainee.generateAuthToken()
-
-            //login trainees at once
-            res.cookie('jwt', token, { maxAge: 400000000 })
-
-            // return res.redirect('/trainee-profile')
-            res.status(201).send({
-                trainee, trainee_education, training_skill, training_internet_account, token,
-                "success": true, "msg": "Captcha was verified Successfully"
             })
         } catch (e) {
             res.status(400).send(e.message)
