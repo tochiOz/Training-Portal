@@ -19,7 +19,7 @@ const isAdmin = async (req, res, next ) => {
         
         adminToken = token
         adminProfile = admin
-
+        
         next()
     } catch (error) {
         res.status(401).send(error.message)
