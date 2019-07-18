@@ -206,13 +206,22 @@ module.exports = {
 
                 const trainee_id = trainee._id
                 const deptId = trainee.category_id
+
+                //get trainee skills
+                const skill = await train_Skill.findOne({ trainee_id })
+
+                //Getting Id's
+                const skill_id = skill.level_id
+        
+                const skillSet = await emSkills.findOne(skill_id)
                 
                 //Getting the category
                 const dept = await Category.findOne(deptId)
                 
                 res.status(200).render('paystack', {
-                    title: 'Trainee Profile',
+                    title: 'Activate Profile',
                     trainee,
+                    skillSet,
                     dept
                 })
 

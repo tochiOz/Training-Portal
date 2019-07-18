@@ -18,7 +18,7 @@
                 
             </div>
             <div class="col-md-6 col-xs-12 activate">
-                <h1 class="my-5 act">Hi, Welcome {{trainee.full_name}} <span><i class="fe fe-arrow"></i></span></h1>
+                <h1 class="my-5 act">Hi, 😃 Welcome {{trainee.full_name}} <span><i class="fe fe-arrow"></i></span></h1>
                 <div class="card rounded-lg shadow-lg mb-6 mb-md-0" style="z-index: 1; width: 65%;" data-aos="fade-up">
 
                     <!-- Body -->
@@ -37,12 +37,11 @@
                                 <div class="d-flex justify-content-center">
                                     <span class="h2 mb-0 mt-2">$</span>
                                     <span class="price display-2 mb-0" data-annual="29" data-monthly="49">29</span>
-                                    <span class="h2 align-self-end mb-1">/mo</span>
                                 </div>
 
                                 <!-- Text -->
                                 <p class="text-center text-muted mb-6 mb-md-8">
-                                    per category
+                                    {{skillSet.name}}
                                 </p>
 
                                 <!-- Features -->
@@ -104,9 +103,9 @@
                     </div>
 
                     <!-- Button -->
-                    <a href="/trainee/profile" onclick="payWithPaystack()" class="card-btn btn btn-block btn-lg btn-primary rounded-bottom">
+                    <button onclick="payWithPaystack()" class="card-btn btn btn-block btn-lg btn-primary rounded-bottom">
                         Pay Now & Activate
-                    </a>
+                    </button>
 
                 </div>
 
@@ -142,6 +141,7 @@
                 },
                 onClose: function () {
                     alert('window closed');
+                    window.location.href = "/trainee/profile";
                 }
             });
             handler.openIframe();

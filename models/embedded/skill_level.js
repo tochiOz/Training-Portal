@@ -11,6 +11,11 @@ const skillLevelSchema = mongoose.Schema({
         trim: true
     },
 
+    amount: {
+        type: Number,
+        trim: true
+    }
+
 });
 
 const Skill_Level = mongoose.model( 'skill_level', skillLevelSchema )

@@ -248,7 +248,7 @@ module.exports = {
 
         //checking if the sent keys is equilvalent to the stored schema
         const updates = Object.keys(req.body)
-        const eligibleEdit = ['name']
+        const eligibleEdit = ['name', 'amount']
         const isValid = updates.every((update) => eligibleEdit.includes(update))
 
         if (!isValid) {
