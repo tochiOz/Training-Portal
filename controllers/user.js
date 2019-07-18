@@ -177,7 +177,7 @@ module.exports = {
                 const interestSet = await Interest_Area.findOne(interest_id)
                 // return console.log(skillSet)
                 res.status(200).render('trainee_profile', {
-                    title: 'Training Registration zone',
+                    title: 'Trainee Profile',
                     trainee,
                     guardian,
                     skill,
@@ -185,6 +185,35 @@ module.exports = {
                     dept,
                     skillSet,
                     interestSet
+                })
+
+            }
+        } catch (error) {
+            console.log(error.message)
+            return res.send(error.message)
+        }
+    },
+
+    //Fetching Trainee details to confirm payment
+    async get_trainee_paystack(req, res) {
+
+        try {
+            if (trainee_profile) {
+                if (trainee_profile.tokens == '') {
+                    return res.redirect('/')
+                }
+                const trainee = trainee_profile
+
+                const trainee_id = trainee._id
+                const deptId = trainee.category_id
+                
+                //Getting the category
+                const dept = await Category.findOne(deptId)
+                
+                res.status(200).render('paystack', {
+                    title: 'Trainee Profile',
+                    trainee,
+                    dept
                 })
 
             }

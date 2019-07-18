@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{title}}</title>
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/form.css">
+    <!-- Google Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-xs-12 welcome">
+                
+            </div>
+            <div class="col-md-6 col-xs-12 activate">
+                <h1 class="my-5 act">Hi, Welcome {{trainee.full_name}} <span><i class="fe fe-arrow"></i></span></h1>
+                <div class="card rounded-lg shadow-lg mb-6 mb-md-0" style="z-index: 1; width: 65%;" data-aos="fade-up">
+
+                    <!-- Body -->
+                    <div class="card-body py-6 py-md-8">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-xl-9">
+
+                                <!-- Badge -->
+                                <div class="text-center mb-4">
+                                    <span class="badge badge-pill badge-primary-soft">
+                                        <span class="h6 font-weight-bold text-uppercase">Account Activation</span>
+                                    </span>
+                                </div>
+
+                                <!-- Price -->
+                                <div class="d-flex justify-content-center">
+                                    <span class="h2 mb-0 mt-2">$</span>
+                                    <span class="price display-2 mb-0" data-annual="29" data-monthly="49">29</span>
+                                    <span class="h2 align-self-end mb-1">/mo</span>
+                                </div>
+
+                                <!-- Text -->
+                                <p class="text-center text-muted mb-6 mb-md-8">
+                                    per category
+                                </p>
+
+                                <!-- Features -->
+                                <div class="d-flex">
+
+                                    <!-- Check -->
+                                    <div class="badge badge-rounded-circle badge-primary-soft mt-1 mr-4">
+                                        <i class="fe fe-check"></i>
+                                    </div>
+
+                                    <!-- Text -->
+                                    <p>
+                                        Rich Standard Training
+                                    </p>
+
+                                </div>
+                                <div class="d-flex">
+
+                                    <!-- Check -->
+                                    <div class="badge badge-rounded-circle badge-primary-soft mt-1 mr-4">
+                                        <i class="fe fe-check"></i>
+                                    </div>
+
+                                    <!-- Text -->
+                                    <p>
+                                        Mentorship & Supervision
+                                    </p>
+
+                                </div>
+                                <div class="d-flex">
+
+                                    <!-- Check -->
+                                    <div class="badge badge-rounded-circle badge-primary-soft mt-1 mr-4">
+                                        <i class="fe fe-check"></i>
+                                    </div>
+
+                                    <!-- Text -->
+                                    <p>
+                                        Internet Services and Online Resources
+                                    </p>
+
+                                </div>
+                                <div class="d-flex">
+
+                                    <!-- Check -->
+                                    <div class="badge badge-rounded-circle badge-primary-soft mt-1 mr-4">
+                                        <i class="fe fe-check"></i>
+                                    </div>
+
+                                    <!-- Text -->
+                                    <p>
+                                        KodeHauz Community Support 
+                                    </p>
+
+                                </div>
+                               
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+
+                    <!-- Button -->
+                    <a href="/trainee/profile" onclick="payWithPaystack()" class="card-btn btn btn-block btn-lg btn-primary rounded-bottom">
+                        Pay Now & Activate
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script>
+        function payWithPaystack() {
+            var handler = PaystackPop.setup({
+                key: 'pk_test_1cd53fb17438baa1c6730ead172d3a06bb810c6c',
+                email: 'training@kodehauz.com',
+                amount: 10000,
+                currency: "NGN",
+                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: "+2348012345678"
+                        }
+                    ]
+                },
+                callback: function (response) {
+                    alert('primary. transaction ref is ' + response.reference);
+                    // response.status  == OK
+                    // response.message == Approved
+
+                },
+                onClose: function () {
+                    alert('window closed');
+                }
+            });
+            handler.openIframe();
+        }
+    </script>
+</body>
+
+</html>
+</body>
+
+</html>

@@ -9,7 +9,7 @@ const skillLevelSchema = mongoose.Schema({
     name: {
         type: String,
         trim: true
-    }
+    },
 
 });
 
