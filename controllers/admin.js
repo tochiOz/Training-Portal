@@ -235,6 +235,7 @@ module.exports = {
                 utility_link: '/admin-skill-levels',
                 utility_name: 'Skills',
                 utility_edit: '/admin/skill-level/edit',
+                utility_amount: '10,000',
                 utility
             });
             // req.flash('success', 'Skill-Levels Gotten')

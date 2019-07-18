@@ -36,7 +36,7 @@
                                 <!-- Price -->
                                 <div class="d-flex justify-content-center">
                                     <span class="h2 mb-0 mt-2">$</span>
-                                    <span class="price display-2 mb-0" data-annual="29" data-monthly="49">29</span>
+                                    <span class="price display-2 mb-0" data-annual="29" data-monthly="49">{{skillSet.amount}}</span>
                                 </div>
 
                                 <!-- Text -->
@@ -141,7 +141,7 @@
                 },
                 onClose: function () {
                     alert('window closed');
-                    window.location.href = "/trainee/profile";
+                   return window.location.href = "/trainee/profile";
                 }
             });
             handler.openIframe();
