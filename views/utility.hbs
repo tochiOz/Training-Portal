@@ -70,7 +70,7 @@
                   <tr>
                     <td>{{this.number}}</td>
                     <td>{{this.name}}</td>
-                    {{#if utility_amount }}
+                    {{#if this.amount }}
                     <td>{{this.amount}}</td>
                     {{/if}}
                     <td>
@@ -113,7 +113,7 @@
               <label for="name">Name:</label>
               <input type="text" class="form-control" name="name" id="name-{{this._id}}" value="{{this.name}}" required="required">
           </div>
-          {{#if this.amount}}
+          {{#if utility_amount}}
           <div class="form-group">
               <label for="amount">Amount:</label>
               <input type="text" class="form-control" name="amount" id="amt-{{this._id}}" value="{{this.amount}}" required="required">
@@ -136,9 +136,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/perfect-scrollbar.min.js"></script>
-  {{!-- <script src="js/echarts.min.js"></script> --}}
   <script src="js/datatables.mijs"></script>
-  {{!-- <script src="js/echart.options.min.js"></script> --}}
   <script src="js/dashboard.v2.script.min.js"></script>
   <script src="js/script.min.js"></script>
   <script>

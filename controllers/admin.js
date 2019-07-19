@@ -210,13 +210,6 @@ module.exports = {
 
         try {
             await skill.save()
-
-            Swal.fire(
-                'Good job!',
-                'Item Added Successfully',
-                'success'
-            )
-
             res.redirect('/admin-skill-levels')
         } catch (error) {
             console.log(error.message)
@@ -227,7 +220,7 @@ module.exports = {
     async get_Skills(req, res) {
         try {
             const utility = await Skills.find()
-            const count = parseInt('0')
+            // const count = parseInt('0')
             // return console.log(skills)
             res.render('utility', {
                 title: 'KodeHauz Training Portal',

@@ -214,6 +214,7 @@ module.exports = {
                 const skill_id = skill.level_id
         
                 const skillSet = await emSkills.findOne(skill_id)
+                // return console.log(skillSet)
                 
                 //Getting the category
                 const dept = await Category.findOne(deptId)
