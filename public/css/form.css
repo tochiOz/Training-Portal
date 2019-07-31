@@ -538,6 +538,26 @@ button:hover {
   background-color: rgb(74, 42, 255);
 }
 
+.welcome {
+  background-image: url("../images/cover-4.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 100vh;
+}
+
+.activate{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.act {
+  font-weight: 300;
+  font-size: 2.4rem;
+  font-family: cursive;
+}
+
 /* .avatar-wrapper {
   position: relative;
   height: 200px;

@@ -31,6 +31,9 @@ router.get('/internship', function (req, res, next) {
 //get profile form
 router.get('/training_registration', user_controller.get_formDetails)
 
+//get profile for paystack
+router.get('/activation', isUser, user_controller.get_trainee_paystack)
+
 //get trainee Profile
 router.get('/trainee-profile', isUser, user_controller.get_trainee_profile);
 

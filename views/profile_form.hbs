@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/form.css">
     <!-- Google Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    {{!-- <script src='https://www.google.com/recaptcha/api.js'></script> --}}
 </head>
 
 <body>
@@ -227,8 +227,11 @@
                                 </div>
 
                             </div>
+                            {{!-- <button type="button" onclick="payWithPaystack()" class="btn btn-success"> Pay </button> --}}
 
                         </div>
+
+                    
 
                         <div style="overflow: auto;">
                             <div class="d-flex float-right">
@@ -247,7 +250,7 @@
     </div>
 
     <!-- JS -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LdPU6wUAAAAAHBeMt-OF9gUVTtJswPq2yDVLMNH"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lfxf68UAAAAANdV0-IUd_W2fpsHU7X3jFSfPwby"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
@@ -329,11 +332,12 @@
                 const account_passwords = document.querySelector('#account_password').value
                 //  const captcha = document.querySelector('#g-recaptcha').value
                 const avatars = document.getElementById('avatar').files[0]
+              //  return console.log('Hi')
 
-
+                //confirm payment before processing form
+              
                 grecaptcha.ready(function () {
-                    grecaptcha.execute('6LdPU6wUAAAAAHBeMt-OF9gUVTtJswPq2yDVLMNH', { action: 'portal' }).then(async function (token, next) {
-                        //  document.getElementById('g-recaptcha-response').value = token;
+                    grecaptcha.execute('6Lfxf68UAAAAANdV0-IUd_W2fpsHU7X3jFSfPwby', { action: 'homepage' }).then(async function (token) {
                         console.log(token)
 
                         //form_data
@@ -359,15 +363,15 @@
 
                         await axios.post('trainee/profile/create', form_data)
                             .then((data) => {
-                                //alert(data)
+                                console.log(data)
                                 //return console.log(data)
                                 swal.fire(
-                                    `Welcome ${name}!!!`
-                                    `Please Proceed to Payment`,
+                                    'Success',
+                                    'Please Proceed to Payment',
                                     'success'
                                 )
 
-                                return window.location.href = '/trainee-profile'
+                                return window.location.href = '/activation'
                             }).catch((e) => {
                                 swal.fire(
                                     'Ooops',
@@ -403,14 +407,6 @@
             //}
             return valid
         }
-
- //   function fixStepIndicator(n) {
-       // This function removes the "active" class of all steps...
-    //    var i, x = document.getElementsByClassName("step");
-      //  for (i = 0; i < x.length; i++) {
-        //    x[i].className = x[i].className.replace(" active", "");
-       // } ... and adds the "active" class on the current step: 
-        //x[n].className += " active";
    // }
     </script>
 </body>

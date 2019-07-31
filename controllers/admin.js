@@ -21,10 +21,8 @@ module.exports = {
         try {
             await admin.save()
             const token = await admin.generateAuthToken()
-            res.status(201).send({ admin, token })
-            req.flash('sucess', `You Have Sucessfully Created an Admin Account`)
-
-            // return res.redirect('/login')
+            res.cookie('admin_jwt', token, { maxAge: 400000000 });
+            return res.redirect('/admin-dashboard');
         } catch (err) {
             res.status(400).send(err.message)
         }
@@ -210,13 +208,6 @@ module.exports = {
 
         try {
             await skill.save()
-
-            Swal.fire(
-                'Good job!',
-                'Item Added Successfully',
-                'success'
-            )
-
             res.redirect('/admin-skill-levels')
         } catch (error) {
             console.log(error.message)
@@ -227,7 +218,7 @@ module.exports = {
     async get_Skills(req, res) {
         try {
             const utility = await Skills.find()
-            const count = parseInt('0')
+            // const count = parseInt('0')
             // return console.log(skills)
             res.render('utility', {
                 title: 'KodeHauz Training Portal',
@@ -235,6 +226,7 @@ module.exports = {
                 utility_link: '/admin-skill-levels',
                 utility_name: 'Skills',
                 utility_edit: '/admin/skill-level/edit',
+                utility_amount: '10,000',
                 utility
             });
             // req.flash('success', 'Skill-Levels Gotten')
@@ -248,7 +240,7 @@ module.exports = {
 
         //checking if the sent keys is equilvalent to the stored schema
         const updates = Object.keys(req.body)
-        const eligibleEdit = ['name']
+        const eligibleEdit = ['name', 'amount']
         const isValid = updates.every((update) => eligibleEdit.includes(update))
 
         if (!isValid) {
