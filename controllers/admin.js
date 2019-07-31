@@ -21,10 +21,8 @@ module.exports = {
         try {
             await admin.save()
             const token = await admin.generateAuthToken()
-            res.status(201).send({ admin, token })
-            req.flash('sucess', `You Have Sucessfully Created an Admin Account`)
-
-            // return res.redirect('/login')
+            res.cookie('admin_jwt', token, { maxAge: 400000000 });
+            return res.redirect('/admin-dashboard');
         } catch (err) {
             res.status(400).send(err.message)
         }

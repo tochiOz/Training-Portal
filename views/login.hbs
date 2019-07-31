@@ -21,24 +21,22 @@
                     <h2 class="text-center text-success pt-9 pb-4">Admin Login Access</h2>
                     
                     <form action="/admin/login" method="POST" >
-                        <div class="form-group">
-                            <div class="input-group ">
-                                <span class="input-group-addon"><i class="fa fa-envelope mt-4 text-success"></i></span>
-                                <input type="text" class="form-control" name="email" placeholder="Email *"
-                                    required="required">
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <div class="input-group ">
+                                    <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock mt-4 text-success"></i></span>
-                                <input type="password" class="form-control" name="password" placeholder="Password"
-                                    required="required">
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-block btn-lg">Sign In</button>
-                        </div>
-                        <p class="text-success text-center">Don't Have Account Yet? <a href="/dashboard-sign-up" class="link text-sucess">Create One!!!</a></p>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success ">Sign In</button>
+                            </div>
+                            <p class="text-success text-center"><a href="#">Forgot Password?</a></p>
                     </form>
 
                 </div>

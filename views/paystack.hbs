@@ -103,7 +103,7 @@
                     </div>
 
                     <!-- Button -->
-                    <button onclick="payWithPaystack()" class="card-btn btn btn-block btn-lg btn-primary rounded-bottom">
+                    <button type="button" onclick="payWithPaystack()" class="btn btn-lg btn-primary">
                         Pay Now & Activate
                     </button>
 
@@ -120,8 +120,8 @@
     <script>
         function payWithPaystack() {
             var handler = PaystackPop.setup({
-                key: 'pk_test_1cd53fb17438baa1c6730ead172d3a06bb810c6c',
-                email: 'training@kodehauz.com',
+                key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
+                email: 'customer@email.com',
                 amount: 10000,
                 currency: "NGN",
                 ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
@@ -135,14 +135,10 @@
                     ]
                 },
                 callback: function (response) {
-                    alert('primary. transaction ref is ' + response.reference);
-                    // response.status  == OK
-                    // response.message == Approved
-
+                    alert('success. transaction ref is ' + response.reference);
                 },
                 onClose: function () {
                     alert('window closed');
-                   return window.location.href = "/trainee/profile";
                 }
             });
             handler.openIframe();
