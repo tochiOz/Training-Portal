@@ -114,15 +114,20 @@
     </div>
     </div>
     
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script>
+
+        const amount = '{{skillSet.amount}}';
+        const num = parseInt(amount) * 100000;
+
         function payWithPaystack() {
             var handler = PaystackPop.setup({
-                key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
-                email: 'customer@email.com',
-                amount: 10000,
+                key: 'pk_test_1cd53fb17438baa1c6730ead172d3a06bb810c6c',
+                email: '{{trainee.email}}',
+                amount: num,
+                Subject: '{{skillSet.name}}',
                 currency: "NGN",
                 ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                 metadata: {
@@ -130,12 +135,21 @@
                         {
                             display_name: "Mobile Number",
                             variable_name: "mobile_number",
-                            value: "+2348012345678"
+                            value: "{{trainee.phone_number}}"
                         }
                     ]
                 },
                 callback: function (response) {
+                    console.log(response)
+                   let reference = response.reference
+
+                    axios.post(`/activate-account/${reference}`)
+                        .then((res) => {
+                            console.log(res)
+                        }).catch(e => console.log(e.message))
+
                     alert('success. transaction ref is ' + response.reference);
+                 //   return window.location.href = '/trainee-profile'
                 },
                 onClose: function () {
                     alert('window closed');
