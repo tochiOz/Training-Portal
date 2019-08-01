@@ -142,18 +142,19 @@ module.exports = {
 
     //Fetching Trainee Details
     async get_trainee_profile(req, res) {
-
+        // return console.log(trainee_profile)
         try {
             if (trainee_profile) {
                 if (trainee_profile.tokens == '') {
                     return res.redirect('/')
                 }
-                const trainee = trainee_profile
-
-                if (!trainee.hasOwnProperty('payment_ref')) {
+                
+                if (!trainee_profile.payment_ref) {
+                
                     return res.redirect('/activation')
                 }
-                
+                const trainee = trainee_profile
+            
                 const trainee_id = trainee._id
                 const deptId = trainee.category_id
                 
