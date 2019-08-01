@@ -62,6 +62,10 @@ const userProfileSchema = mongoose.Schema({
             }
         }
     },
+
+    payment_ref: {
+        type: Number,
+    },
     
     avatar: {
         type: String

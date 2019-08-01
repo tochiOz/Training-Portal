@@ -142,14 +142,19 @@ module.exports = {
 
     //Fetching Trainee Details
     async get_trainee_profile(req, res) {
-
+        // return console.log(trainee_profile)
         try {
             if (trainee_profile) {
                 if (trainee_profile.tokens == '') {
                     return res.redirect('/')
                 }
+                
+                if (!trainee_profile.payment_ref) {
+                
+                    return res.redirect('/activation')
+                }
                 const trainee = trainee_profile
-
+            
                 const trainee_id = trainee._id
                 const deptId = trainee.category_id
                 
@@ -230,6 +235,22 @@ module.exports = {
         } catch (error) {
             console.log(error.message)
             return res.send(error.message)
+        }
+    },
+
+    async activate_trainee(req, res) {
+        // return console.log('this is response ' + req.params.ref)
+        try {
+            const reference = req.params.ref;
+            //attaching payment refence to the table
+            console.log(trainee_profile)
+            trainee_profile.payment_ref = reference;
+
+            //saving the profile
+            await trainee_profile.save()
+
+        } catch (error) {
+            return console.log(error.message)
         }
     },
 
