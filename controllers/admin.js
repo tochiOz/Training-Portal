@@ -1,14 +1,18 @@
-const Category = require('../models/embedded/categories')
+const Category = require('../models/embedded/categories');
 const Skills = require('../models/embedded/skill_level');
 const Interest_Area = require('../models/embedded/interest_area');
-const Swal = require('sweetalert2')
-const Admin = require('../models/admin')
+const Internet = require('../models/internet');
+const Education = require('../models/trainee_education');
+const Trainee_Skill = require('../models/trainee_skill');
+const Guardian = require('../models/trainee_guardian');
+const Admin = require('../models/admin');
+const Trainee = require('../models/trainee_profile');
 
 module.exports = {
     async createAdmin(req, res) {
-        const admin = new Admin(req.body)
+        const admin = new Admin(req.body);
 
-        const adminEmailCheck = await Admin.findEmail(req.body.email)
+        const adminEmailCheck = await Admin.findEmail(req.body.email);
 
         if (adminEmailCheck) {
             return res.status(400).send({ message: `${adminEmailCheck.email} already exist` })
@@ -17,10 +21,8 @@ module.exports = {
         try {
             await admin.save()
             const token = await admin.generateAuthToken()
-            res.status(201).send({ admin, token })
-            req.flash('sucess', `You Have Sucessfully Created an Admin Account`)
-
-            // return res.redirect('/login')
+            res.cookie('admin_jwt', token, { maxAge: 400000000 });
+            return res.redirect('/admin-dashboard');
         } catch (err) {
             res.status(400).send(err.message)
         }
@@ -29,27 +31,91 @@ module.exports = {
     async adminLogin(req, res) {
 
         try {
-            const admin = await Admin.findByCredentials(req.body.email, req.body.password)
-            const token = await admin.generateAuthToken()
+            const admin = await Admin.findByCredentials(req.body.email, req.body.password);
+            const token = await admin.generateAuthToken();
 
-            res.cookie('admin_jwt', token, { maxAge: 400000000 })
-            req.flash('sucess', `You Have Sucessfully Logged In Admin ${admin.email}`)
+            res.cookie('admin_jwt', token, { maxAge: 400000000 });
+            req.flash('sucess', `You Have Sucessfully Logged In Admin ${admin.email}`);
 
-            return res.redirect('/admin-dashboard')
+            return res.redirect('/admin-dashboard');
         } catch (e) {
             if (e) {
-                req.flash('danger', 'You are not Authorised')
                 return res.redirect('/login')
             }
         }
     },
 
+    //view users page
+    async view_user_profile(req, res) {
+            // return console.log(trainee_profile)
+
+        try {
+            
+            const trainee = trainee_profile
+            
+            const trainee_id = trainee._id;
+            const deptId = trainee.category_id;
+
+            //get trainee education
+            const education = await Education.findOne({ trainee_id });
+
+            //get trainee skills
+            const skill = await Trainee_Skill.findOne({ trainee_id });
+
+            //get guardian
+            const guardian = await Guardian.findOne({ trainee_id });
+
+            //Getting the category
+            const dept = await Category.findOne({ deptId });
+
+            const skill_id = skill.level_id;
+            const interest_id = skill.interest_id;
+
+            //Getting skills
+            const skillSet = await Skills.findOne({skill_id});
+
+            //Getting Interest-area
+            const interestSet = await Interest_Area.findOne({interest_id});
+
+            // return console.log(interestSet)
+
+            res.status(200).render('dashboard_profile_form', {
+                title: 'Training Profile',
+                guardian,
+                skill,
+                education,
+                dept,
+                skillSet,
+                interestSet,
+                trainee
+            });
+        } catch (e) {
+            console.log(e)
+        }
+    },
+
+    async delete_user(req, res) {
+        _id = req.query.id;
+
+        try {
+            const traineeProfile = await Trainee.findOne({ _id });
+
+            //delete account
+            await traineeProfile.remove();
+
+            res.send(traineeProfile)
+        } catch (e) {
+            console.log(e)
+        }
+    },
+
+    //admin logging out
     async adminLogout(req, res) {
         try {
-            adminProfile.tokens = []
-            await adminProfile.save()
-            res.clearCookie('jwt')
-            req.flash('success', 'Thank You for using our Portal')
+            adminProfile.tokens = [];
+            await adminProfile.save();
+            res.clearCookie('admin_jwt');
+            req.flash('success', 'Thank You for using our Portal');
             return res.redirect('/')
         } catch (e) {
             res.status(400).send(e.message)
@@ -58,34 +124,32 @@ module.exports = {
 
     //add-categories
     async add_categories(req, res) {
-        const category = new Category(req.body)
+        const category = new Category(req.body);
 
         try {
-            await category.save()
-
-            //alert
-            Swal.fire(
-                'Department Created Succefully!',
-                'success'
-            )
+            await category.save();
 
             res.redirect('/admin-departments')
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
             req.flash('danger', 'The category was not added')
         }
     },
 
     //get-categories
     async get_categories(req, res) {
-    
+
         try {
-            var count = 0;
-            const categories = await Category.find();
-            res.render('categories', {
+            let count = 0;
+            const utility = await Category.find();
+            res.render('utility', {
                 title: 'KodeHauz Training Portal',
+                utility_addLlink: '/admin/add_categories',
+                utility_link: '/admin-departments',
+                utility_name: 'Departments',
+                utility_edit: '/admin/categories/edit',
                 count: count++,
-                categories
+                utility
             });
         } catch (e) {
             res.status(400).send(e.message)
@@ -94,49 +158,45 @@ module.exports = {
 
     //updating categories
     async update_categories(req, res) {
-        // return console.log(req.body)
+
+        // console.log(req.body.name)
+        // return res.send('Hello')
         //checking if the sent keys is equilvalent to the stored schema
-        const updates = Object.keys(req.body)
-        const eligibleEdit = ['category']
-        const isValid = updates.every((update) => eligibleEdit.includes(update))
+        const updates = Object.keys(req.body);
+        const eligibleEdit = ['name'];
+        const isValid = updates.every((update) => eligibleEdit.includes(update));
         // return console.log(isValid)
         if (!isValid) {
             res.status(404).send('Error: Invalid Category Key')
-            return req.flash('danger', 'Invalid Category Key')
         }
 
         //querying the db,to get the picked id
-        const _id = req.params.id
+        const _id = req.query.id;
 
         //storing the editted category
         try {
-            const updatedCategory = await Category.findOne({ _id })
-            if (!updatedCategory) return res.status(404).send('Category not found')
+            const updatedCategory = await Category.findOne({ _id });
+            // return console.log(updatedCategory)
+            if (!updatedCategory) return res.status(404).send('Category not found');
 
-            updates.forEach((update) => updatedCategory[update] = req.body[update])
+            updates.forEach((update) => updatedCategory[update] = req.body[update]);
 
             await updatedCategory.save()
 
             res.status(200).send({ updatedCategory })
-            req.flash('success', 'Category Updated Successfully')
-        } catch (error) {
+        } catch (e) {
             return console.log(e.message)
-            res.status(400).send(error.message)
         }
     },
 
     //delete categories
     async delete_categories(req, res, next) {
-        const _id = req.params.id
+        const _id = req.query.id
 
         try {
-            const deletedCategory = await Category.findByIdAndDelete({ _id })
-
-            if (!deletedCategory) {
-                res.status(404).send({ Error: 'Category not found' })
-            }
-
-           next()
+            const deleteCat = await Category.findByIdAndDelete({ _id })
+            res.status(200).send({ deleteCat })
+            //    next()
         } catch (error) {
             res.status(400).send(error.message)
         }
@@ -148,13 +208,6 @@ module.exports = {
 
         try {
             await skill.save()
-
-            Swal.fire(
-                'Good job!',
-                'Item Added Successfully',
-                'success'
-            )
-           
             res.redirect('/admin-skill-levels')
         } catch (error) {
             console.log(error.message)
@@ -164,11 +217,17 @@ module.exports = {
 
     async get_Skills(req, res) {
         try {
-            const skills = await Skills.find()
-            // res.status(200).send({ skills })
-            res.render('skill_levels', {
-                skills,
+            const utility = await Skills.find()
+            // const count = parseInt('0')
+            // return console.log(skills)
+            res.render('utility', {
                 title: 'KodeHauz Training Portal',
+                utility_addLlink: '/admin/add-skill-level',
+                utility_link: '/admin-skill-levels',
+                utility_name: 'Skills',
+                utility_edit: '/admin/skill-level/edit',
+                utility_amount: '10,000',
+                utility
             });
             // req.flash('success', 'Skill-Levels Gotten')
         } catch (e) {
@@ -181,48 +240,40 @@ module.exports = {
 
         //checking if the sent keys is equilvalent to the stored schema
         const updates = Object.keys(req.body)
-        const eligibleEdit = ['skill']
+        const eligibleEdit = ['name', 'amount']
         const isValid = updates.every((update) => eligibleEdit.includes(update))
 
         if (!isValid) {
             res.status(404).send('Error: Invalid Skill-Level Key')
-            return req.flash('danger', 'Invalid Skill-Level Key')
         }
 
         //querying the db,to get the picked id
-        const _id = req.params.id
+        const _id = req.query.id
 
         //storing the editted category
         try {
             const updatedSkillLevel = await Skills.findOne({ _id })
-            if (!updatedSkillLevel) return res.status(404).send('Skill-Level not found')
+            // if (!updatedSkillLevel) return res.status(404).send('Skill-Level not found')
 
             updates.forEach((update) => updatedSkillLevel[update] = req.body[update])
 
             await updatedSkillLevel.save()
 
             res.status(200).send({ updatedSkillLevel })
-            req.flash('success', 'Skill-Level Updated Successfully')
-        } catch (error) {
-            res.status(400).send(error.message)
+        } catch (e) {
+            return console.log(e.message)
         }
     },
 
     //delete skill levels
     async deleteSkills(req, res) {
-        const _id = req.params.id
+        const _id = req.query.id
 
         try {
             const deletedSkillLevel = await Skills.findByIdAndDelete({ _id })
-
-            if (!deletedSkillLevel) {
-                res.flash('danger', 'SkilL-Level not Deleted')
-                res.status(404).send({ Error: 'SkilL-Level not found' })
-            }
-
             res.send(deletedSkillLevel)
         } catch (error) {
-            res.statas(400).send(error.message)
+            res.status(400).send(error.message)
         }
     },
 
@@ -248,13 +299,15 @@ module.exports = {
     //get interest
     async get_interest_area(req, res) {
         try {
-            const interests = await Interest_Area.find()
-            // res.status(200).send({ interests })
-            res.render('interest-area', {
-                interests,
+            const utility = await Interest_Area.find()
+            res.render('utility', {
                 title: 'KodeHauz Training Portal',
+                utility_addLlink: '/admin/add-interest-area',
+                utility_link: '/admin-interest-areas',
+                utility_name: 'Interest Area',
+                utility_edit: '/admin/interest-area/edit',
+                utility
             });
-            // req.flash('success', 'Interest-Areas Gotten')
         } catch (e) {
             res.status(400).send(e.message)
         }
@@ -265,48 +318,41 @@ module.exports = {
 
         //checking if the sent keys is equilvalent to the stored schema
         const updates = Object.keys(req.body)
-        const eligibleEdit = ['interest', 'description']
+        const eligibleEdit = ['name']
         const isValid = updates.every((update) => eligibleEdit.includes(update))
 
         if (!isValid) {
             res.status(404).send('Error: Invalid Interest-Area Key')
-            return req.flash('danger', 'Invalid Interest-Area Key')
         }
 
         //querying the db,to get the picked id
-        const _id = req.params.id
+        const _id = req.query.id
 
         //storing the editted category
         try {
             const updatedinterest = await Interest_Area.findOne({ _id })
-            if (!updatedinterest) return res.status(404).send('Interest-Area not found')
+            // if (!updatedinterest) return res.status(404).send('Interest-Area not found')
 
             updates.forEach((update) => updatedinterest[update] = req.body[update])
 
             await updatedinterest.save()
 
             res.status(200).send({ updatedinterest })
-            req.flash('success', 'Interest-Area Updated Successfully')
-        } catch (error) {
-            res.status(400).send(error.message)
+        } catch (e) {
+            return console.log(e.message)
         }
     },
 
     //delete interest
     async delete_interest_area(req, res) {
-        const _id = req.params.id
+        const _id = req.query.id
 
         try {
             const deletedInterest = await Interest_Area.findByIdAndDelete({ _id })
 
-            if (!deletedInterest) {
-                res.flash('danger', 'Interest-Area not Deleted')
-                res.status(404).send({ Error: 'Interest-Area not found' })
-            }
-
-            res.send(deletedInterest)
+            return res.send(deletedInterest)
         } catch (error) {
-            res.status(400).send(error.message)
+            return console.log(error.message)
         }
     }
 }

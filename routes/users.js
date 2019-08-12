@@ -3,6 +3,7 @@ var router = new express.Router();
 const upload = require('../config/upload')
 const user_controller = require('../controllers/user')
 const isUser = require('../middleware/userAuth')
+const captcha = require('../config/reCaptcha');
 
 //testing server
 router.get('/test', async (req, res) => {
@@ -10,21 +11,24 @@ router.get('/test', async (req, res) => {
 })
 
 // //creating the user
-router.post('/student/create', upload.single('avatar'), user_controller.trainee_SignUp)
+router.post('/trainee/profile/create', upload.single('avatar'), user_controller.trainee_SignUp)
 
 //POST Trainee Login
-router.post('/student/login', user_controller.trainee_login)
+router.post('/trainee/profile/login', user_controller.trainee_login);
+
+//activate account
+router.post('/activate-account/:ref', isUser, user_controller.activate_trainee);
 
 //PATCH trainee can edit his profile
-router.patch('/student/me/edit_profile-info', isUser, user_controller.edit_trainee_profile)
+router.patch('/trainee/profile/me/edit_profile-info', isUser, user_controller.edit_trainee_profile)
 
 //PATCH trainee can edit his profile
-router.patch('/student/me/edit_profile_education', isUser, user_controller.edit_trainee_education_profile)
+router.patch('/trainee/profile/me/edit_profile_education', isUser, user_controller.edit_trainee_education_profile)
 
 //PATCH update profile picture
-router.patch('/student/me/update-profile-picture', isUser, user_controller.edit_trainee_profile_avatar )
+router.patch('/trainee/profile/me/update-profile-picture', isUser, user_controller.edit_trainee_profile_avatar )
 
 //logout
-router.post('/logoutAll', isUser, user_controller.trainee_logout);
+router.post('/trainee/logoutAll', isUser, user_controller.trainee_logout);
 
 module.exports = router;

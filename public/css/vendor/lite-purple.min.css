@@ -1,5 +1,3 @@
-@import url(../../../fonts/iconsmind/iconsmind.css);
-
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -17179,7 +17177,8 @@ ngb-rating .half {
     justify-content: center;
     align-items: center;
     margin-top: -40px;
-    z-index: 9
+    z-index: 9;
+    width: 95%;
 }
 
 .user-profile .profile-picture {

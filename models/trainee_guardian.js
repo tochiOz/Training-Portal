@@ -9,7 +9,6 @@ const traineeGuadianSchema = mongoose.Schema({
 
     email: {
         type: String,
-        required: true,
         unique: true,
         trim: true,
         lowercase: true,
@@ -25,15 +24,16 @@ const traineeGuadianSchema = mongoose.Schema({
         minLength: '10',
         maxLength: '60',
         trim: true,
-        lowercase: true,
-        required: true
+        lowercase: true
     },
 
     phone_number: {
         type: Number,
         trim: true,
         minLength: '10'
-    },school: {
+    },
+    
+    school: {
         type: String,
         trim: true
     },
@@ -45,6 +45,6 @@ const traineeGuadianSchema = mongoose.Schema({
     }
 })
 
-const TraineeGuardian = mongoose.model('traineeGuardian', traineeGuadianSchema)
+const TraineeGuardian = mongoose.model('trainee_Guardian', traineeGuadianSchema)
 
 module.exports = TraineeGuardian;

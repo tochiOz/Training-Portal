@@ -1,7 +1,11 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
+const mongoose = require('mongoose');
+const validator = require('validator');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const Education = require('./trainee_education');
+const Trainee_Skill = require('./trainee_skill');
+const Guardian = require('./trainee_guardian');
+const Internet = require('./internet');
 
 const userProfileSchema = mongoose.Schema({
     
@@ -17,7 +21,7 @@ const userProfileSchema = mongoose.Schema({
 
     email: {
         type: String,
-        required: true,
+        // required: true,
         unique: true,
         trim: true,
         lowercase: true,
@@ -58,15 +62,19 @@ const userProfileSchema = mongoose.Schema({
             }
         }
     },
+
+    payment_ref: {
+        type: Number,
+    },
     
     avatar: {
         type: String
     },
 
-    category_id: [{
+    category_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
-    }],
+        ref: 'user_Profile'
+    },
 
     tokens: [{
         token: {
@@ -76,75 +84,89 @@ const userProfileSchema = mongoose.Schema({
     }]
 }, {
     timestamps: true
-})
+});
 
 
 //using virtual to create a relationship between user and owned directories
-userProfileSchema.virtual('traineeEducation', {
-    ref: 'traineeEducation',
+userProfileSchema.virtual('categories', {
+    ref: 'categories',
+    localField: '_id',
+    foreignField: 'category_id'
+});
+
+userProfileSchema.virtual('trainee_Internet', {
+    ref: 'trainee_Internet',
     localField: '_id',
     foreignField: 'trainee_id'
-})
-userProfileSchema.virtual('traineeInternet', {
-    ref: 'traineeInternet',
+});
+
+userProfileSchema.virtual('trainee_Skill', {
+    ref: 'trainee_Skill',
     localField: '_id',
     foreignField: 'trainee_id'
-})
-userProfileSchema.virtual('traineeSkill', {
-    ref: 'traineeSkill',
+});
+
+userProfileSchema.virtual('trainee_Guardian', {
+    ref: 'trainee_Guardian',
     localField: '_id',
     foreignField: 'trainee_id'
-})
-userProfileSchema.virtual('traineeGuardian', {
-    ref: 'traineeGuardian',
-    localField: '_id',
-    foreignField: 'trainee_id'
-})
+});
 
 
 //method to generate token
 userProfileSchema.methods.generateAuthToken = async function () {
 
     //accessing the global current user registering at that point in time
-    const userProfile = this
+    const userProfile = this;
 
-    const token = jwt.sign({ _id: userProfile._id.toString() }, process.env.SECRET, { expiresIn: '1 week'})
+    const token = jwt.sign({ _id: userProfile._id.toString() }, process.env.SECRET, { expiresIn: '1 week'});
 
     //saving the token in the model
-    userProfile.tokens = userProfile.tokens.concat({ token })
+    userProfile.tokens = userProfile.tokens.concat({ token });
 
-    await userProfile.save()
+    await userProfile.save();
     return token;
-}
+};
 
 userProfileSchema.statics.findByCredentials = async ( email, password ) => {
 
-    const userProfile = await Trainee.findOne({ email })
+    const userProfile = await Trainee.findOne({ email });
 
     if( !userProfile ) {
         throw new Error('Email does not exist')
     }
 
-    const isValid = await bcrypt.compare( password, userProfile.password )
+    const isValid = await bcrypt.compare( password, userProfile.password );
 
     if( !isValid ) {
         throw new Error('Password does not exist, Please check and Try again')
     } 
     return userProfile;
-}
+};
 
 //methods to hash passwords before save the data to the db
 userProfileSchema.pre('save', async function (next) {
     
-    const userProfile = this
+    const userProfile = this;
 
     if(userProfile.isModified('password')) {
         userProfile.password = await bcrypt.hash( userProfile.password, 8 )
     }
 
     next()
-})
+});
 
-const Trainee = mongoose.model('userProfile', userProfileSchema)
+userProfileSchema.pre('remove', async function (next) {
+   const user = this;
+
+   //deleting attributes
+    await Education.remove({ trainee_id: user._id });
+    await Trainee_Skill.remove({ trainee_id: user._id });
+    await Guardian.remove({ trainee_id: user._id });
+    await Internet.remove({ trainee_id: user._id });
+
+});
+
+const Trainee = mongoose.model('trainee_Profile', userProfileSchema);
 
 module.exports = Trainee;

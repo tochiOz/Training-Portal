@@ -1,89 +1,125 @@
 const Category = require('../models/embedded/categories')
-const Skills = require('../models/embedded/skill_level');
+const emSkills = require('../models/embedded/skill_level');
 const Interest_Area = require('../models/embedded/interest_area');
-const Swal = require('sweetalert2');
 const Trainee = require('../models/trainee_profile')
 const sharp = require('sharp')
 const cloudinary = require('cloudinary')
 const Datauri = require('datauri')
 const path = require('path')
-require('../config/cloudinary')
 const dUri = new Datauri();
 const Education = require('../models/trainee_education')
-const Skill = require('../models/trainee_skill')
+const train_Skill = require('../models/trainee_skill')
 const Internet = require('../models/internet')
 const Guardian = require('../models/trainee_guardian')
+const axios = require('axios')
+// const upload = require('../config/upload')
+require('../config/cloudinary')
 
 
 module.exports = {
 
     //creating user
     async trainee_SignUp(req, res) {
+        // return console.log(req.body)
 
         try {
-            // return console.log(req.body.email)
-            const buffer = await sharp(req.file).resize({
-                width: 200, height: 200
-            }).png().toBuffer()
+            if (
+                req.body.captcha === undefined ||
+                req.body.captcha === ' ' ||
+                req.body.captcha === null
+            ) {
+                return res.json({ "success": false, "msg": "Please Select Captcha" })
+            }
 
-            const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
-            const imageFile = dataUri.content;
+            //secret key
+            const secretKey = process.env.RECAPTCHA_SECRET;
+           
+            //verify URL
+            const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
+            //  return console.log(verifyUrl)
+            //make request to verifyUrl
+            await axios.get(verifyUrl).then( async (response) => {
+            //    return console.log(res.data)
+                // body = JSON.parse(body)
+                const body = response.data;
+             
+                if (body.success !== undefined && !body.success) {
+                    res.json({
+                        "success": false,
+                        "message": "Failed Captcha Verification, Are You a Bot??"
+                    })
+                    return console.log(error)
+                }
+                // return console.log(req.body)
+                const buffer = await sharp(req.file.buffer).resize({
+                    width: 250, height: 300
+                }).png().toBuffer()
+                // return console.log(buffer)
 
-            const image = await cloudinary.v2.uploader.upload(imageFile)
+                const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
+                const imageFile = dataUri.content;
+                // return console.log(imageFile)
+                const image = await cloudinary.v2.uploader.upload(imageFile)
+                // return console.log(image)
+                const trainee = new Trainee({
+                    full_name: req.body.full_name,
+                    email: req.body.email,
+                    category_id: req.body.category_id,
+                    gender: req.body.gender,
+                    phone_number: req.body.phone_number,
+                    address: req.body.address,
+                    dob: req.body.dob,
+                    avatar: image.secure_url,
+                    password: req.body.password
+                });
 
-            const trainee = new Trainee({
-                full_name: req.body.full_name,
-                email: req.body.email,
-                category_id: req.body.category_id,
-                gender: req.body.gender,
-                phone_number: req.body.phone_number,
-                address: req.body.address,
-                avatar: image.secure_url,
-                password: req.body.password
+                await trainee.save();
+
+                //ex tracting the user_id
+                const userId = trainee._id;
+
+                //creating new instance of educational table
+                const trainee_education = new Education({
+                    school: req.body.school,
+                    academic_discipline: req.body.academic_discipline,
+                    academic_status: req.body.academic_status,
+                    trainee_id: userId,
+                });
+
+                await trainee_education.save()
+
+                //creating new instance of internet details 
+                const training_skill = new train_Skill({
+                    programming_skill: req.body.programming_skill,
+                    teaching_experience: req.body.teaching_experience,
+                    level_id: req.body.level_id,
+                    interest_id: req.body.interest_id,
+                    trainee_id: userId,
+                })
+
+                await training_skill.save()
+
+
+                //creating new instance of programming skill
+                const training_internet_account = new Internet({
+                    account_name: req.body.account_name,
+                    account_password: req.body.account_password,
+                    trainee_id: userId,
+                })
+
+                await training_internet_account.save()
+
+                const token = await trainee.generateAuthToken()
+
+                //login trainees at once
+                res.cookie('jwt', token, { maxAge: 400000000 })
+
+                // return res.redirect('/trainee-profile')
+                res.status(201).send({
+                    trainee, trainee_education, training_skill, training_internet_account, token,
+                    "success": true, "msg": "Captcha was verified Successfully"
+                })
             })
-
-            await trainee.save()
-
-            //ex tracting the user_id
-            const userId = trainee._id
-
-            //creating new instance of educational table
-            const trainee_education = new Education({
-                school: req.body.school,
-                academic_disciple: req.body.academic_disciple,
-                academic_status: req.body.academic_status,
-                trainee_id: userId,
-            })
-
-            await trainee_education.save()
-
-            //creating new instance of internet details 
-            const training_skill = new Skill({
-                programming_skill: req.body.programming_skill,
-                teaching_experience: req.body.teaching_experience,
-                skillLevel_id: req.body.skillLevel_id,
-                trainee_id: userId,
-            })
-
-            await training_skill.save()
-
-
-            //creating new instance of programming skill
-            const training_internet_account = new Internet({
-                account_name: req.body.account_name,
-                account_password: req.body.account_password,
-                trainee_id: userId,
-            })
-
-            await training_internet_account.save()
-
-            const token = await trainee.generateAuthToken()
-
-            //login trainees at once
-            res.cookie('jwt', token, { maxAge: 400000000 })
-
-            //  return res.redirect('/trainee-profile')
-            // res.status(201).send({ trainee, trainee_education, training_skill, training_internet_account, token })
         } catch (e) {
             res.status(400).send(e.message)
             console.log(e)
@@ -106,6 +142,65 @@ module.exports = {
 
     //Fetching Trainee Details
     async get_trainee_profile(req, res) {
+        // return console.log(trainee_profile)
+        try {
+            if (trainee_profile) {
+                if (trainee_profile.tokens == '') {
+                    return res.redirect('/')
+                }
+                
+                if (!trainee_profile.payment_ref) {
+                
+                    return res.redirect('/activation')
+                }
+                const trainee = trainee_profile
+            
+                const trainee_id = trainee._id
+                const deptId = trainee.category_id
+                
+                //get trainee education
+                const education = await Education.findOne({ trainee_id })
+
+                //get trainee skills
+                const skill = await train_Skill.findOne({ trainee_id })
+                
+                //get guardian
+                const guardian = await Guardian.findOne({ trainee_id })
+
+                //Getting the category
+                const dept = await Category.findOne(deptId)
+                
+                //Getting Id's
+                const skill_id = skill.level_id
+                const interest_id = skill.interest_id
+                // return console.log(interest_id)
+                //Getting skills
+                const skillSet = await emSkills.findOne(skill_id)
+                
+
+                //Getting Interest-area
+                const interestSet = await Interest_Area.findOne(interest_id)
+                // return console.log(skillSet)
+                res.status(200).render('trainee_profile', {
+                    title: 'Trainee Profile',
+                    trainee,
+                    guardian,
+                    skill,
+                    education,
+                    dept,
+                    skillSet,
+                    interestSet
+                })
+
+            }
+        } catch (error) {
+            console.log(error.message)
+            return res.send(error.message)
+        }
+    },
+
+    //Fetching Trainee details to confirm payment
+    async get_trainee_paystack(req, res) {
 
         try {
             if (trainee_profile) {
@@ -115,34 +210,114 @@ module.exports = {
                 const trainee = trainee_profile
 
                 const trainee_id = trainee._id
-                const category = trainee.category_id
-
-                //get trainee education
-                const education = await Education.findOne({ trainee_id })
+                const deptId = trainee.category_id
 
                 //get trainee skills
-                const skill = await Skill.findOne({ trainee_id })
+                const skill = await train_Skill.findOne({ trainee_id })
 
-                //get guardian
-                const guardian = await Guardian.findOne({ trainee_id })
-
+                //Getting Id's
+                const skill_id = skill.level_id
+        
+                const skillSet = await emSkills.findOne(skill_id)
+                // return console.log(skillSet)
+                
                 //Getting the category
-                const department = await Category.findOne({ category })
-
-                // return res.send(trainee)
-                res.status(200).render('trainee_profile', {
-                    title: 'Training Registration zone',
+                const dept = await Category.findOne(deptId)
+                
+                res.status(200).render('paystack', {
+                    title: 'Activate Profile',
                     trainee,
-                    guardian,
-                    skill,
-                    education,
-                    department
+                    skillSet,
+                    dept
                 })
 
             }
         } catch (error) {
             console.log(error.message)
             return res.send(error.message)
+        }
+    },
+
+    async activate_trainee(req, res) {
+        // return console.log('this is response ' + req.params.ref)
+        try {
+            const reference = req.params.ref;
+            //attaching payment refence to the table
+            console.log(trainee_profile)
+            trainee_profile.payment_ref = reference;
+
+            //saving the profile
+            await trainee_profile.save()
+
+        } catch (error) {
+            return console.log(error.message)
+        }
+    },
+
+    async get_interns(req, res) {
+        try {
+            
+            const _id = '5d14af7a7c817a1634fce6c7'
+            const trainee = await Trainee.find({ category_id: _id })
+           
+            res.render('dashboard_trainee', {
+                trainee,
+                title: 'KodeHauz Admin Dashboard',
+                code: 'Intern'
+            })
+        } catch (e) {
+            res.status(400).send(e)
+        }        
+    },
+
+    //Getting trainings
+    async get_trainings(req, res) {
+        try {
+            
+            const _id = '5d14af8a7c817a1634fce6c9'
+        
+            const trainee = await Trainee.find({ category_id: _id })
+            res.render('dashboard_trainee', {
+                code: 'Trainees',
+                title: 'KodeHauz Admin Dashboard',
+                trainee,
+            })
+        } catch (e) {
+            res.status(400).send(e)
+        }
+    },
+
+    //Getting trainings
+    async get_hub(req, res) {
+        try {
+            
+            const _id = '5d14af837c817a1634fce6c8'
+        
+            const trainee = await Trainee.find({ category_id: _id })
+            res.render('dashboard_trainee', {
+                code: 'Hub Users',
+                title: 'KodeHauz Admin Dashboard',
+                trainee,
+            })
+        } catch (e) {
+            res.status(400).send(e)
+        }
+    },
+
+    //Getting trainers
+    async get_trainer(req, res) {
+        try {
+            
+            const _id = '5d135c4e2bc64035f4d1f8fa'
+        
+            const trainee = await Trainee.find({ category_id: _id })
+            res.render('dashboard_trainee', {
+                code: 'Train The Trainer',
+                title: 'KodeHauz Admin Dashboard',
+                trainee,
+            })
+        } catch (e) {
+            res.status(400).send(e)
         }
     },
 
@@ -255,7 +430,7 @@ module.exports = {
             const interests = await Interest_Area.find()
 
             //get skills
-            const skills = await Skills.find()
+            const skills = await emSkills.find()
 
 
             res.status(200).render('profile_form', {

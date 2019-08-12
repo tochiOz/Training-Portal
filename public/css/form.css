@@ -270,38 +270,13 @@ textarea:focus {
   -ms-box-shadow: none !important;
 }
 
-input[type=checkbox] {
-  appearance: checkbox !important;
-  -moz-appearance: checkbox !important;
-  -webkit-appearance: checkbox !important;
-  -o-appearance: checkbox !important;
-  -ms-appearance: checkbox !important;
-}
-
-input[type=radio] {
-  appearance: radio !important;
-  -moz-appearance: radio !important;
-  -webkit-appearance: radio !important;
-  -o-appearance: radio !important;
-  -ms-appearance: radio !important;
-}
-
-input:-webkit-autofill {
-  box-shadow: 0 0 0 30px transparent inset;
-  -moz-box-shadow: 0 0 0 30px transparent inset;
-  -webkit-box-shadow: 0 0 0 30px transparent inset;
-  -o-box-shadow: 0 0 0 30px transparent inset;
-  -ms-box-shadow: 0 0 0 30px transparent inset;
-  background-color: transparent !important;
-}
-
 .clear {
   clear: both;
 }
 
 .form-select {
   background-color: transparent;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(199, 199, 199);
   cursor: pointer;
 }
 
@@ -342,6 +317,7 @@ body {
 }
 
 .container {
+  padding: 0%;
   width: 90%;
   position: relative;
   margin: 0 auto;
@@ -367,15 +343,10 @@ p.title {
   padding-bottom: 25px;
 }
 
-fieldset {
-  border: none;
-  padding: 0px;
-  margin: 0px;
-}
 
 .signup-desc {
   background: rgb(255, 255, 255);
-  width: 495px;
+  width: 35%;
 }
 
 .signup-desc-content {
@@ -385,56 +356,50 @@ fieldset {
 }
 
 .signup-form-conent {
-  width: 905px;
+  width: 65%;
 }
 
 .signup-form {
-  padding: 55px 110px;
+  padding: 55px 150px;
 }
 
 input {
   display: block;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #bfbfbf;
+  border-bottom: 1px solid #707070;
+  width: 100%;
+  font-size: 17px;
   box-sizing: border-box;
   font-family: 'Poppins';
-  font-size: 20px;
   transition: 0.3s ease;
   -moz-transition: 0.3s ease;
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;
   -ms-transition: 0.3s ease;
-  padding-top: 30px;
-  padding-bottom: 5px;
+  padding: 12px 0 5px 10px;
   -webkit-appearance: none;
   background: transparent;
 }
 
-input+label {
-  position: absolute;
-  transition: 0.25s ease;
-  -moz-transition: 0.25s ease;
-  -webkit-transition: 0.25s ease;
-  -o-transition: 0.25s ease;
-  -ms-transition: 0.25s ease;
-  left: 0;
-  top: 24px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #888;
-}
-
-input:focus+label {
-  top: -7px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-input:valid+label {
-  top: -7px;
-  font-size: 14px;
-  font-weight: 500;
+select {
+  border-bottom: 1px solid #707070;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+  color: #f00;
+  font-size: 17px;
+  width: 100%;
+  font-family: 'Poppins';
+  transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  -ms-transition: 0.3s ease;
+  padding: 12px 0 5px 10px;
+  -webkit-appearance: none;
+  background: transparent;
 }
 
 .form-group {
@@ -459,60 +424,14 @@ input:valid+label {
 
 .step-current {
   position: absolute;
-  right: 20;
+  right: 30;
   /* top: 0; */
   font-family: 'Montserrat';
   text-transform: uppercase;
   font-weight: 800;
-  color: #4d4dff;
+  color: #6565fd;
 }
 
-.actions ul {
-  width: 100%;
-  justify-content: flex-end;
-  -moz-justify-content: flex-end;
-  -webkit-justify-content: flex-end;
-  -o-justify-content: flex-end;
-  -ms-justify-content: flex-end;
-}
-
-.actions ul .disabled {
-  display: none;
-}
-
-.actions ul li {
-  margin-left: 20px;
-}
-
-.actions ul li:first-child a {
-  background: rgb(255, 65, 74);
-  color: rgb(255, 255, 255);
-}
-
-.actions ul li a {
-  width: 140px;
-  height: 50px;
-  color: #fff;
-  font-family: 'Montserrat';
-  font-size: 13px;
-  font-weight: bold;
-  background: #4d4dff;
-  align-items: center;
-  -moz-align-items: center;
-  -webkit-align-items: center;
-  -o-align-items: center;
-  -ms-align-items: center;
-  justify-content: center;
-  -moz-justify-content: center;
-  -webkit-justify-content: center;
-  -o-justify-content: center;
-  -ms-justify-content: center;
-  text-decoration: none;
-}
-
-.steps {
-  display: none;
-}
 
 @media (min-width: 1200px) {
   .container {
@@ -558,13 +477,88 @@ input:valid+label {
   }
 }
 
-@media screen and (max-width: 480px) {
-  .actions ul li a {
-    width: 100px;
-  }
+
+#regForm {
+  padding: 50px;
+  font-family: 'Poppins';
+  width: 100%;
 }
 
-.avatar-wrapper {
+h1 {
+  text-align: center;
+}
+
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffd4d4;
+  color: #ffffff;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.form-control {
+  padding: .8rem 0rem !important;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #dfe1ff;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: rgb(74, 42, 255);
+}
+
+.welcome {
+  background-image: url("../images/cover-4.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 100vh;
+}
+
+.activate{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.act {
+  font-weight: 300;
+  font-size: 2.4rem;
+  font-family: cursive;
+}
+
+/* .avatar-wrapper {
   position: relative;
   height: 200px;
   width: 200px;
@@ -582,17 +576,20 @@ input:valid+label {
 
 .avatar-wrapper:hover .profile-pic {
   opacity: .5;
-}
+} */
 
-.profile-pic {
-  height: 100%;
-  width: 100%;
+ .profile-pic {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 1px 1px 15px -5px black;
   transition: all .3s ease;
 }
-
+/*
 .profile-pic:after {
   font-family: FontAwesome;
-  content: "\f007";
+  content: "";
   top: -10;
   left: 0;
   width: 100%;
@@ -602,9 +599,9 @@ input:valid+label {
   background: #ecf0f1;
   color: #0f0aff93;
   text-align: center;
-}
+} */
 
-
+/* 
 .upload-button {
   position: absolute;
   top: 0;
@@ -628,4 +625,4 @@ input:valid+label {
   opacity: 0;
   transition: all .3s ease;
   color: #34495e;
-}
+} */

@@ -3,7 +3,7 @@
 
 <head>
     <title>{{title}}</title>
-    <link rel="stylesheet" href="css/profile.css"><!-- Google Fonts -->
+    {{!-- <link rel="stylesheet" href="css/profile.css"><!-- Google Fonts --> --}}
     <link rel="stylesheet" href="css/vendor/lite-purple.min.css">
     <link href="http://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 </head>
@@ -12,11 +12,21 @@
     <div class="card user-profile">
         <div class="header-cover"
             style="background-image: url('images/photo-wide-2.jpg'); background-position-y: -100px;"></div>
-        <div class="user-info">
-            <img class="profile-picture avatar-xl mb-2" src="{{trainee.avatar}}" alt="">
-            <p class="m-0 text-24">{{trainee.full_name}}</p>
-            <p class="text-muted m-0">{{skill.skillLevel_id}}</p>
+        
+        <div class="d-flex justify-content-space-between">
+            <div class="user-info">
+                <img class="profile-picture avatar-xl mb-2" src="{{trainee.avatar}}" alt="">
+                <h2 class="text-24">{{trainee.full_name}}</h2>
+                <h5 class="text-muted m-0">{{skillSet.name}}</h5>
+            </div>
+            <!-- Button -->
+            <form action="/trainee/logoutAll" method="POST">
+                <button class="navbar-btn btn btn-sm btn-danger lift ml-auto trigger-btn">
+                    Log Out
+                </button>
+            </form>
         </div>
+       
         <div class="card-body">
             <ul class="nav nav-tabs profile-nav mb-4" id="profileTab" role="tablist">
 
@@ -52,29 +62,29 @@
                         <div class="col-md-4 col-6">
 
                             <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Full Name</p>
+                                <p class="text-primary mb-1"><i class="fe fe-users text-16 mr-1"></i> Full Name</p>
                                 <span>{{trainee.full_name}}</span>
                             </div>
                             <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Calendar text-16 mr-1"></i> Birth Date</p>
+                                <p class="text-primary mb-1"><i class="fe fe-bookmark text-16 mr-1"></i> Birth Date</p>
                                 <span>{{trainee.dob}}</span>
                             </div>
                             <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Globe text-16 mr-1"></i> Lives In</p>
+                                <p class="text-primary mb-1"><i class="fe fe-map text-16 mr-1"></i> Lives In</p>
                                 <span>{{trainee.address}}</span>
                             </div>
                         </div>
                         <div class="col-md-4 col-6">
                             <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Gender</p>
+                                <p class="text-primary mb-1"><i class="fe fe-star-o text-16 mr-1"></i> Gender</p>
                                 <span>{{trainee.gender}}</span>
                             </div>
                             <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Email</p>
+                                <p class="text-primary mb-1"><i class="fe fe-pocket text-16 mr-1"></i> Email</p>
                                 <span>{{trainee.email}}</span>
                             </div>
                             <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Phone Number:
+                                <p class="text-primary mb-1"><i class="fe fe-phone text-16 mr-1"></i> Phone Number:
                                 </p>
                                 <span>{{trainee.phone_number}}</span>
                             </div>
@@ -106,17 +116,17 @@
                     <div class="row">
                         <div class="col-md-4 col-6">
                             <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Name Of
+                                <p class="text-primary mb-1"><i class="fe fe-home text-16 mr-1"></i> Name Of
                                     Institution:</p>
                                 <span>{{education.school}}</span>
                             </div>
                             <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Academic
+                                <p class="text-primary mb-1"><i class="fe fe-gear text-16 mr-1"></i> Academic
                                     Discipline:</p>
                                 <span>{{education.academic_discipline}}</span>
                             </div>
                             <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Academic
+                                <p class="text-primary mb-1"><i class="fe fe-shield text-16 mr-1"></i> Academic
                                     Status:
                                 </p>
                                 <span>{{education.academic_status}}</span>
