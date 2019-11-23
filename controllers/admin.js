@@ -14,18 +14,20 @@ module.exports = {
 
         const adminEmailCheck = await Admin.findEmail(req.body.email);
 
+        // return console.log(adminEmailCheck)
         if (adminEmailCheck) {
             return res.status(400).send({ message: `${adminEmailCheck.email} already exist` })
-        }
-
-        try {
-            await admin.save()
-            const token = await admin.generateAuthToken()
-            res.cookie('admin_jwt', token, { maxAge: 400000000 });
-            return res.redirect('/admin-dashboard');
-        } catch (err) {
-            res.status(400).send(err.message)
-        }
+        } else {
+            try {
+                await admin.save()
+                // const token = await admin.generateAuthToken()
+                // res.cookie('admin_jwt', token, { maxAge: 400000000 });
+                return res.redirect('/login');
+            } catch (err) {
+                console.log(err)
+                res.status(400).send(err.message)
+            }      
+        }      
     },
 
     async adminLogin(req, res) {

@@ -1,102 +1,107 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
+const mongoose = require("mongoose");
+const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const adminSchema = mongoose.Schema({
+  full_name: {
+    type: String,
+    trim: true,
+    lowercase: true
+  },
 
-    full_name: {
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error(
+          "Email is invalid, Please check the Email and try again"
+        );
+      }
+    }
+  },
+
+  password: {
+    type: String,
+    trim: true,
+    minLength: "3",
+    required: true,
+    validate(value) {
+      if (value.toLowerCase().includes("password")) {
+        throw new Error('Please your password cannot contain "password"');
+      }
+    }
+  },
+
+  tokens: [
+    {
+      token: {
         type: String,
-        trim: true,
-        lowercase: true
-    },
-
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        lowercase: true,
-        validate(value) {
-            if (!validator.isEmail(value)) {
-                throw new Error('Email is invalid, Please check the Email and try again')
-            }
-        }
-    },
-
-    password: {
-        type: String,
-        trim: true,
-        minLength: '3',
-        required: true,
-        validate(value) {
-            if (value.toLowerCase().includes('password')) {
-                throw new Error('Please your password cannot contain "password"')
-            }
-        }
-    },
-
-    tokens: [{
-        token: {
-            type: String,
-            required: true
-        }
-    }]
-})
+        required: true
+      }
+    }
+  ]
+});
 
 //methods to locate admin
-adminSchema.statics.findByCredentials = async ( email, password) => {
-    const admin = await Admin.findOne({ email })
-   
-    if ( !email === admin.email ) {
-        throw new Error('You are not Authorised')
-    }
+adminSchema.statics.findByCredentials = async (email, password) => {
+  const admin = await Admin.findOne({ email });
 
-    //compare password
-    const isMatch = await bcrypt.compare(password, admin.password)
+  if (!email === admin.email) {
+    throw new Error("You are not Authorised");
+  }
 
-    if (!isMatch) {
-        throw new Error('Invalid Password')
-    }
+  //compare password
+  const isMatch = await bcrypt.compare(password, admin.password);
 
-    return admin;
-}
+  if (!isMatch) {
+    throw new Error("Invalid Password");
+  }
+
+  return admin;
+};
 
 //methods to locate admin
-adminSchema.statics.findEmail = async ( email ) => {
-    const admin = await Admin.findOne({ email })
-   
-    return admin;
-}
+adminSchema.statics.findEmail = async email => {
+  const admin = await Admin.findOne({ email });
 
-adminSchema.methods.generateAuthToken = async function () {
-    const admin = this
-    const token = jwt.sign({ _id: admin._id.toString() }, process.env.SECRET, { expiresIn: '1 week' })
-    admin.tokens = admin.tokens.concat({ token })
-    
-    await admin.save()
-    return token;
-}
+  return admin;
+};
 
-adminSchema.methods.toJSON = function () {
-    const admin = this 
-    const adminObject = admin.toObject()
+adminSchema.methods.generateAuthToken = async function() {
+  const admin = this;
+  const token = jwt.sign({ _id: admin._id.toString() }, process.env.SECRET, {
+    expiresIn: "1 week"
+  });
+  admin.tokens = admin.tokens.concat({ token });
 
-    //Hide all data
-    delete adminObject.tokens
-    delete adminObject.password
-    
-    return adminObject;
-}
+  await admin.save();
+  return token;
+};
 
-adminSchema.pre('save', async function ( next ) {
-    const admin = this
-    if (admin.isModified('password')) {
-        admin.password = await bcrypt.hash(admin.password, 8)
-    }
-    next()
-})
+adminSchema.methods.toJSON = function() {
+  const admin = this;
+  const adminObject = admin.toObject();
 
-const Admin = mongoose.model('admin', adminSchema)
+  //Hide all data
+  delete adminObject.tokens;
+  delete adminObject.password;
+
+  return adminObject;
+};
+
+adminSchema.pre("save", async function(next) {
+  const admin = this;
+  if (admin.isModified("password")) {
+    admin.password = await bcrypt.hash(admin.password, 8);
+  }
+  next();
+});
+
+const Admin = mongoose.model("admin", adminSchema);
 
 module.exports = Admin;
