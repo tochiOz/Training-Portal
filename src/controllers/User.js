@@ -1,16 +1,16 @@
-const Category = require('../models/embedded/categories')
-const emSkills = require('../models/embedded/skill_level');
-const Interest_Area = require('../models/embedded/interest_area');
-const Trainee = require('../models/trainee_profile')
+const Category = require('../models/Categories')
+const emSkills = require('../models/SkillLevel');
+const Interest_Area = require('../models/InterestArea');
+const Trainee = require('../models/TraineeProfile')
 const sharp = require('sharp')
 const cloudinary = require('cloudinary')
 const Datauri = require('datauri')
 const path = require('path')
 const dUri = new Datauri();
-const Education = require('../models/trainee_education')
-const train_Skill = require('../models/trainee_skill')
-const Internet = require('../models/internet')
-const Guardian = require('../models/trainee_guardian')
+const Education = require('../models/TraineeEducation')
+const train_Skill = require('../models/TraineeSkill')
+const Internet = require('../models/Internet')
+const Guardian = require('../models/TraineeGuardian')
 const axios = require('axios')
 // const upload = require('../config/upload')
 require('../config/cloudinary')

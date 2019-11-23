@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 const { isAdmin } = require("../middleware/adminAuth");
 const isUser = require("../middleware/userAuth");
-const admin_controller = require("../controllers/admin");
-const user_controller = require("../controllers/user");
+const admin_controller = require("../controllers/Admin");
+const user_controller = require("../controllers/User");
 
 /* GET Static Pages. */
 router.get("/", function(req, res, next) {

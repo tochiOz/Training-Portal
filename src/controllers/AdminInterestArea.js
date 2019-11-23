@@ -1,4 +1,4 @@
-const Interest_Area = require('../models/embedded/interest_area');
+const Interest_Area = require('../models/InterestArea');
 
 module.exports = {
 

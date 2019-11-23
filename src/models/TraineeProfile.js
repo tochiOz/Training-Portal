@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const Education = require('./trainee_education');
-const Trainee_Skill = require('./trainee_skill');
-const Guardian = require('./trainee_guardian');
-const Internet = require('./internet');
+const Education = require('./TraineeEducation');
+const Trainee_Skill = require('./TraineeSkill');
+const Guardian = require('./TraineeGuardian');
+const Internet = require('./Internet');
 
 const userProfileSchema = mongoose.Schema({
     

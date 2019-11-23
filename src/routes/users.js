@@ -1,7 +1,7 @@
 var express = require('express');
 var router = new express.Router();
 const upload = require('../config/upload')
-const user_controller = require('../controllers/user')
+const user_controller = require('../controllers/User')
 const isUser = require('../middleware/userAuth')
 const captcha = require('../config/reCaptcha');
 
