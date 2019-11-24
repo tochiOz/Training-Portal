@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const admin_controller = require('../controllers/AdminCategories');
-const { isAdmin } = require('../middleware/adminAuth');
+const { isAdmin } = require('../middleware/AdminAuth');
 
 //adding categories for users
 router.post('/admin/add_categories', isAdmin, admin_controller.add_categories);

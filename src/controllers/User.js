@@ -1,19 +1,13 @@
 const Category = require('../models/Categories')
 const emSkills = require('../models/SkillLevel');
 const Interest_Area = require('../models/InterestArea');
-const Trainee = require('../models/TraineeProfile')
-const sharp = require('sharp')
-const cloudinary = require('cloudinary')
-const Datauri = require('datauri')
-const path = require('path')
-const dUri = new Datauri();
+const Trainee = require('../models/TraineeProfile');
 const Education = require('../models/TraineeEducation')
 const train_Skill = require('../models/TraineeSkill')
 const Internet = require('../models/Internet')
 const Guardian = require('../models/TraineeGuardian')
-const axios = require('axios')
-// const upload = require('../config/upload')
-require('../config/cloudinary')
+const axios = require('axios');
+const CloudinaryImage = require('./../services/Cloudinary');
 
 
 module.exports = {
@@ -36,11 +30,9 @@ module.exports = {
            
             //verify URL
             const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
-            //  return console.log(verifyUrl)
-            //make request to verifyUrl
+            
             await axios.get(verifyUrl).then( async (response) => {
-            //    return console.log(res.data)
-                // body = JSON.parse(body)
+
                 const body = response.data;
              
                 if (body.success !== undefined && !body.success) {
@@ -51,15 +43,8 @@ module.exports = {
                     return console.log(error)
                 }
                 // return console.log(req.body)
-                const buffer = await sharp(req.file.buffer).resize({
-                    width: 250, height: 300
-                }).png().toBuffer()
-                // return console.log(buffer)
-
-                const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
-                const imageFile = dataUri.content;
-                // return console.log(imageFile)
-                const image = await cloudinary.v2.uploader.upload(imageFile)
+                const imageUrl = CloudinaryImage( req.file );
+                
                 // return console.log(image)
                 const trainee = new Trainee({
                     full_name: req.body.full_name,
@@ -69,7 +54,7 @@ module.exports = {
                     phone_number: req.body.phone_number,
                     address: req.body.address,
                     dob: req.body.dob,
-                    avatar: image.secure_url,
+                    avatar: imageUrl.secure_url,
                     password: req.body.password
                 });
 

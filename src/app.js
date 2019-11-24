@@ -29,7 +29,7 @@ db.once('open', () => console.log('Connected to database'));
 db.on('error', console.error.bind(console, 'Database connection error:'));
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/User');
 const Admin = require('./routes/Admin');
 const AdminCategories = require('./routes/AdminCategories');
 const AdminInterestArea = require('./routes/AdminInterestArea');

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const admin_controller = require('../controllers/AdminInterestArea');
-const { isAdmin } = require('../middleware/adminAuth');
+const { isAdmin } = require('../middleware/AdminAuth');
 
 //adding interest areas for users
 router.post('/admin/add-interest-area', isAdmin, admin_controller.add_interest_area);

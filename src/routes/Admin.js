@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const admin_controller = require('../controllers/Admin');
-const { isAdmin } = require('../middleware/adminAuth');
+const { isAdmin } = require('../middleware/AdminAuth');
 
 //admin create user routes
 router.post('/admin/signup', admin_controller.createAdmin);
