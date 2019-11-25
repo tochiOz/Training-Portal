@@ -1,8 +1,8 @@
 var express = require('express');
 var router = new express.Router();
 const upload = require('../config/upload')
-const user_controller = require('../controllers/user')
-const isUser = require('../middleware/userAuth')
+const user_controller = require('../controllers/User')
+const isUser = require('../middleware/UserAuth')
 const captcha = require('../config/reCaptcha');
 
 //testing server

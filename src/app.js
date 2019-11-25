@@ -29,8 +29,12 @@ db.once('open', () => console.log('Connected to database'));
 db.on('error', console.error.bind(console, 'Database connection error:'));
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const adminRouter = require('./routes/admin_user');
+const usersRouter = require('./routes/User');
+const Admin = require('./routes/Admin');
+const AdminCategories = require('./routes/AdminCategories');
+const AdminInterestArea = require('./routes/AdminInterestArea');
+const AdminSkill = require('./routes/AdminSkill');
+const AdminUser = require('./routes/AdminUser');
 
 const app = express();
 
@@ -63,9 +67,9 @@ app.use(function (req, res, next) {
   next();
 })
 
-app.use('/', indexRouter);
-app.use('/', usersRouter);
-app.use('/', adminRouter);
+app.use('/', [ 
+  indexRouter, usersRouter, Admin, AdminCategories, AdminInterestArea, AdminSkill, AdminUser 
+]);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

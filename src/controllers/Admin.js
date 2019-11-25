@@ -1,12 +1,12 @@
-const Category = require('../models/embedded/categories');
-const Skills = require('../models/embedded/skill_level');
-const Interest_Area = require('../models/embedded/interest_area');
-const Internet = require('../models/internet');
-const Education = require('../models/trainee_education');
-const Trainee_Skill = require('../models/trainee_skill');
-const Guardian = require('../models/trainee_guardian');
-const Admin = require('../models/admin');
-const Trainee = require('../models/trainee_profile');
+const Category = require('../models/Categories');
+const Skills = require('../models/SkillLevel');
+const Interest_Area = require('../models/InterestArea');
+const Internet = require('../models/Internet');
+const Education = require('../models/TraineeEducation');
+const Trainee_Skill = require('../models/TraineeSkill');
+const Guardian = require('../models/TraineeGuardian');
+const Admin = require('../models/Admin');
+const Trainee = require('../models/TraineeProfile');
 
 module.exports = {
     async createAdmin(req, res) {
@@ -14,18 +14,20 @@ module.exports = {
 
         const adminEmailCheck = await Admin.findEmail(req.body.email);
 
+        // return console.log(adminEmailCheck)
         if (adminEmailCheck) {
             return res.status(400).send({ message: `${adminEmailCheck.email} already exist` })
-        }
-
-        try {
-            await admin.save()
-            const token = await admin.generateAuthToken()
-            res.cookie('admin_jwt', token, { maxAge: 400000000 });
-            return res.redirect('/admin-dashboard');
-        } catch (err) {
-            res.status(400).send(err.message)
-        }
+        } else {
+            try {
+                await admin.save()
+                // const token = await admin.generateAuthToken()
+                // res.cookie('admin_jwt', token, { maxAge: 400000000 });
+                return res.redirect('/login');
+            } catch (err) {
+                console.log(err)
+                res.status(400).send(err.message)
+            }      
+        }      
     },
 
     async adminLogin(req, res) {
