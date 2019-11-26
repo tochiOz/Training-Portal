@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
-const Admin = require('../models/Admin')
+const Admin = require('../models/Admin');
+const keys = require('./../../config/keys');
 
 const isAdmin = async (req, res, next ) => {
     try {
@@ -8,7 +9,7 @@ const isAdmin = async (req, res, next ) => {
         }
         const token = req.cookies.admin_jwt;
         // return console.log(token)
-        const decoded = jwt.verify( token, process.env.SECRET )
+        const decoded = jwt.verify( token, keys.SECRET )
         // return console.log(decoded)
         // return console.log(decoded._id)
         const admin = await Admin.findOne({ _id: decoded._id})

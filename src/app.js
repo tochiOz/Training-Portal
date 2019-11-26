@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const chalk = require('chalk')
 const path = require('path');
@@ -9,10 +8,11 @@ const session = require('express-session');
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')(session)
+const keys = require('./../config/keys');
 dotenv.config()
 
 // database connection
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(keys.MONGO_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
@@ -28,13 +28,13 @@ db.once('open', () => console.log('Connected to database'));
 // checks if connection to db is a success
 db.on('error', console.error.bind(console, 'Database connection error:'));
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/User');
-const Admin = require('./routes/Admin');
-const AdminCategories = require('./routes/AdminCategories');
-const AdminInterestArea = require('./routes/AdminInterestArea');
-const AdminSkill = require('./routes/AdminSkill');
-const AdminUser = require('./routes/AdminUser');
+const indexRouter = require('./routes/index'),
+      usersRouter = require('./routes/User'),
+      Admin = require('./routes/Admin'),
+      AdminCategories = require('./routes/AdminCategories'),
+      AdminInterestArea = require('./routes/AdminInterestArea'),
+      AdminSkill = require('./routes/AdminSkill'),
+      AdminUser = require('./routes/AdminUser');
 
 const app = express();
 
@@ -51,7 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: keys.SECRET,
     saveUninitialized: false,
     resave: true,
     store: new MongoStore({

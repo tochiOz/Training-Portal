@@ -1,11 +1,11 @@
-let Captcha;
+const keys = require('./../../config/keys')
 
-Captcha = (req, res, next) => {
+let Captcha = (req, res, next) => {
 
     if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
         return res.json({ "responseError": "Please select captcha first" });
     }
-    const secretKey = process.env.RECAPTCHA_SECRET;
+    const secretKey = keys.RECAPTCHA_SECRET;
 
     const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
 

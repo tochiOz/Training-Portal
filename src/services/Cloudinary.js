@@ -4,7 +4,7 @@ const cloudinary = require('cloudinary');
 const Datauri = require('datauri');
 const path = require('path');
 const dUri = new Datauri();
-require('../config/cloudinary');
+require('./cloudinary_setup');
 
 module.exports = {
   async cloudinaryImage (image) {

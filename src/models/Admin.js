@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const keys = require('./../../config/keys');
 
 const adminSchema = mongoose.Schema({
   full_name: {
@@ -74,7 +75,7 @@ adminSchema.statics.findEmail = async email => {
 
 adminSchema.methods.generateAuthToken = async function() {
   const admin = this;
-  const token = jwt.sign({ _id: admin._id.toString() }, process.env.SECRET, {
+  const token = jwt.sign({ _id: admin._id.toString() }, keys.SECRET, {
     expiresIn: "1 week"
   });
   admin.tokens = admin.tokens.concat({ token });

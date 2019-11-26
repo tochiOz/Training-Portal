@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/TraineeProfile');
+const keys = require('./../../config/keys');
 
 let isUser;
 isUser = async (req, res, next) => {
@@ -12,7 +13,7 @@ isUser = async (req, res, next) => {
         //for user access
         if (req.cookies.jwt ) {
             const token = req.cookies.jwt;
-            const decoded = jwt.verify(token, process.env.SECRET);
+            const decoded = jwt.verify(token, keys.SECRET);
             const trainee = await User.findOne({ _id: decoded._id });
             // return console.log(trainee)
             if (!trainee) {
