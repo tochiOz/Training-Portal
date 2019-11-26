@@ -39,7 +39,7 @@ const indexRouter = require('./routes/index'),
 const app = express();
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({ defaultLayout: 'template', extname: '.hbs'}))
 app.set('view engine', '.hbs');
 
@@ -71,7 +71,7 @@ app.use('/', [
   indexRouter, usersRouter, Admin, AdminCategories, AdminInterestArea, AdminSkill, AdminUser 
 ]);
 
-// catch 404 and forward to error handler
+// // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   res.render('error')
 });
