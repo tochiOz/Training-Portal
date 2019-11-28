@@ -9,6 +9,7 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')(session)
 const keys = require('./../config/keys');
+const flash = require('connect-flash');
 dotenv.config()
 
 // database connection
@@ -61,9 +62,20 @@ app.use(
 )
 
 //Express Messages middleware
-app.use(require('connect-flash')())
-app.use(function (req, res, next) {
-  res.locals.message = require('express-messages')(req, res)
+app.use(flash());
+app.use(function (err, req, res, next) {
+  //globals (flash)
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render("error");
+
   next();
 })
 

@@ -42,9 +42,6 @@ router.get("/login", function(req, res, next) {
   res.render("login", { title: "Admin Login" });
 });
 
-//GET PROFILE FORM
-router.get("/admin/view/profile", isUser, admin_controller.view_user_profile);
-
 //GET admin Trainees
 router.get("/dashboard-trainees", isAdmin, user_controller.get_trainings);
 
@@ -56,19 +53,6 @@ router.get("/dashboard-hub", isAdmin, user_controller.get_hub);
 
 //GET admin Traine the Trainer
 router.get("/dashboard-trainer", isAdmin, user_controller.get_trainer);
-
-//get admin categories
-router.get("/admin-departments", isAdmin, admin_controller.get_categories);
-
-//get admin interest-areas
-router.get(
-  "/admin-interest-areas",
-  isAdmin,
-  admin_controller.get_interest_area
-);
-
-//get admin skill levels
-router.get("/admin-skill-levels", isAdmin, admin_controller.get_Skills);
 
 router.get("/admin-dashboard", isAdmin, function(req, res, next) {
   res.render("dashboard", { title: "KodeHauz Training Portal" });

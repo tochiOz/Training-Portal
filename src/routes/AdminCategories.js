@@ -12,4 +12,8 @@ router.put('/admin/categories/edit', isAdmin, admin_controller.update_categories
 //delete categories 
 router.delete('/admin/utlity/apiCat/delete', isAdmin, admin_controller.delete_categories);
 
+//get admin categories
+router.get("/admin-departments", isAdmin, admin_controller.get_categories);
+
+
 module.exports = router;
