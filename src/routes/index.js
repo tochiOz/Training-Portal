@@ -13,11 +13,11 @@ router.get("/KodeHauz_Hub", function(req, res, next) {
   res.render("kodehauzHub", { title: "KodeHauz Training Portal" });
 });
 router.get("/login", function(req, res, next) {
-  res.render("dashboardLogin", { title: "KodeHauz Training Portal" });
+  res.render("dashboardAuth", { title: "KodeHauz Training Portal" });
 });
-router.get("/signUp", function(req, res, next) {
-  res.render("dashboardSignUp", { title: "KodeHauz Training Portal" });
-});
+// router.get("/signUp", function(req, res, next) {
+//   res.render("dashboardSignUp", { title: "KodeHauz Training Portal" });
+// });
 router.get("/trainer", function(req, res, next) {
   res.render("trainer", { title: "KodeHauz Training Portal" });
 });
