@@ -24,7 +24,7 @@ mongoose.connect(keys.MONGO_URL, {
 
 let db = mongoose.connection;
 
-db.once('open', () => console.log('Connected to database'));
+// db.once('open', () => console.log('Connected to database'));
 
 // checks if connection to db is a success
 db.on('error', console.error.bind(console, 'Database connection error:'));

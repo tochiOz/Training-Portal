@@ -1,4 +1,6 @@
 {
     "liveServer.settings.port": 5501,
-    "editor.fontSize": 11
+    "editor.fontSize": 11.5,
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontFamily": "'Fira Code', 'Noto Mono', 'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'"
 }
