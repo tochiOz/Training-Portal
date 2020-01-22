@@ -10,7 +10,7 @@ package-lock.json
 .vs
 # packages
 /node_modules
-/config
+/config/dev.js
 
 # Runtime data
 pids
