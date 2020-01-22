@@ -9,4 +9,7 @@ const { isAdmin } = require('../middleware/AdminAuth');
 //delete users
 router.delete('/admin/delete/user', isAdmin, admin_controller.delete_user);
 
+//GET PROFILE FORM
+// router.get("/admin/view/profile", isUser, admin_controller.view_user_profile);
+
 module.exports = router;

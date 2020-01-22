@@ -1,9 +1,9 @@
 var express = require('express');
 var router = new express.Router();
-const upload = require('../config/upload')
+const upload = require('../services/upload')
 const user_controller = require('../controllers/User')
 const isUser = require('../middleware/UserAuth')
-const captcha = require('../config/reCaptcha');
+// const captcha = require('../config/reCaptcha');
 
 //testing server
 router.get('/test', async (req, res) => {

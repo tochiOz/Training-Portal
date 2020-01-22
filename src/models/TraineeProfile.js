@@ -6,6 +6,7 @@ const Education = require('./TraineeEducation');
 const Trainee_Skill = require('./TraineeSkill');
 const Guardian = require('./TraineeGuardian');
 const Internet = require('./Internet');
+const keys = require('./../../config/keys');
 
 const userProfileSchema = mongoose.Schema({
     
@@ -119,7 +120,7 @@ userProfileSchema.methods.generateAuthToken = async function () {
     //accessing the global current user registering at that point in time
     const userProfile = this;
 
-    const token = jwt.sign({ _id: userProfile._id.toString() }, process.env.SECRET, { expiresIn: '1 week'});
+    const token = jwt.sign({ _id: userProfile._id.toString() }, keys.SECRET, { expiresIn: '1 week'});
 
     //saving the token in the model
     userProfile.tokens = userProfile.tokens.concat({ token });

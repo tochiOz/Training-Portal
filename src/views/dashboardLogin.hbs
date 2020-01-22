@@ -3,50 +3,56 @@
 
 <head>
     <title>{{title}}</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/auth.css">
 </head>
 
 <body>
-    {{> header }}
-
-    <div class="container">
-
-        {{!-- <div class="d-flex justify-content-center mt-12 mb-3">
-            <h4 class="alert alert-danger">Only Admin Users can Gain Access</h4>
-        </div> --}}
-
-        <div class="row d-flex justify-content-center my-12">
-            <div class="col-md-5 bordered-0 shadow">
-                <div class="card px-5">
-                    <h2 class="text-center text-success pt-9 pb-4">Admin Login Access</h2>
-                    
-                    <form action="/admin/login" method="POST" >
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <div class="input-group ">
-                                    <input type="email" class="form-control" name="email" placeholder="Email" required="required">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password:</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success ">Sign In</button>
-                            </div>
-                            <div class="d-flex justify-content-space-between">
-                                <p>No Account <a href="/signUp" style="color: green;">Sign Up Here!!</a></p>
-                                <p class="text-success text-center"><a href="#">Forgot Password?</a></p>
-                            </div>
-                            
-                    </form>
-
+    {{!-- {{> header }} --}}
+     <section class="container">
+        <div class="">
+          <div class="row signup-container">
+            <div class="col-md-6 admin-login wow lightSpeedIn">
+                <div class="admin-logo">
+                  <a class="navbar-brand mx-auto" href="index.html"> <img src="images/logo.png"> </a>
                 </div>
+              <h1>Log In</h1>
+                 <form action="/admin/login" method="POST">
+
+                    {{#each errors }}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {{msg}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {{/each}}
+            
+                    <div class="form-group">
+                        <label for="name"></label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="name"></label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="btn-contain py-2">
+                      <button type="submit" class="btn btn-danger btn-block">Log In</button>
+                    </div>
+      
+                  </form>
+              
+
             </div>
+            <div class="col-md-6 admin-greeting d-none d-md-block  wow fadeInUp">
+              <h1 class="fadeInDown">Good Morning Admin</h1>
+              <p>Hope you have a nice day ahead.</p>
+              <a href="/admin/signUp" class="btn round-btn">Sign Up</a>
+            </div>
+          </div>
+          
         </div>
-    </div>
+      </section>
+
 </body>
 
-</html>
+</html> 

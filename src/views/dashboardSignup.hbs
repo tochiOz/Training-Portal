@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+
+   <section class="container">
+        <div class="">
+          <div class="row signup-container">
+            <div class="col-md-5 loginlink-section fadeInRight">
+                
+              <h1>Welcome Back!</h1>
+              <p>If you already have an account, please click the button below to log in instead.</p>
+              <a href="/admin/login" class="btn round-btn">Log in</a>
+
+            </div>
+            <div class="col-md-7 admin-signup wow lightSpeedIn">
+                <div class="admin-logo">
+                  <a class="navbar-brand mx-auto" href="index.html"> <img src="images/logo.png"> </a>
+                </div>
+
+                <form action="/admin/signup" method="POST">
+
+                  {{#each errors }}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      {{msg}}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                  {{/each}} 
+
+                    <h1 class="text-center">Create An Account</h1>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                 <div class="form-group">
+                                     <label for="name"></label>
+                                     <input type="text" placeholder="Name" name="full_name" />
+                                 </div>
+                            </div>
+     
+                            <div class="col-sm-12">
+                                 <div class="form-group">
+                                     <label for="name"></label>
+                                     <input type="email" placeholder="Email"  name="email"/>
+                                 </div>
+                            </div>
+                            <div class="col-sm-12">
+                                 <div class="form-group">
+                                     <label for="name"></label>
+                                     <input type="password" placeholder="Password"  name="password"/>
+                                 </div>
+                            </div>
+     
+                         <div class="btn-contain py-2">
+                             <button type="submit" class="btn btn-danger btn-block" >Sign Up</button>
+                         </div>
+                            
+                         </div>
+                   </form>
+              
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    <script type="text/javascript" src="libs/jquery.slimscroll.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+    <!-- <script src="js/wow.min.js"></script> -->
+    <script>
+      new WOW().init();
+    </script>
+</body>
+
+</html> 

@@ -8,6 +8,7 @@ const Internet = require('../models/Internet')
 const Guardian = require('../models/TraineeGuardian')
 const axios = require('axios');
 const CloudinaryImage = require('./../services/Cloudinary');
+const keys = require('./../../config/keys');
 
 
 module.exports = {
@@ -26,7 +27,7 @@ module.exports = {
             }
 
             //secret key
-            const secretKey = process.env.RECAPTCHA_SECRET;
+            const secretKey = keys.RECAPTCHA_SECRET;
            
             //verify URL
             const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;

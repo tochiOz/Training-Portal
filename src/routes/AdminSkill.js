@@ -13,4 +13,7 @@ router.put('/admin/skill-level/edit', isAdmin, admin_controller.update_skills);
 //delete categories 
 router.delete('/admin/utlity/apiSki/delete', isAdmin, admin_controller.deleteSkills);
 
+//get admin skill levels
+router.get("/admin-skill-levels", isAdmin, admin_controller.get_Skills);
+
 module.exports = router;

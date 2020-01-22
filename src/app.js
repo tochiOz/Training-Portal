@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const chalk = require('chalk')
 const path = require('path');
@@ -9,10 +8,12 @@ const session = require('express-session');
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')(session)
+const keys = require('./../config/keys');
+const flash = require('connect-flash');
 dotenv.config()
 
 // database connection
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(keys.MONGO_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
@@ -23,23 +24,23 @@ mongoose.connect(process.env.MONGO_URL, {
 
 let db = mongoose.connection;
 
-db.once('open', () => console.log('Connected to database'));
+// db.once('open', () => console.log('Connected to database'));
 
 // checks if connection to db is a success
 db.on('error', console.error.bind(console, 'Database connection error:'));
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/User');
-const Admin = require('./routes/Admin');
-const AdminCategories = require('./routes/AdminCategories');
-const AdminInterestArea = require('./routes/AdminInterestArea');
-const AdminSkill = require('./routes/AdminSkill');
-const AdminUser = require('./routes/AdminUser');
+const indexRouter = require('./routes/index'),
+      usersRouter = require('./routes/User'),
+      Admin = require('./routes/Admin'),
+      AdminCategories = require('./routes/AdminCategories'),
+      AdminInterestArea = require('./routes/AdminInterestArea'),
+      AdminSkill = require('./routes/AdminSkill'),
+      AdminUser = require('./routes/AdminUser');
 
 const app = express();
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({ defaultLayout: 'template', extname: '.hbs'}))
 app.set('view engine', '.hbs');
 
@@ -51,7 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: keys.SECRET,
     saveUninitialized: false,
     resave: true,
     store: new MongoStore({
@@ -61,9 +62,20 @@ app.use(
 )
 
 //Express Messages middleware
-app.use(require('connect-flash')())
-app.use(function (req, res, next) {
-  res.locals.message = require('express-messages')(req, res)
+app.use(flash());
+app.use(function (err, req, res, next) {
+  //globals (flash)
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render("error");
+
   next();
 })
 
@@ -71,7 +83,7 @@ app.use('/', [
   indexRouter, usersRouter, Admin, AdminCategories, AdminInterestArea, AdminSkill, AdminUser 
 ]);
 
-// catch 404 and forward to error handler
+// // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   res.render('error')
 });
