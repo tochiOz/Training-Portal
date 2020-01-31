@@ -4,9 +4,23 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+		"heroku-postbuild": "npm run build",
+		"build": "babel ./bin/www -d public/",
+		"test": "mocha --timeout 10000 'tests/**/*.js'"
   },
-  "dependencies": {
+  
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Tueloper/Training-Portal"
+	},
+	"author": "Tochukwu Ozurumba",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Tueloper/Training-Portal/issues"
+	},
+	"homepage": "https://github.com/Tueloper/Training-Portal#readme",
+	"dependencies": {
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -36,5 +50,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
+  },
+  "engines": {
+    "node": "10.0"
   }
 }
