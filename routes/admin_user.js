@@ -51,4 +51,32 @@ router.put('/admin/interest-area/edit', isAdmin, admin_interest.update_interest_
 //delete interest areas for users
 router.delete('/admin/utlity/apiInt/delete', isAdmin, admin_interest.delete_interest_area);
 
+//GET admin Trainees
+router.get('/dashboard-trainees', isAdmin, user_controller.get_trainings);
+
+//GET admin Interns
+router.get('/dashboard-interns', isAdmin, user_controller.get_interns);
+
+//GET admin Hub users
+router.get('/dashboard-hub', isAdmin, user_controller.get_hub);
+
+//GET admin Traine the Trainer
+router.get('/dashboard-trainer', isAdmin, user_controller.get_trainer);
+
+//get admin categories
+router.get('/admin-departments', isAdmin, admin_categories.get_categories);
+
+//get admin interest-areas
+router.get('/admin-interest-areas', isAdmin, admin_interest.get_interest_area);
+
+//get admin skill levels
+router.get('/admin-skill-levels', isAdmin, admin_skill.get_Skills);
+
+router.get('/admin-dashboard', isAdmin, function(req, res, next) {
+	res.render('dashboard', { title: 'KodeHauz Training Portal' });
+});
+
+//GET PROFILE FORM
+router.get('/admin/view/profile', isAdmin, admin_user.view_user_profile);
+
 module.exports = router;
