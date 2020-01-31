@@ -2,18 +2,13 @@ const Category = require('../models/Categories');
 const emSkills = require('../models/SkillLevel');
 const Interest_Area = require('../models/InterestArea');
 const Trainee = require('../models/TraineeProfile');
-const sharp = require('sharp');
-const cloudinary = require('cloudinary');
-const Datauri = require('datauri');
-const path = require('path');
-const dUri = new Datauri();
 const Education = require('../models/TraineeEducation');
 const train_Skill = require('../models/TraineeSkill');
 const Internet = require('../models/Internet');
 const Guardian = require('../models/TraineeGuardian');
 const axios = require('axios');
-// const upload = require('../config/upload')
-require('../services/cloudinary');
+const CloudinaryImage = require('./../services/Cloudinary');
+const keys = require('./../config/keys');
 
 module.exports = {
 	//creating user
@@ -26,16 +21,13 @@ module.exports = {
 			}
 
 			//secret key
-			const secretKey = process.env.RECAPTCHA_SECRET;
+			const secretKey = keys.RECAPTCHA_SECRET;
 
 			//verify URL
 			const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body
 				.captcha}&remoteip=${req.connection.remoteAddress}`;
-			//  return console.log(verifyUrl)
-			//make request to verifyUrl
+
 			await axios.get(verifyUrl).then(async (response) => {
-				//    return console.log(res.data)
-				// body = JSON.parse(body)
 				const body = response.data;
 
 				if (body.success !== undefined && !body.success) {
@@ -46,19 +38,8 @@ module.exports = {
 					return console.log(error);
 				}
 				// return console.log(req.body)
-				const buffer = await sharp(req.file.buffer)
-					.resize({
-						width: 250,
-						height: 300
-					})
-					.png()
-					.toBuffer();
-				// return console.log(buffer)
+				const imageUrl = CloudinaryImage(req.file);
 
-				const dataUri = dUri.format(path.extname(req.file.originalname).toString(), buffer);
-				const imageFile = dataUri.content;
-				// return console.log(imageFile)
-				const image = await cloudinary.v2.uploader.upload(imageFile);
 				// return console.log(image)
 				const trainee = new Trainee({
 					full_name: req.body.full_name,
@@ -68,7 +49,7 @@ module.exports = {
 					phone_number: req.body.phone_number,
 					address: req.body.address,
 					dob: req.body.dob,
-					avatar: image.secure_url,
+					avatar: imageUrl.secure_url,
 					password: req.body.password
 				});
 
@@ -144,10 +125,15 @@ module.exports = {
 
 	//Fetching Trainee Details
 	async get_trainee_profile(req, res) {
+		// return console.log(trainee_profile)
 		try {
 			if (trainee_profile) {
 				if (trainee_profile.tokens == '') {
 					return res.redirect('/');
+				}
+
+				if (!trainee_profile.payment_ref) {
+					return res.redirect('/activation');
 				}
 				const trainee = trainee_profile;
 
@@ -227,6 +213,21 @@ module.exports = {
 		} catch (error) {
 			console.log(error.message);
 			return res.send(error.message);
+		}
+	},
+
+	async activate_trainee(req, res) {
+		// return console.log('this is response ' + req.params.ref)
+		try {
+			const reference = req.params.ref;
+			//attaching payment refence to the table
+			console.log(trainee_profile);
+			trainee_profile.payment_ref = reference;
+
+			//saving the profile
+			await trainee_profile.save();
+		} catch (error) {
+			return console.log(error.message);
 		}
 	},
 

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = new express.Router();
 const upload = require('../services/upload');
-const user_controller = require('../controllers/user');
+const user_controller = require('../controllers/User');
 const isUser = require('../middleware/userAuth');
 const captcha = require('../services/reCaptcha');
 
@@ -27,5 +27,11 @@ router.patch('/trainee/profile/me/update-profile-picture', isUser, user_controll
 
 //logout
 router.post('/trainee/logoutAll', isUser, user_controller.trainee_logout);
+
+//get profile for paystack
+router.get('/activation', isUser, user_controller.get_trainee_paystack);
+
+//get trainee Profile
+router.get('/trainee-profile', isUser, user_controller.get_trainee_profile);
 
 module.exports = router;
