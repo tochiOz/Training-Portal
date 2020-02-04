@@ -27,7 +27,7 @@
       <form action="{{utility_addLlink}}" method="post" class="form-group">
         <label for="name">Add {{utility_name}}</label>
         <div class="d-flex align-items-center align-content-center">
-          <input type="number" class="form-control" name="number" style="width: 50px;">
+          {{!-- <input type="number" class="form-control" name="number" style="width: 50px;"> --}}
           <input type="text" class="form-control ml-3" name="name" placeholder="{{utility_name}}">
 
           {{#if utility_amount}}
@@ -39,8 +39,8 @@
       </form>
       <sub>Note: Make sure to add a number for the item you are adding.</sub>
     </div>
-
-    <div class="row mt-6">
+    {{#if utility}}
+       <div class="row mt-6">
 
       <div class="col-md-8">
         <div class="card o-hidden mb-4">
@@ -67,25 +67,25 @@
                 <tbody>
 
                   {{#each utility}}
-                  <tr>
-                    <td>{{this.index}}</td>
-                    <td>{{this.name}}</td>
-                    {{#if this.amount }}
-                    <td>{{this.amount}}</td>
-                    {{/if}}
-                    <td>
-                      <a href="#d-{{this._id}}" target="_blank" data-toggle="modal" class="text-warning mr-2">
-                        <i class="nav-icon fe fe-edit font-weight-bold"></i>
-                      </a>
-                    </td>
+                    <tr>
+                      <td>{{@index}}</td>
+                      <td>{{name}}</td>
+                      {{#if amount }}
+                        <td>{{amount}}</td>
+                      {{/if}}
+                      <td>
+                        <a href="#d-{{this._id}}" target="_blank" data-toggle="modal" class="text-warning mr-2">
+                          <i class="nav-icon fe fe-edit font-weight-bold"></i>
+                        </a>
+                      </td>
 
-                    <td>
-                      <div class="text-danger mr-2">
-                        <i class="nav-icon fe fe-trash font-weight-bold" onclick=deleteUtility("{{this._id}}")
-                          style="cursor: pointer"></i>
-                      </div>
-                    </td>
-                  </tr>
+                      <td>
+                        <div class="text-danger mr-2">
+                          <i class="nav-icon fe fe-trash font-weight-bold" onclick=deleteUtility("{{this._id}}")
+                            style="cursor: pointer"></i>
+                        </div>
+                      </td>
+                    </tr>
                   {{/each}}
 
                 </tbody>
@@ -94,7 +94,10 @@
           </div>
         </div>
       </div>
+    
+    {{/if}}
     </div>
+    
   </div>
 
   <!-- Modal HTML -->
@@ -136,9 +139,9 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/perfect-scrollbar.min.js"></script>
-  <script src="js/datatables.mijs"></script>
+  <script src="js/datatables.min.js"></script>
   <script src="js/dashboard.v2.script.min.js"></script>
-  <script src="js/script.min.js"></script>
+  {{!-- <script src="js/script.min.js"></script> --}}
   <script>
 
     //import axios from 'axios'

@@ -7,7 +7,7 @@ const admin_skill = require('../controllers/AdminSkill');
 const admin_user = require('../controllers/AdminUser');
 const user_controller = require('../controllers/User');
 const isAdmin = require('../middleware/adminAuth');
-const isUser = require('../middleware/userAuth');
+// const isUser = require('../middleware/userAuth');
 
 //admin create user routes
 router.post('/admin/signup', admin_controller.createAdmin);

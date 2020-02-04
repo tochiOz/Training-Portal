@@ -18,17 +18,17 @@ module.exports = {
 	//get-categories
 	async get_categories(req, res) {
 		try {
-			let count = 0;
+			// let count = 0;
 			const utility = await Category.find();
-			console.log(utility);
+			// console.log(utility);
 			res.render('utility', {
+				utility,
 				title: 'KodeHauz Training Portal',
 				utility_addLlink: '/admin/add_categories',
 				utility_link: '/admin-departments',
 				utility_name: 'Departments',
-				utility_edit: '/admin/categories/edit',
-				count: count++,
-				utility
+				utility_edit: '/admin/categories/edit'
+				// count: count++,
 			});
 		} catch (e) {
 			res.status(400).send(e.message);
