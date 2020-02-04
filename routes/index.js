@@ -32,7 +32,7 @@ router.get('/internship', function(req, res, next) {
 router.get('/training_registration', user_controller.get_formDetails);
 
 /* GET admin pages. */
-router.get('/login', function(req, res, next) {
+router.get('/admin/login', function(req, res, next) {
 	res.render('login', { title: 'Admin Login' });
 });
 

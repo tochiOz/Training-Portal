@@ -1,12 +1,12 @@
 const express = require('express');
 const router = new express.Router();
 const admin_controller = require('../controllers/Admin');
-const admin_categories = require('./../controllers/AdminCategories');
-const admin_interest = require('./../controllers/AdminInterestArea');
-const admin_skill = require('./../controllers/AdminSkill');
-const admin_user = require('./../controllers/AdminUser');
+const admin_categories = require('../controllers/AdminCategories');
+const admin_interest = require('../controllers/AdminInterestArea');
+const admin_skill = require('../controllers/AdminSkill');
+const admin_user = require('../controllers/AdminUser');
 const user_controller = require('../controllers/User');
-const { isAdmin } = require('../middleware/adminAuth');
+const isAdmin = require('../middleware/adminAuth');
 const isUser = require('../middleware/userAuth');
 
 //admin create user routes
