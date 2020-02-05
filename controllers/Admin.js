@@ -3,34 +3,32 @@ const Admin = require('../models/Admin');
 module.exports = {
 	async createAdmin(req, res) {
 		const { full_name, email, password } = req.body;
-		// const adminEmailCheck = await Admin.findEmail({email});
-		// return console.log(full_name, email, password)
 		try {
-			let errors = [];
+			// let errors = [];
 
-			if (!full_name || !email || !password) errors.push({ msg: 'Plese fill in all field' });
-			if (password.length < 6) errors.push({ msg: 'Passwords Must not be less than 6' });
-			// if( adminEmailCheck) errors.push({ msg: 'Email already Exist'});
+			// if (!full_name || !email || !password) errors.push({ msg: 'Plese fill in all field' });
+			// if (password.length < 6) errors.push({ msg: 'Passwords Must not be less than 6' });
+			// // if( adminEmailCheck) errors.push({ msg: 'Email already Exist'});
 
-			if (errors.length > 0) {
-				res.render('dashboardSignup', {
-					errors,
-					full_name,
-					email,
-					password
-				});
-			} else if (condition) {
-			} else {
-				const admin = new Admin(req.body);
-				try {
-					await admin.save();
-					const token = await admin.generateAuthToken();
-					res.cookie('admin_jwt', token, { maxAge: 400000000 });
-					return res.redirect('/admin/login');
-				} catch (err) {
-					console.log(err);
-					res.status(400).send(err.message);
-				}
+			// if (errors.length > 0) {
+			// 	res.render('dashboardSignup', {
+			// 		errors,
+			// 		full_name,
+			// 		email,
+			// 		password
+			// 	});
+			// } else if (condition) {
+			// } else {
+			const admin = new Admin(req.body);
+			try {
+				await admin.save();
+				const token = await admin.generateAuthToken();
+				res.cookie('admin_jwt', token, { maxAge: 400000000 });
+				return res.redirect('/admin/login');
+			} catch (err) {
+				console.log(err);
+				res.status(400).send(err.message);
+				// }
 			}
 		} catch (e) {
 			return res.status(500).send({ error: 'Message not found' });

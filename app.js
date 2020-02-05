@@ -36,7 +36,7 @@ db.on('error', console.error.bind(console, 'Database connection error:'));
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const adminRouter = require('./routes/admin_user');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 
@@ -69,9 +69,7 @@ app.use(require('connect-flash')());
 // 	next();
 // });
 
-app.use('/', indexRouter);
-app.use('/', usersRouter);
-app.use('/', adminRouter);
+app.use('/', [ indexRouter, usersRouter, adminRouter ]);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

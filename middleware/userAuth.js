@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken');
+const jsonwebtoken = require('jsonwebtoken');
+const keys = require('./../config/keys');
 const User = require('../models/TraineeProfile');
 
 let isUser;
@@ -10,9 +11,9 @@ isUser = async (req, res, next) => {
 		}
 
 		//for user access
-		if (req.cookies.jwt) {
+		if (req.cookies.jwt || req.cookies.admin_jwt) {
 			const token = req.cookies.jwt;
-			const decoded = jwt.verify(token, process.env.SECRET);
+			const decoded = jsonwebtoken.verify(token, keys.SECRET);
 			const trainee = await User.findOne({ _id: decoded._id });
 			// return console.log(trainee)
 			if (!trainee) {

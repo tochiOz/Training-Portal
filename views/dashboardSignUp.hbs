@@ -15,37 +15,37 @@
             <h4 class="alert alert-danger">Only Admin Users can Gain Access</h4>
         </div> --}}
 
-        <div class="row d-flex justify-content-center my-12">
+        <div class="row d-flex justify-content-center mt-12">
             <div class="col-md-5 bordered-0 shadow">
                 <div class="card px-5">
                     <h2 class="text-center text-success pt-9 pb-4">Admin Sign Up Access</h2>
                     
                     <form action="/admin/signup" method="POST" >
                         <div class="form-group">
+                            <label for="username">Username:</label>
                             <div class="input-group ">
-                                <span class="input-group-addon"><i class="fa fa-user mt-4 text-success"></i></span>
-                                <input type="text" class="form-control" name="username" placeholder="Username"
+                                <input type="text" class="form-control login_input" name="username" placeholder="Username"
                                     required="required">
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="email">Email:</label>
                             <div class="input-group ">
-                                <span class="input-group-addon"><i class="fa fa-envelope mt-4 text-success"></i></span>
-                                <input type="text" class="form-control" name="email" placeholder="Email"
+                                <input type="text" class="form-control login_input" name="email" placeholder="Email"
                                     required="required">
                             </div>
                         </div>
                         <div class="form-group">
+                               <label for="password">Password:</label>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock mt-4 text-success"></i></span>
-                                <input type="text" class="form-control" name="password" placeholder="Password"
+                                <input type="password" class="form-control login_input" name="password" placeholder="Password"
                                     required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-block btn-lg">Sign In</button>
+                            <button type="submit" class="btn btn-success btn-block ">Sign In</button>
                         </div>
-                        <p class="text-success text-center">Already Have Account? <a href="/login" class="link text-sucess">Login Here!!!</a></p>
+                        <p class="text-success text-center">Already Have Account? <a href="/login" class="link">Login Here!!!</a></p>
                     </form>
                     
                 </div>
