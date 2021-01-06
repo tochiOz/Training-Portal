@@ -35,7 +35,7 @@
     "express-handlebars": "^3.1.0",
     "express-messages": "^1.0.1",
     "express-session": "^1.16.1",
-    "hbs": "^4.1.0",
+    "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
@@ -50,11 +50,11 @@
     "validator": "^11.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.0",
+    "@babel/cli": "^7.12.10",
     "@babel/core": "^7.7.2",
     "@babel/node": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
-    "nodemon": "^1.19.1"
+    "nodemon": "^2.0.7"
   },
   "engines": {
     "node": "10.0"
