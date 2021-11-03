@@ -47,7 +47,7 @@
     "nodemailer-express-handlebars": "^3.1.0",
     "sharp": "^0.22.1",
     "sweetalert2": "^8.12.1",
-    "validator": "^11.0.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
